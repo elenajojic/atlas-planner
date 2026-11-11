@@ -106,7 +106,7 @@ class Store:
     # Shared course data is the same for everyone and changes rarely: keep a copy in memory so a plan
     # doesn't make thousands of round trips to the database.
     MEM_SECONDS = 600
-    MEM_MAX = 5000
+    MEM_MAX = 1500
 
     def _mem(self) -> dict:
         if not hasattr(self, "_m"):

@@ -341,6 +341,30 @@ async def health(request: Request) -> Response:
 
 
 # ====================================================================== per user files + background download
+def _rss_mb() -> int:
+    try:
+        for line in open("/proc/self/status"):
+            if line.startswith("VmRSS:"):
+                return int(line.split()[1]) // 1024
+    except OSError:
+        pass
+    return 0
+
+
+def _log_mem(what: str) -> None:
+    print(f"[mem] {_rss_mb()} MB after {what}", flush=True)
+
+
+def _trim_memory() -> None:
+    """Free memory when we get close to the free plan's 512 MB limit."""
+    import gc
+    if _rss_mb() > int(os.environ.get("MEM_SOFT_LIMIT_MB", "330")):
+        provider.db._mem().clear()
+        gc.collect()
+        _log_mem("trim")
+
+
+_heavy_lock = threading.Lock()     # one big computation at a time on the tiny free server
 _user_locks: dict[str, threading.Lock] = {}
 FILES = ("profile.yaml", "last_week.json", "external_ratings.csv")
 
@@ -390,8 +414,8 @@ def _start_warm(uid: str, cookies: dict, force: bool = False) -> dict:
     st = _warm_status(uid)
     if uid in _running:
         return st
-    if not force and st.get("state") == "done" and time.time() - st.get("updated", 0) < 20 * 3600:
-        return st   # fresh enough
+    if not force and st.get("ever_done") and time.time() - st.get("done_at", 0) < 20 * 3600:
+        return st   # finished recently enough (also true right after a server restart)
     _running.add(uid)
     gen = _gen[uid] = _gen.get(uid, 0) + 1
 
@@ -411,7 +435,8 @@ def _start_warm(uid: str, cookies: dict, force: bool = False) -> dict:
             src.on_progress = lambda done, total: (put({"state": "running", "requests": done, "total": total,
                                                         "started": started}) if done % 5 == 0 or done == total else None)
             summary = src.warm()
-            put({"state": "done", "ever_done": True, "summary": summary, "started": started})
+            put({"state": "done", "ever_done": True, "done_at": time.time(), "summary": summary, "started": started})
+            _log_mem(f"download done for {uid}")
         except Exception as e:
             import traceback; traceback.print_exc()
             put({"state": "error", "error": f"{e.__class__.__name__}: {e}", "started": started})
@@ -488,12 +513,23 @@ def _hosted(fn):
         def run():
             CURRENT_USER.set(uid)
             CURRENT_COOKIES.set(cookies)
-            with _lock(uid):
-                before = _sync_down(uid)
-                try:
-                    return fn(**kwargs)
-                finally:
-                    _sync_up(uid, before)
+            _trim_memory()
+            heavy = name in HEAVY
+            if heavy:
+                _heavy_lock.acquire()
+            try:
+                with _lock(uid):
+                    before = _sync_down(uid)
+                    try:
+                        return fn(**kwargs)
+                    finally:
+                        _sync_up(uid, before)
+            finally:
+                if heavy:
+                    _heavy_lock.release()
+                    import gc
+                    gc.collect()
+                    _log_mem(name)
 
         out = await anyio.to_thread.run_sync(lambda: contextvars.Context().run(run))
         if name in ("update_profile", "save_profile") and "atlas_plans" in json.dumps(kwargs):
