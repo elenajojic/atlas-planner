@@ -127,6 +127,25 @@ def _section_combos(course, blocked=(), hard_start=0, allow_full=True, first_onl
     yield from itertools.islice(itertools.product(*lists), MAX_COMBOS_SCANNED)
 
 
+def explain_no_fit(course, blocked, hard_start, allow_full=False) -> dict:
+    """Why a course has no usable section combination (for diagnosing)."""
+    secs = course.sections
+    early = [s.section_id for s in secs if any(m.start < hard_start for m in s.meetings)]
+    clash_c = [s.section_id for s in secs if any(m.overlaps(bm) for m in s.meetings for _, bm in blocked)]
+    full = [s.section_id for s in secs if s.seats_open is not None and s.seats_open <= 0]
+    ok = {s.section_id for s in secs if _usable(s, blocked, hard_start, allow_full)}
+    comps = {}
+    for s in secs:
+        comps.setdefault(s.component, [0, 0])
+        comps[s.component][0] += 1
+        comps[s.component][1] += s.section_id in ok
+    cl_ok = sum(all(x in ok for x in cl) for cl in course.clusters)
+    missing_ids = sorted({x for cl in course.clusters for x in cl} - {s.section_id for s in secs})[:8]
+    return {"sections": len(secs), "too_early": len(early), "clash_commitment": len(clash_c), "full": len(full),
+            "usable_by_component": {k: f"{v[1]}/{v[0]}" for k, v in comps.items()},
+            "atlas_combos": len(course.clusters), "atlas_combos_usable": cl_ok, "combo_ids_not_in_sections": missing_ids}
+
+
 def build_bundles(course, blocked, hard_start, cross_gap, mich_time, allow_full=False,
                   max_bundles: Optional[int] = None) -> list[Bundle]:
     """Usable section combos for one course. Combos meeting at exactly the same times are equivalent for

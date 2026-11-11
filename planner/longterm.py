@@ -131,6 +131,7 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
     next_t = source.next_term()
     fits_next: Optional[set] = None
     blocked_next = []
+    why_next: dict = {}
     try:
         prefs = prof.get("preferences", {})
         blocked = commitment_meetings(prof.get("commitments", [])) + commitment_meetings(ov.get("extra_busy", []))
@@ -142,6 +143,9 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
                 fits_next.add(c.code)
             else:
                 blocked_next.append(c.code)
+                from .week import explain_no_fit
+                why_next[c.code] = explain_no_fit(c, blocked, parse_time(prefs.get("hard_earliest_start", "08:00")),
+                                                  prefs.get("allow_full_sections", False))
     except Exception:
         fits_next = None
 
@@ -293,6 +297,7 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
         "unmet_requirements": unmet,
         "not_offered_often_enough": unavailable,
         "next_term_no_section_fits": sorted(set(blocked_next) & set(cand)),
+        "next_term_no_fit_reasons": {k: v for k, v in why_next.items() if k in set(cand)},
         "mcat": {"term": mcat_term, "ready": not late_mcat, "courses_after_mcat": late_mcat},
         "gpa_projection": gpa,
         "heaviest_term": max(main, key=lambda p: p["workload_index"])["term"] if main else None,
