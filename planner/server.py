@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import copy
+import os
 import json
 import shutil
 from typing import Optional
@@ -318,7 +319,8 @@ def _aligned(src, prof, term, n_plans, extra_busy, overrides, abroad_term=None):
     ov = dict(overrides or {})
     pushed: list[str] = []
     lt, wk, planned = {}, {"term": t, "plans": []}, []
-    for i in range(4):
+    max_rounds = int(os.environ.get("ALIGN_ROUNDS", "4"))
+    for i in range(max_rounds):
         lt_ov = {**ov, "extra_busy": extra_busy or [],
                  "avoid_in_term": {**ov.get("avoid_in_term", {}), t: list(pushed)}}
         lt = plan_semesters(src, prof, lt_ov, abroad_term=abroad_term, time_limit=5)
@@ -327,7 +329,7 @@ def _aligned(src, prof, term, n_plans, extra_busy, overrides, abroad_term=None):
         if not wk["plans"]:
             break
         missing = [c for c in planned if c not in {x["course"] for x in wk["plans"][0]["courses"]}]
-        if not missing or i == 3:
+        if not missing or i == max_rounds - 1:
             break
         pushed += missing
     note = f"Matched to the semester plan for {t}: {', '.join(planned)}."

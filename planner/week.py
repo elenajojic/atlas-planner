@@ -79,23 +79,97 @@ class Bundle:
         return None
 
 
-def build_bundles(course, blocked, hard_start, cross_gap, mich_time, allow_full=False) -> list[Bundle]:
-    by_comp: dict[str, list[Section]] = {}
-    for s in course.sections:
-        by_comp.setdefault(s.component, []).append(s)
-    out = []
-    for combo in itertools.product(*by_comp.values()):
+MAX_BUNDLES_PER_COURSE = int(os.environ.get("MAX_BUNDLES_PER_COURSE", "12"))
+MAX_COMBOS_SCANNED = 20000
+
+
+def _usable(s: Section, blocked, hard_start, allow_full) -> bool:
+    if any(m.start < hard_start for m in s.meetings):
+        return False
+    if any(m.overlaps(bm) for m in s.meetings for _, bm in blocked):
+        return False
+    return allow_full or s.seats_open is None or s.seats_open > 0
+
+
+def _midday(s: Section) -> float:
+    return sum(abs((m.start + m.end) / 2 - 12.5 * 60) for m in s.meetings) / max(1, len(s.meetings))
+
+
+PER_COMPONENT = int(os.environ.get("SECTIONS_PER_COMPONENT", "5"))
+
+
+def _section_combos(course, blocked=(), hard_start=0, allow_full=True, first_only=False):
+    """Valid section combinations, kept small: drop sections that can't work on their own, merge sections
+    meeting at identical times, keep the best few per component, and use Atlas's own valid combos when known."""
+    ok = {s.section_id: s for s in course.sections if _usable(s, blocked, hard_start, allow_full)}
+    if course.clusters:
+        seen = set()
+        for cl in course.clusters:
+            if all(x in ok for x in cl):
+                combo = tuple(ok[x] for x in cl)
+                pat = tuple(sorted((m.day, m.start, m.end) for s in combo for m in s.meetings))
+                if pat not in seen:
+                    seen.add(pat)
+                    yield combo
+                    if len(seen) >= MAX_BUNDLES_PER_COURSE * 4:
+                        return
+        return
+    by_comp: dict[str, dict] = {}
+    for s in ok.values():
+        pat = tuple(sorted((m.day, m.start, m.end) for m in s.meetings))
+        comp = by_comp.setdefault(s.component, {})
+        prev = comp.get(pat)
+        if prev is None or (prev.instructor in (None, "Staff") and s.instructor not in (None, "Staff")):
+            comp[pat] = s
+    if len(by_comp) < len({s.component for s in course.sections}):
+        return          # some required component has no usable section
+    lists = [sorted(c.values(), key=_midday)[:PER_COMPONENT] for c in by_comp.values()]
+    yield from itertools.islice(itertools.product(*lists), MAX_COMBOS_SCANNED)
+
+
+def build_bundles(course, blocked, hard_start, cross_gap, mich_time, allow_full=False,
+                  max_bundles: Optional[int] = None) -> list[Bundle]:
+    """Usable section combos for one course. Combos meeting at exactly the same times are equivalent for
+    the schedule, so only one per time pattern is kept (the one with open seats, then a named instructor)."""
+    by_pattern: dict = {}
+    for combo in _section_combos(course, blocked, hard_start, allow_full):
         ms = [m for s in combo for m in s.meetings]
-        if any(m.start < hard_start for m in ms):
-            continue
         if any(clash(a, b, cross_gap, mich_time) for a, b in itertools.combinations(ms, 2)):
             continue
-        if any(m.overlaps(bm) for m in ms for _, bm in blocked):
-            continue
-        if not allow_full and any(s.seats_open is not None and s.seats_open <= 0 for s in combo):
-            continue
-        out.append(Bundle(course, combo))
+        full = any(s.seats_open is not None and s.seats_open <= 0 for s in combo)
+        pattern = tuple(sorted((m.day, m.start, m.end, m.location or m.campus) for m in ms))
+        rank = (full, not any(s.instructor and s.instructor != "Staff" for s in combo))
+        if pattern not in by_pattern or rank < by_pattern[pattern][0]:
+            by_pattern[pattern] = (rank, combo)
+    out = [Bundle(course, combo) for _, combo in by_pattern.values()]
+    cap = max_bundles or MAX_BUNDLES_PER_COURSE
+    if len(out) > cap:   # keep the ones closest to midday (the usual preferred window)
+        out.sort(key=lambda b: sum(abs((m.start + m.end) / 2 - 12.5 * 60) for m in b.meetings) / max(1, len(b.meetings)))
+        out = out[:cap]
     return out
+
+
+def _conflict_pairs(bundles: dict, cross_gap: int, mich: int):
+    """Pairs of bundles (different courses) that clash, found via 30-minute time buckets
+    instead of comparing everything with everything."""
+    buckets: dict = {}
+    for code, bl in bundles.items():
+        for i, b in enumerate(bl):
+            for m in b.meetings:
+                lo, hi = (m.start - cross_gap) // 30, (m.end + cross_gap) // 30
+                for slot in range(lo, hi + 1):
+                    buckets.setdefault((m.day, slot), []).append((code, i))
+    seen = set()
+    for items in buckets.values():
+        for (c1, i1), (c2, i2) in itertools.combinations(items, 2):
+            if c1 == c2:
+                continue
+            key = ((c1, i1), (c2, i2)) if (c1, i1) < (c2, i2) else ((c2, i2), (c1, i1))
+            if key in seen:
+                continue
+            seen.add(key)
+            if any(clash(a, b, cross_gap, mich) for a in bundles[c1][i1].meetings for b in bundles[c2][i2].meetings):
+                yield key
 
 
 def seat_risk(course: Course, b: Bundle) -> str:
@@ -234,6 +308,13 @@ def optimize_week(source, profile: dict, term: str = "", n_plans: int = 4,
     offered = [c for c in source.offerings(term) if c.code not in done and c.code not in avoid]
     groups = resolve(profile, source, done)
     dc = double_counts(groups)
+    # Keep the solver small: the semester plan's courses, must takes, and the courses that count toward the
+    # most open requirements. (Considering every eligible course made the free server run out of memory.)
+    max_courses = int(os.environ.get("WEEK_MAX_COURSES", "22"))
+    if len(offered) > max_courses:
+        keep = [c for c in offered if c.code in prefer or c.code in must]
+        rest = sorted((c for c in offered if c not in keep), key=lambda c: (-len(dc.get(c.code, [])), c.code))
+        offered = keep + rest[:max(0, max_courses - len(keep))]
     gm = GradeModel(source, history)
     style = gm.teaching_style()
     cohort = source.cohort()
@@ -321,10 +402,8 @@ def optimize_week(source, profile: dict, term: str = "", n_plans: int = 4,
                 m.Add(take[code] == 0)
 
     keys = [(code, i) for code, bl in bundles.items() for i in range(len(bl))]
-    for (c1, i1), (c2, i2) in itertools.combinations(keys, 2):
-        if c1 != c2 and any(clash(a, b, cross_gap, mich) for a in bundles[c1][i1].meetings
-                            for b in bundles[c2][i2].meetings):
-            m.Add(x[c1, i1] + x[c2, i2] <= 1)
+    for (c1, i1), (c2, i2) in _conflict_pairs(bundles, cross_gap, mich):
+        m.Add(x[c1, i1] + x[c2, i2] <= 1)
 
     cred = {code: int(round(cinfo[code]["course"].credits * 2)) for code in take}
     tot = sum(cred[c] * take[c] for c in take)
@@ -359,12 +438,19 @@ def optimize_week(source, profile: dict, term: str = "", n_plans: int = 4,
     m.Maximize(sum(obj) - sum(combo_terms))
 
     solver = cp_model.CpSolver()
-    solver.parameters.max_time_in_seconds = 8
+    budget = float(os.environ.get("WEEK_BUDGET_SECONDS", "40"))   # total for all the alternatives
+    rounds = min(max(30, n_plans * 8), int(os.environ.get("WEEK_MAX_ROUNDS", str(n_plans * 3))))
     solver.parameters.num_workers = int(os.environ.get("SOLVER_WORKERS", "8"))
     if os.environ.get("SOLVER_MAX_MB"):
         solver.parameters.max_memory_in_mb = int(os.environ["SOLVER_MAX_MB"])
+    import time as _t
+    t_end = _t.time() + budget
     cands = []
-    for _ in range(max(30, n_plans * 8)):
+    for k in range(rounds):
+        left = t_end - _t.time()
+        if left < 1 and cands:
+            break
+        solver.parameters.max_time_in_seconds = max(1.0, min(8.0 if k == 0 else 3.0, left))
         st = solver.Solve(m)
         if st not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
             break

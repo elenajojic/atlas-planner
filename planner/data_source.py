@@ -804,7 +804,7 @@ class AtlasSource(DataSource):
                 pass
             e = self.enrich(code) or c
             out.append(Course(code, c.title, c.credits, secs, e.prereqs, [], e.tags, e.description,
-                              c.offered_history))
+                              c.offered_history, clusters=[list(cl) for cl in data.get("clusters") or []]))
         return out
 
     # ---------------------------------------------------------------- evaluations

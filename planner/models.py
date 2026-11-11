@@ -111,6 +111,7 @@ class Course:
     format: Optional[str] = None            # "large lecture", "seminar", "lab heavy"...
     fill_days: Optional[float] = None       # median days after registration opens until full
     level: int = 0
+    clusters: list = field(default_factory=list)   # valid section combos from Atlas, e.g. [["001","006","099"]]
 
     @property
     def subject(self) -> str:
