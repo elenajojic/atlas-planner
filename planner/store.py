@@ -103,7 +103,30 @@ class Store:
     def _secret(self, ns: str) -> bool:
         return ns.startswith("user:")
 
+    # Shared course data is the same for everyone and changes rarely: keep a copy in memory so a plan
+    # doesn't make thousands of round trips to the database.
+    MEM_SECONDS = 600
+    MEM_MAX = 5000
+
+    def _mem(self) -> dict:
+        if not hasattr(self, "_m"):
+            self._m = {}
+        return self._m
+
     def get(self, ns: str, key: str) -> Any:
+        if ns == "shared":
+            hit = self._mem().get(key)
+            if hit and hit[0] > time.time():
+                return hit[1]
+        v = self._get(ns, key)
+        if ns == "shared" and v is not None:
+            m = self._mem()
+            if len(m) > self.MEM_MAX:
+                m.clear()
+            m[key] = (time.time() + self.MEM_SECONDS, v)
+        return v
+
+    def _get(self, ns: str, key: str) -> Any:
         row = self._x("SELECT v, expires FROM kv WHERE ns=? AND k=?", (ns, key)).fetchone()
         if not row:
             return None
@@ -114,6 +137,8 @@ class Store:
         return decrypt(v) if self._secret(ns) else json.loads(v)
 
     def put(self, ns: str, key: str, value: Any, ttl: Optional[float] = None) -> None:
+        if ns == "shared":
+            self._mem()[key] = (time.time() + self.MEM_SECONDS, value)
         v = encrypt(value) if self._secret(ns) else json.dumps(value)
         exp = time.time() + ttl if ttl else None
         with _lock:
@@ -122,6 +147,8 @@ class Store:
                     (ns, key, v, exp, time.time()))
 
     def delete(self, ns: str, key: str) -> None:
+        if ns == "shared":
+            self._mem().pop(key, None)
         self._x("DELETE FROM kv WHERE ns=? AND k=?", (ns, key))
 
     @staticmethod
@@ -129,6 +156,9 @@ class Store:
         return prefix.replace("!", "!!").replace("%", "!%").replace("_", "!_") + "%"
 
     def delete_prefix(self, ns: str, prefix: str = "") -> None:
+        if ns == "shared":
+            for k in [k for k in self._mem() if k.startswith(prefix)]:
+                self._mem().pop(k, None)
         self._x("DELETE FROM kv WHERE ns=? AND k LIKE ? ESCAPE '!'", (ns, self._like(prefix)))
 
     def keys(self, ns: str, prefix: str = "") -> list[str]:

@@ -408,9 +408,8 @@ def _start_warm(uid: str, cookies: dict, force: bool = False) -> dict:
             with _lock(uid):
                 _sync_down(uid)            # just to read the current profile; a download never edits files
             src = AtlasSource()
-            src.on_request = lambda n: (put({"state": "running", "requests": n, "started": started,
-                                                           "total": getattr(src, "progress_total", 0)})
-                                        if n % 8 == 0 else None)
+            src.on_progress = lambda done, total: (put({"state": "running", "requests": done, "total": total,
+                                                        "started": started}) if done % 5 == 0 or done == total else None)
             summary = src.warm()
             put({"state": "done", "ever_done": True, "summary": summary, "started": started})
         except Exception as e:
@@ -432,8 +431,8 @@ def _ready(uid: str) -> bool:
 
 def _progress(st: dict) -> dict:
     n, total = st.get("requests", 0), st.get("total", 0)
-    pct = min(95, round(100 * n / total)) if total else None
-    return {"percent_done": pct, "requests_done": n,
+    pct = min(99, round(100 * n / total)) if total else 0
+    return {"percent_done": pct, "courses_done": n, "courses_total": total,
             "elapsed_seconds": round(time.time() - st["started"]) if st.get("started") else 0}
 
 

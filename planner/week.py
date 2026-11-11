@@ -18,6 +18,8 @@ Step 4  For the winners: predicted grades + GPA/BCPM projection, seat risk and b
 """
 from __future__ import annotations
 
+import os
+
 import itertools
 from dataclasses import asdict, dataclass, field
 from typing import Optional
@@ -358,7 +360,9 @@ def optimize_week(source, profile: dict, term: str = "", n_plans: int = 4,
 
     solver = cp_model.CpSolver()
     solver.parameters.max_time_in_seconds = 8
-    solver.parameters.num_workers = 8
+    solver.parameters.num_workers = int(os.environ.get("SOLVER_WORKERS", "8"))
+    if os.environ.get("SOLVER_MAX_MB"):
+        solver.parameters.max_memory_in_mb = int(os.environ["SOLVER_MAX_MB"])
     cands = []
     for _ in range(max(30, n_plans * 8)):
         st = solver.Solve(m)

@@ -14,6 +14,8 @@ Then scores the application story and builds heatmap data.
 """
 from __future__ import annotations
 
+import os
+
 import copy
 from typing import Optional
 
@@ -243,7 +245,9 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
 
     solver = cp_model.CpSolver()
     solver.parameters.max_time_in_seconds = time_limit
-    solver.parameters.num_workers = 8
+    solver.parameters.num_workers = int(os.environ.get("SOLVER_WORKERS", "8"))
+    if os.environ.get("SOLVER_MAX_MB"):
+        solver.parameters.max_memory_in_mb = int(os.environ["SOLVER_MAX_MB"])
     st = solver.Solve(m)
     if st not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
         return {"ok": False, "error": "No multi term plan found. Try enabling spring/summer or lowering minimum credits."}

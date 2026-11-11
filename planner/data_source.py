@@ -308,7 +308,7 @@ class AtlasSource(DataSource):
     label = "Atlas (live)"
     BASE = "https://atlas.ai.umich.edu"
     MIN_SECONDS_BETWEEN_REQUESTS = 0.4   # at most ~2.5 requests a second to Atlas, even with workers
-    WORKERS = 4
+    WORKERS = 3
     DEFAULT_SUBJECTS: list[str] = []   # subjects come from your audit + premed template + must/watch lists
     PREMED_TEMPLATE = "Premed (template)"
 
@@ -426,11 +426,16 @@ class AtlasSource(DataSource):
         return {"url": r.url, "text": r.text} if kind == "html" else r.json()
 
     def _cached(self, key: str, fn):
+        memo = self.__dict__.setdefault("_memo", {})
+        if key in memo:
+            return memo[key]
         v = self.cache.get(key)
         if v is None:
             v = fn()
             if v is not None:
                 self.cache.put(key, v)
+        if v is not None:
+            memo[key] = v
         return v
 
     @staticmethod
@@ -451,7 +456,12 @@ class AtlasSource(DataSource):
     def _profile(self) -> dict:
         import yaml
         p = self.home / "profile.yaml"
-        return (yaml.safe_load(p.read_text()) or {}) if p.exists() else {}
+        if not p.exists():
+            return {}
+        key = (p.stat().st_mtime_ns, p.stat().st_size)
+        if self.__dict__.get("_prof_key") != key:
+            self._prof, self._prof_key = yaml.safe_load(p.read_text()) or {}, key
+        return self._prof
 
     # ---------------------------------------------------------------- the student
     def uniqname(self) -> str:
@@ -573,6 +583,12 @@ class AtlasSource(DataSource):
                 "untracked": not opts}
 
     def requirements(self, program: str) -> dict:
+        memo = self.__dict__.setdefault("_req_memo", {})
+        if program not in memo:
+            memo[program] = self._requirements(program)
+        return memo[program]
+
+    def _requirements(self, program: str) -> dict:
         if program == self.PREMED_TEMPLATE:
             return json.loads((SAMPLE_DIR / "programs.json").read_text())[program]
         prof = self._profile()
@@ -598,6 +614,12 @@ class AtlasSource(DataSource):
 
     # ---------------------------------------------------------------- catalog + sections
     def _subjects(self) -> list[str]:
+        if "_subs" in self.__dict__:
+            return self._subs
+        self._subs = self._compute_subjects()
+        return self._subs
+
+    def _compute_subjects(self) -> list[str]:
         prof = self._profile()
         subs = list(self.DEFAULT_SUBJECTS) + list(prof.get("extra_subjects", []))
         for code in prof.get("must_take", []) + prof.get("watch_courses", []):
@@ -618,8 +640,11 @@ class AtlasSource(DataSource):
         """The catalog, but only if it's already downloaded (never triggers the slow first download)."""
         if hasattr(self, "_cat"):
             return self._cat
+        if getattr(self, "_cat_missing_until", 0) > time.time():
+            return None
         if all(self.cache.get(f"browse_{s}") is not None for s in self._subjects()):
             return self._catalog_index()
+        self._cat_missing_until = time.time() + 30
         return None
 
     def _catalog_index(self) -> dict[str, Course]:
@@ -883,7 +908,17 @@ class AtlasSource(DataSource):
         tcode = term_to_atlas(term)
         cands = self.candidate_codes()
         self.progress_total = getattr(self, "n_requests", 0) + 3 * len(cands)
-        self._pmap(lambda code: self._prefetch_course(code, term, tcode), cands)
+        self.items_total, self.items_done = len(cands), 0
+
+        def one(code):
+            self._prefetch_course(code, term, tcode)
+            with self._throttle:
+                self.items_done += 1
+            hook = getattr(self, "on_progress", None)
+            if hook:
+                hook(self.items_done, self.items_total)
+
+        self._pmap(one, cands)
         offs = self.offerings(term)          # all cache hits now
         return {"catalog_courses": len(cat), "skipped_subjects": getattr(self, "skipped_subjects", []),
                 "candidates": len(cands), "offered_next_term": len(offs),

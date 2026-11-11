@@ -134,7 +134,10 @@ def setup_status() -> str:
         ("long_term", p.get("long_term_reviewed", False), "Ask graduation term, MCAT term, spring/summer, study abroad."),
     ]
     todo = [{"step": s, "ask": a} for s, ok, a in steps if not ok]
-    return _j({"setup_done": bool(p.get("setup_done")) and not todo, "source": src.name,
+    if p.get("setup_done"):
+        return _j({"setup_done": True, "source": src.name, "done": [s for s, ok, _ in steps if ok],
+                   "optional_still_open": todo, "next": []})
+    return _j({"setup_done": False, "source": src.name,
                "done": [s for s, ok, _ in steps if ok], "next": todo[:1], "remaining": todo})
 
 
