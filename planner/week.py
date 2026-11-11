@@ -98,22 +98,40 @@ def _midday(s: Section) -> float:
 PER_COMPONENT = int(os.environ.get("SECTIONS_PER_COMPONENT", "5"))
 
 
+EXAM_COMPONENTS = {"MID", "EXM", "EXAM", "FIN", "FNL"}   # exam slots (a few evenings a term), not weekly classes
+
+
+def _weekly(course) -> list:
+    return [s for s in course.sections if s.component.upper() not in EXAM_COMPONENTS]
+
+
 def _section_combos(course, blocked=(), hard_start=0, allow_full=True, first_only=False):
-    """Valid section combinations, kept small: drop sections that can't work on their own, merge sections
-    meeting at identical times, keep the best few per component, and use Atlas's own valid combos when known."""
-    ok = {s.section_id: s for s in course.sections if _usable(s, blocked, hard_start, allow_full)}
+    """Valid section combinations, kept small: ignore exam slots, drop sections that can't work on their own,
+    merge sections meeting at identical times, keep the best few per component, and use Atlas's own valid
+    combos when known (ignoring ids that aren't real timetable sections, like "999")."""
+    weekly = _weekly(course)
+    real = {s.section_id for s in weekly}
+    ok = {s.section_id: s for s in weekly if _usable(s, blocked, hard_start, allow_full)}
+    exam_ids = {s.section_id for s in course.sections} - real
     if course.clusters:
-        seen = set()
+        seen, any_cluster = set(), False
         for cl in course.clusters:
-            if all(x in ok for x in cl):
-                combo = tuple(ok[x] for x in cl)
+            ids = [x for x in cl if x in real and x not in exam_ids]
+            if not ids:
+                continue
+            any_cluster = True
+            if all(x in ok for x in ids):
+                combo = tuple(ok[x] for x in ids)
                 pat = tuple(sorted((m.day, m.start, m.end) for s in combo for m in s.meetings))
                 if pat not in seen:
                     seen.add(pat)
                     yield combo
                     if len(seen) >= MAX_BUNDLES_PER_COURSE * 4:
                         return
-        return
+        if any_cluster and seen:
+            return
+        if any_cluster and not seen:
+            return          # Atlas's combos exist but none is usable for you
     by_comp: dict[str, dict] = {}
     for s in ok.values():
         pat = tuple(sorted((m.day, m.start, m.end) for m in s.meetings))
@@ -121,7 +139,7 @@ def _section_combos(course, blocked=(), hard_start=0, allow_full=True, first_onl
         prev = comp.get(pat)
         if prev is None or (prev.instructor in (None, "Staff") and s.instructor not in (None, "Staff")):
             comp[pat] = s
-    if len(by_comp) < len({s.component for s in course.sections}):
+    if not by_comp or len(by_comp) < len({s.component for s in weekly}):
         return          # some required component has no usable section
     lists = [sorted(c.values(), key=_midday)[:PER_COMPONENT] for c in by_comp.values()]
     yield from itertools.islice(itertools.product(*lists), MAX_COMBOS_SCANNED)
@@ -129,7 +147,7 @@ def _section_combos(course, blocked=(), hard_start=0, allow_full=True, first_onl
 
 def explain_no_fit(course, blocked, hard_start, allow_full=False) -> dict:
     """Why a course has no usable section combination (for diagnosing)."""
-    secs = course.sections
+    secs = _weekly(course)
     early = [s.section_id for s in secs if any(m.start < hard_start for m in s.meetings)]
     clash_c = [s.section_id for s in secs if any(m.overlaps(bm) for m in s.meetings for _, bm in blocked)]
     full = [s.section_id for s in secs if s.seats_open is not None and s.seats_open <= 0]
@@ -139,8 +157,9 @@ def explain_no_fit(course, blocked, hard_start, allow_full=False) -> dict:
         comps.setdefault(s.component, [0, 0])
         comps[s.component][0] += 1
         comps[s.component][1] += s.section_id in ok
-    cl_ok = sum(all(x in ok for x in cl) for cl in course.clusters)
-    missing_ids = sorted({x for cl in course.clusters for x in cl} - {s.section_id for s in secs})[:8]
+    real = {s.section_id for s in secs}
+    cl_ok = sum(bool([x for x in cl if x in real]) and all(x in ok for x in cl if x in real) for cl in course.clusters)
+    missing_ids = sorted({x for cl in course.clusters for x in cl} - real)[:8]
     return {"sections": len(secs), "too_early": len(early), "clash_commitment": len(clash_c), "full": len(full),
             "usable_by_component": {k: f"{v[1]}/{v[0]}" for k, v in comps.items()},
             "atlas_combos": len(course.clusters), "atlas_combos_usable": cl_ok, "combo_ids_not_in_sections": missing_ids}
@@ -160,6 +179,9 @@ def build_bundles(course, blocked, hard_start, cross_gap, mich_time, allow_full=
         rank = (full, not any(s.instructor and s.instructor != "Staff" for s in combo))
         if pattern not in by_pattern or rank < by_pattern[pattern][0]:
             by_pattern[pattern] = (rank, combo)
+    if not by_pattern and not allow_full:
+        # every usable section shows 0 open seats (often true before seats are released): plan anyway
+        return build_bundles(course, blocked, hard_start, cross_gap, mich_time, True, max_bundles)
     out = [Bundle(course, combo) for _, combo in by_pattern.values()]
     cap = max_bundles or MAX_BUNDLES_PER_COURSE
     if len(out) > cap:   # keep the ones closest to midday (the usual preferred window)
