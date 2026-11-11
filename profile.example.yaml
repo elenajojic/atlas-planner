@@ -1,0 +1,96 @@
+# Your planning profile. It lives only on your computer (~/.atlas-planner/profile.yaml).
+# Claude fills this in with you during setup; you can also edit it by hand.
+# Your completed courses and grades are NOT stored here: they're read from your Atlas dashboard.
+
+name: Your Name
+programs:                 # names as Atlas lists them (see `list_programs`)
+  - BME BSE
+  - AI minor
+  - Premed (template)
+
+goals:
+  - name: Premed
+    weight: 3
+    tags: [premed, biology, chemistry, physiology, medicine]
+  - name: Bio-inspired robotics / prosthetics
+    weight: 2
+    tags: [biomechanics, robotics, prosthetics, soft robotics, controls, design]
+
+setup_done: false          # Claude flips this after the guided setup
+optimize_for: []           # what you said matters most, in your words (Claude maps this to weights)
+
+completed_extra: []        # AP / transfer credit Atlas doesn't show, e.g. [STATS 250]
+must_take: []
+avoid: []
+
+# Long term plan
+plan:
+  start_term: WN27
+  graduation_term: WN29
+  use_spring_summer: false
+  spring_summer_max_credits: 8
+  mcat_term: SU28                 # courses tagged for the MCAT must be done before this term
+  study_abroad: none              # none / find_best / a term code like FA27
+  abroad_max_credits: 16
+  offering_confidence_min: 0.6    # only plan a course in a term if it ran that season >= 60% of recent years
+  min_credits_main: 14
+  max_credits_main: 17
+
+# Fixed weekly commitments. Never scheduled over. buffer_min = padding before and after.
+commitments:
+  - name: BIRDS Lab
+    days: TuTh
+    start: "14:00"
+    end: "17:00"
+    buffer_min: 30
+  - name: CLAWS
+    days: W
+    start: "19:00"
+    end: "21:00"
+    buffer_min: 0
+
+# Time you want left over each week, and in what size blocks.
+protected_time:
+  - name: Clinical volunteering
+    hours_per_week: 4
+    min_block_hours: 2
+    window: ["08:00", "20:00"]
+  - name: Gym / basketball
+    hours_per_week: 3
+    min_block_hours: 1
+    window: ["07:00", "22:00"]
+
+preferences:
+  class_window: ["10:00", "17:00"]   # soft: classes outside this are penalized
+  hard_earliest_start: "08:00"       # never earlier than this
+  min_credits: 14
+  max_credits: 17
+  max_workload_index: 4.6            # ~4.0 normal term, 5.0+ heavy
+  cross_campus_gap: 30               # minutes between a North and a Central class
+  michigan_time_min: 10              # classes start 10 min after the listed time
+  guarantee_lunch: true
+  lunch_window: ["11:00", "14:00"]
+  lunch_minutes: 30
+  free_days_wanted: 0
+  prefer_small_classes: false
+  allow_full_sections: false
+
+bcpm_subjects: [BIOLOGY, CHEM, PHYSICS, MATH, STATS, BIOLCHEM, MCDB]
+
+# How much each factor matters, 0 to 5.
+weights:
+  requirement_progress: 5
+  double_counting: 3
+  goal_fit: 3
+  instructor_quality: 4
+  grades: 3
+  workload_balance: 4
+  combos: 3
+  heavy_day: 2
+  time_of_day: 2
+  compact_days: 2
+  protected_time: 4
+  class_size: 1
+  critical_path: 3
+  typical_path: 1
+  application_story: 2

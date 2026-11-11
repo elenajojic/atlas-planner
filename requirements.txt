@@ -1,0 +1,5 @@
+mcp>=1.9
+ortools>=9.10
+pyyaml>=6
+requests>=2.31
+playwright>=1.45   # only needed for live Atlas login

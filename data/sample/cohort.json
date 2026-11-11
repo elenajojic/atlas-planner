@@ -1,0 +1,229 @@
+{
+ "combos": [
+  {
+   "courses": [
+    "CHEM 210",
+    "PHYSICS 240"
+   ],
+   "penalty": 3,
+   "note": "Both exam heavy, students taking them together report much higher stress"
+  },
+  {
+   "courses": [
+    "CHEM 215",
+    "BIOMEDE 241"
+   ],
+   "penalty": 3,
+   "note": "Exams cluster mid semester"
+  },
+  {
+   "courses": [
+    "EECS 281",
+    "CHEM 215"
+   ],
+   "penalty": 4,
+   "note": "Two of the heaviest courses on campus"
+  },
+  {
+   "courses": [
+    "EECS 281",
+    "CHEM 210"
+   ],
+   "penalty": 3,
+   "note": "Projects due during orgo exam weeks"
+  },
+  {
+   "courses": [
+    "EECS 445",
+    "BIOMEDE 450"
+   ],
+   "penalty": 3,
+   "note": "Capstone plus ML projects"
+  }
+ ],
+ "typical_paths": {
+  "cohort": "BME majors on a premed track",
+  "courses": {
+   "ENGR 100": {
+    "typical_term_index": 1,
+    "share_of_similar_students": 0.99
+   },
+   "ENGR 101": {
+    "typical_term_index": 1,
+    "share_of_similar_students": 0.95
+   },
+   "MATH 115": {
+    "typical_term_index": 1,
+    "share_of_similar_students": 0.6
+   },
+   "MATH 116": {
+    "typical_term_index": 2,
+    "share_of_similar_students": 0.9
+   },
+   "CHEM 130": {
+    "typical_term_index": 1,
+    "share_of_similar_students": 0.95
+   },
+   "CHEM 125": {
+    "typical_term_index": 1,
+    "share_of_similar_students": 0.95
+   },
+   "CHEM 126": {
+    "typical_term_index": 2,
+    "share_of_similar_students": 0.9
+   },
+   "PHYSICS 140": {
+    "typical_term_index": 2,
+    "share_of_similar_students": 0.95
+   },
+   "PHYSICS 141": {
+    "typical_term_index": 2,
+    "share_of_similar_students": 0.95
+   },
+   "ENGLISH 125": {
+    "typical_term_index": 2,
+    "share_of_similar_students": 0.7
+   },
+   "BIOMEDE 211": {
+    "typical_term_index": 2,
+    "share_of_similar_students": 0.9
+   },
+   "MATH 215": {
+    "typical_term_index": 3,
+    "share_of_similar_students": 0.9
+   },
+   "BIOLOGY 171": {
+    "typical_term_index": 3,
+    "share_of_similar_students": 0.8
+   },
+   "EECS 280": {
+    "typical_term_index": 3,
+    "share_of_similar_students": 0.5
+   },
+   "BIOLOGY 172": {
+    "typical_term_index": 4,
+    "share_of_similar_students": 0.9
+   },
+   "BIOLOGY 173": {
+    "typical_term_index": 4,
+    "share_of_similar_students": 0.85
+   },
+   "CHEM 210": {
+    "typical_term_index": 4,
+    "share_of_similar_students": 0.95
+   },
+   "CHEM 211": {
+    "typical_term_index": 4,
+    "share_of_similar_students": 0.9
+   },
+   "CHEM 215": {
+    "typical_term_index": 5,
+    "share_of_similar_students": 0.9
+   },
+   "CHEM 216": {
+    "typical_term_index": 5,
+    "share_of_similar_students": 0.85
+   },
+   "CHEM 351": {
+    "typical_term_index": 6,
+    "share_of_similar_students": 0.4
+   },
+   "MCDB 310": {
+    "typical_term_index": 6,
+    "share_of_similar_students": 0.35
+   },
+   "BIOLCHEM 415": {
+    "typical_term_index": 7,
+    "share_of_similar_students": 0.25
+   },
+   "PHYSICS 240": {
+    "typical_term_index": 4,
+    "share_of_similar_students": 0.9
+   },
+   "PHYSICS 241": {
+    "typical_term_index": 4,
+    "share_of_similar_students": 0.9
+   },
+   "PSYCH 111": {
+    "typical_term_index": 5,
+    "share_of_similar_students": 0.8
+   },
+   "SOC 100": {
+    "typical_term_index": 5,
+    "share_of_similar_students": 0.7
+   },
+   "STATS 250": {
+    "typical_term_index": 4,
+    "share_of_similar_students": 0.75
+   },
+   "ENGLISH 225": {
+    "typical_term_index": 5,
+    "share_of_similar_students": 0.5
+   },
+   "MATH 216": {
+    "typical_term_index": 4,
+    "share_of_similar_students": 0.9
+   },
+   "BIOMEDE 221": {
+    "typical_term_index": 4,
+    "share_of_similar_students": 0.9
+   },
+   "BIOMEDE 231": {
+    "typical_term_index": 5,
+    "share_of_similar_students": 0.9
+   },
+   "BIOMEDE 241": {
+    "typical_term_index": 6,
+    "share_of_similar_students": 0.9
+   },
+   "BIOMEDE 350": {
+    "typical_term_index": 5,
+    "share_of_similar_students": 0.9
+   },
+   "BIOMEDE 419": {
+    "typical_term_index": 6,
+    "share_of_similar_students": 0.6
+   },
+   "BIOMEDE 450": {
+    "typical_term_index": 8,
+    "share_of_similar_students": 0.9
+   },
+   "BIOMEDE 458": {
+    "typical_term_index": 7,
+    "share_of_similar_students": 0.4
+   },
+   "BIOMEDE 476": {
+    "typical_term_index": 7,
+    "share_of_similar_students": 0.35
+   },
+   "EECS 281": {
+    "typical_term_index": 4,
+    "share_of_similar_students": 0.4
+   },
+   "EECS 445": {
+    "typical_term_index": 6,
+    "share_of_similar_students": 0.3
+   },
+   "EECS 492": {
+    "typical_term_index": 6,
+    "share_of_similar_students": 0.25
+   },
+   "ROB 311": {
+    "typical_term_index": 5,
+    "share_of_similar_students": 0.2
+   },
+   "HISTART 101": {
+    "typical_term_index": 5,
+    "share_of_similar_students": 0.3
+   },
+   "PHIL 160": {
+    "typical_term_index": 5,
+    "share_of_similar_students": 0.35
+   },
+   "ANTHRCUL 101": {
+    "typical_term_index": 5,
+    "share_of_similar_students": 0.3
+   }
+  }
+ }
+}

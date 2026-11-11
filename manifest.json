@@ -1,0 +1,121 @@
+{
+  "manifest_version": "0.2",
+  "name": "atlas-planner",
+  "display_name": "Atlas Planner (UMich)",
+  "version": "0.3.0",
+  "description": "Plan University of Michigan schedules from Atlas: predicted grades, workload balance across semesters, premed/MCAT timing, instructor cross checks, walk times, and more.",
+  "long_description": "Each user signs into Atlas with their own uniqname and Duo. Sessions, profiles and cached data stay on that user's computer and are never shared.",
+  "author": {
+    "name": "Elena Jojic"
+  },
+  "server": {
+    "type": "python",
+    "entry_point": "run.py",
+    "mcp_config": {
+      "command": "python3",
+      "args": [
+        "${__dirname}/run.py"
+      ],
+      "env": {
+        "ATLAS_PLANNER_SOURCE": "${user_config.source}"
+      }
+    }
+  },
+  "user_config": {
+    "source": {
+      "type": "string",
+      "title": "Data source",
+      "description": "'sample' for the built in test data, 'atlas' for live Atlas with your own login.",
+      "default": "atlas",
+      "required": false
+    }
+  },
+  "tools": [
+    {
+      "name": "data_status",
+      "description": "Data source, login state, file locations"
+    },
+    {
+      "name": "atlas_login",
+      "description": "Sign into Atlas with Weblogin + Duo"
+    },
+    {
+      "name": "setup_status",
+      "description": "Guided setup checklist"
+    },
+    {
+      "name": "list_programs",
+      "description": "Majors, minors and tracks"
+    },
+    {
+      "name": "refresh_atlas_data",
+      "description": "Prefetch audit, sections and evaluations (cached a week)"
+    },
+    {
+      "name": "get_progress",
+      "description": "Completed courses, grades and what's left"
+    },
+    {
+      "name": "get_profile",
+      "description": "Read your planning profile"
+    },
+    {
+      "name": "update_profile",
+      "description": "Change parts of your profile"
+    },
+    {
+      "name": "save_profile",
+      "description": "Replace your profile"
+    },
+    {
+      "name": "import_external_ratings",
+      "description": "Add your own second source of instructor ratings"
+    },
+    {
+      "name": "search_offerings",
+      "description": "Search offered courses"
+    },
+    {
+      "name": "course_report",
+      "description": "Deep dive on one course and its instructors"
+    },
+    {
+      "name": "compare_courses",
+      "description": "Compare courses side by side"
+    },
+    {
+      "name": "optimize_schedule",
+      "description": "Build and rank weekly schedules"
+    },
+    {
+      "name": "plan_all_semesters",
+      "description": "Plan every remaining semester"
+    },
+    {
+      "name": "find_study_abroad_term",
+      "description": "Find the best semester to go abroad"
+    },
+    {
+      "name": "what_if_scenario",
+      "description": "See how a change ripples through your plan"
+    },
+    {
+      "name": "export_plan_for_friend",
+      "description": "Share a schedule (times only) with a friend"
+    },
+    {
+      "name": "compare_with_friend",
+      "description": "Find shared classes and free time with a friend"
+    }
+  ],
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "python": ">=3.10"
+    }
+  }
+}

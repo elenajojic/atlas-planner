@@ -1,0 +1,189 @@
+{
+ "BME BSE": {
+  "source": "sample",
+  "groups": [
+   {
+    "group": "BME core",
+    "need": 6,
+    "options": [
+     "BIOMEDE 211",
+     "BIOMEDE 221",
+     "BIOMEDE 231",
+     "BIOMEDE 241",
+     "BIOMEDE 350",
+     "BIOMEDE 450"
+    ]
+   },
+   {
+    "group": "BME math",
+    "need": 2,
+    "options": [
+     "MATH 215",
+     "MATH 216"
+    ]
+   },
+   {
+    "group": "BME biology",
+    "need": 1,
+    "options": [
+     "BIOLOGY 171",
+     "BIOLOGY 172"
+    ]
+   },
+   {
+    "group": "BME organic chemistry",
+    "need": 1,
+    "options": [
+     "CHEM 210"
+    ]
+   },
+   {
+    "group": "BME physiology",
+    "need": 1,
+    "options": [
+     "BIOMEDE 419",
+     "MCDB 310"
+    ]
+   },
+   {
+    "group": "BME physics",
+    "need": 2,
+    "options": [
+     "PHYSICS 240",
+     "PHYSICS 241"
+    ]
+   },
+   {
+    "group": "BME advanced electives",
+    "need": 2,
+    "options": [
+     "BIOMEDE 458",
+     "BIOMEDE 476",
+     "EECS 445",
+     "ROB 311"
+    ]
+   },
+   {
+    "group": "Humanities",
+    "need": 2,
+    "options": [
+     "HISTART 101",
+     "PHIL 160",
+     "ANTHRCUL 101",
+     "ENGLISH 225"
+    ]
+   }
+  ]
+ },
+ "AI minor": {
+  "source": "sample",
+  "groups": [
+   {
+    "group": "AI minor foundations",
+    "need": 1,
+    "options": [
+     "EECS 281"
+    ]
+   },
+   {
+    "group": "AI minor statistics",
+    "need": 1,
+    "options": [
+     "STATS 250",
+     "BIOMEDE 241"
+    ]
+   },
+   {
+    "group": "AI minor core",
+    "need": 2,
+    "options": [
+     "EECS 445",
+     "EECS 492",
+     "ROB 311"
+    ]
+   }
+  ]
+ },
+ "Premed (template)": {
+  "source": "template, confirm with UM Health Professions advising",
+  "groups": [
+   {
+    "group": "Premed biology",
+    "need": 3,
+    "options": [
+     "BIOLOGY 171",
+     "BIOLOGY 172",
+     "BIOLOGY 173"
+    ],
+    "mcat": true
+   },
+   {
+    "group": "Premed general chemistry",
+    "need": 3,
+    "options": [
+     "CHEM 130",
+     "CHEM 125",
+     "CHEM 126"
+    ],
+    "mcat": true
+   },
+   {
+    "group": "Premed organic chemistry",
+    "need": 4,
+    "options": [
+     "CHEM 210",
+     "CHEM 211",
+     "CHEM 215",
+     "CHEM 216"
+    ],
+    "mcat": true
+   },
+   {
+    "group": "Premed biochemistry",
+    "need": 1,
+    "options": [
+     "CHEM 351",
+     "MCDB 310",
+     "BIOLCHEM 415"
+    ],
+    "mcat": true
+   },
+   {
+    "group": "Premed physics",
+    "need": 4,
+    "options": [
+     "PHYSICS 140",
+     "PHYSICS 141",
+     "PHYSICS 240",
+     "PHYSICS 241"
+    ],
+    "mcat": true
+   },
+   {
+    "group": "Premed psych and soc",
+    "need": 2,
+    "options": [
+     "PSYCH 111",
+     "SOC 100"
+    ],
+    "mcat": true
+   },
+   {
+    "group": "Premed statistics",
+    "need": 1,
+    "options": [
+     "STATS 250",
+     "BIOMEDE 241"
+    ]
+   },
+   {
+    "group": "Premed English",
+    "need": 2,
+    "options": [
+     "ENGLISH 125",
+     "ENGLISH 225"
+    ]
+   }
+  ]
+ }
+}

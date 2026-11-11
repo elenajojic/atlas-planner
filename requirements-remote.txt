@@ -1,0 +1,7 @@
+mcp>=2.3
+ortools>=9.10
+pyyaml>=6
+requests>=2.31
+cryptography>=42
+uvicorn>=0.30
+psycopg[binary]>=3.2

@@ -1,0 +1,3291 @@
+{
+ "courses": {
+  "ENGR 100": {
+   "workload_pct": 60,
+   "median_grade": "A-",
+   "mean_gpa": 3.6,
+   "gpa_sd": 0.4,
+   "desire_pct": 55,
+   "understanding_pct": 75,
+   "expectations_pct": 70,
+   "n_responses": 360
+  },
+  "ENGR 101": {
+   "workload_pct": 72,
+   "median_grade": "B+",
+   "mean_gpa": 3.4,
+   "gpa_sd": 0.6,
+   "desire_pct": 45,
+   "understanding_pct": 82,
+   "expectations_pct": 76,
+   "n_responses": 1200
+  },
+  "MATH 115": {
+   "workload_pct": 55,
+   "median_grade": "B+",
+   "mean_gpa": 3.2,
+   "gpa_sd": 0.7,
+   "desire_pct": 30,
+   "understanding_pct": 70,
+   "expectations_pct": 72,
+   "n_responses": 90
+  },
+  "MATH 116": {
+   "workload_pct": 68,
+   "median_grade": "B",
+   "mean_gpa": 3.0,
+   "gpa_sd": 0.7,
+   "desire_pct": 25,
+   "understanding_pct": 72,
+   "expectations_pct": 70,
+   "n_responses": 90
+  },
+  "CHEM 130": {
+   "workload_pct": 62,
+   "median_grade": "B",
+   "mean_gpa": 3.1,
+   "gpa_sd": 0.7,
+   "desire_pct": 30,
+   "understanding_pct": 70,
+   "expectations_pct": 68,
+   "n_responses": 900
+  },
+  "CHEM 125": {
+   "workload_pct": 40,
+   "median_grade": "A-",
+   "mean_gpa": 3.6,
+   "gpa_sd": 0.4,
+   "desire_pct": 20,
+   "understanding_pct": 55,
+   "expectations_pct": 66,
+   "n_responses": 72
+  },
+  "CHEM 126": {
+   "workload_pct": 42,
+   "median_grade": "A-",
+   "mean_gpa": 3.6,
+   "gpa_sd": 0.4,
+   "desire_pct": 20,
+   "understanding_pct": 55,
+   "expectations_pct": 66,
+   "n_responses": 72
+  },
+  "PHYSICS 140": {
+   "workload_pct": 70,
+   "median_grade": "B",
+   "mean_gpa": 3.0,
+   "gpa_sd": 0.7,
+   "desire_pct": 25,
+   "understanding_pct": 70,
+   "expectations_pct": 68,
+   "n_responses": 750
+  },
+  "PHYSICS 141": {
+   "workload_pct": 35,
+   "median_grade": "A-",
+   "mean_gpa": 3.6,
+   "gpa_sd": 0.4,
+   "desire_pct": 20,
+   "understanding_pct": 50,
+   "expectations_pct": 60,
+   "n_responses": 72
+  },
+  "ENGLISH 125": {
+   "workload_pct": 45,
+   "median_grade": "A-",
+   "mean_gpa": 3.7,
+   "gpa_sd": 0.3,
+   "desire_pct": 35,
+   "understanding_pct": 70,
+   "expectations_pct": 78,
+   "n_responses": 54
+  },
+  "BIOMEDE 211": {
+   "workload_pct": 70,
+   "median_grade": "B+",
+   "mean_gpa": 3.4,
+   "gpa_sd": 0.5,
+   "desire_pct": 50,
+   "understanding_pct": 78,
+   "expectations_pct": 72,
+   "n_responses": 330
+  },
+  "MATH 215": {
+   "workload_pct": 62,
+   "median_grade": "B+",
+   "mean_gpa": 3.2,
+   "gpa_sd": 0.6,
+   "desire_pct": 25,
+   "understanding_pct": 72,
+   "expectations_pct": 72,
+   "n_responses": 90
+  },
+  "BIOLOGY 171": {
+   "workload_pct": 50,
+   "median_grade": "B+",
+   "mean_gpa": 3.3,
+   "gpa_sd": 0.6,
+   "desire_pct": 35,
+   "understanding_pct": 70,
+   "expectations_pct": 72,
+   "n_responses": 1050
+  },
+  "EECS 280": {
+   "workload_pct": 85,
+   "median_grade": "B+",
+   "mean_gpa": 3.3,
+   "gpa_sd": 0.6,
+   "desire_pct": 60,
+   "understanding_pct": 88,
+   "expectations_pct": 78,
+   "n_responses": 1800
+  },
+  "BIOLOGY 172": {
+   "workload_pct": 62,
+   "median_grade": "B+",
+   "mean_gpa": 3.2,
+   "gpa_sd": 0.6,
+   "desire_pct": 48,
+   "understanding_pct": 78,
+   "expectations_pct": 70,
+   "n_responses": 1200
+  },
+  "BIOLOGY 173": {
+   "workload_pct": 55,
+   "median_grade": "A-",
+   "mean_gpa": 3.6,
+   "gpa_sd": 0.4,
+   "desire_pct": 30,
+   "understanding_pct": 60,
+   "expectations_pct": 65,
+   "n_responses": 72
+  },
+  "CHEM 210": {
+   "workload_pct": 80,
+   "median_grade": "B",
+   "mean_gpa": 3.0,
+   "gpa_sd": 0.8,
+   "desire_pct": 40,
+   "understanding_pct": 82,
+   "expectations_pct": 72,
+   "n_responses": 900
+  },
+  "CHEM 211": {
+   "workload_pct": 45,
+   "median_grade": "A-",
+   "mean_gpa": 3.6,
+   "gpa_sd": 0.4,
+   "desire_pct": 25,
+   "understanding_pct": 55,
+   "expectations_pct": 68,
+   "n_responses": 72
+  },
+  "CHEM 215": {
+   "workload_pct": 84,
+   "median_grade": "B",
+   "mean_gpa": 2.9,
+   "gpa_sd": 0.8,
+   "desire_pct": 35,
+   "understanding_pct": 80,
+   "expectations_pct": 70,
+   "n_responses": 750
+  },
+  "CHEM 216": {
+   "workload_pct": 60,
+   "median_grade": "B+",
+   "mean_gpa": 3.4,
+   "gpa_sd": 0.5,
+   "desire_pct": 25,
+   "understanding_pct": 60,
+   "expectations_pct": 66,
+   "n_responses": 72
+  },
+  "CHEM 351": {
+   "workload_pct": 72,
+   "median_grade": "B+",
+   "mean_gpa": 3.2,
+   "gpa_sd": 0.7,
+   "desire_pct": 45,
+   "understanding_pct": 80,
+   "expectations_pct": 72,
+   "n_responses": 600
+  },
+  "MCDB 310": {
+   "workload_pct": 68,
+   "median_grade": "B+",
+   "mean_gpa": 3.3,
+   "gpa_sd": 0.6,
+   "desire_pct": 50,
+   "understanding_pct": 80,
+   "expectations_pct": 75,
+   "n_responses": 450
+  },
+  "BIOLCHEM 415": {
+   "workload_pct": 66,
+   "median_grade": "B+",
+   "mean_gpa": 3.4,
+   "gpa_sd": 0.6,
+   "desire_pct": 45,
+   "understanding_pct": 78,
+   "expectations_pct": 74,
+   "n_responses": 360
+  },
+  "PHYSICS 240": {
+   "workload_pct": 70,
+   "median_grade": "B",
+   "mean_gpa": 3.0,
+   "gpa_sd": 0.7,
+   "desire_pct": 28,
+   "understanding_pct": 70,
+   "expectations_pct": 66,
+   "n_responses": 750
+  },
+  "PHYSICS 241": {
+   "workload_pct": 35,
+   "median_grade": "A-",
+   "mean_gpa": 3.6,
+   "gpa_sd": 0.4,
+   "desire_pct": 20,
+   "understanding_pct": 50,
+   "expectations_pct": 60,
+   "n_responses": 72
+  },
+  "PSYCH 111": {
+   "workload_pct": 30,
+   "median_grade": "A-",
+   "mean_gpa": 3.6,
+   "gpa_sd": 0.4,
+   "desire_pct": 65,
+   "understanding_pct": 80,
+   "expectations_pct": 82,
+   "n_responses": 1200
+  },
+  "SOC 100": {
+   "workload_pct": 28,
+   "median_grade": "A-",
+   "mean_gpa": 3.6,
+   "gpa_sd": 0.4,
+   "desire_pct": 58,
+   "understanding_pct": 74,
+   "expectations_pct": 79,
+   "n_responses": 750
+  },
+  "STATS 250": {
+   "workload_pct": 40,
+   "median_grade": "A-",
+   "mean_gpa": 3.5,
+   "gpa_sd": 0.5,
+   "desire_pct": 35,
+   "understanding_pct": 72,
+   "expectations_pct": 85,
+   "n_responses": 1500
+  },
+  "ENGLISH 225": {
+   "workload_pct": 48,
+   "median_grade": "A-",
+   "mean_gpa": 3.7,
+   "gpa_sd": 0.3,
+   "desire_pct": 40,
+   "understanding_pct": 72,
+   "expectations_pct": 78,
+   "n_responses": 54
+  },
+  "MATH 216": {
+   "workload_pct": 64,
+   "median_grade": "B",
+   "mean_gpa": 3.1,
+   "gpa_sd": 0.6,
+   "desire_pct": 22,
+   "understanding_pct": 70,
+   "expectations_pct": 70,
+   "n_responses": 90
+  },
+  "BIOMEDE 221": {
+   "workload_pct": 68,
+   "median_grade": "B+",
+   "mean_gpa": 3.3,
+   "gpa_sd": 0.5,
+   "desire_pct": 52,
+   "understanding_pct": 75,
+   "expectations_pct": 69,
+   "n_responses": 360
+  },
+  "BIOMEDE 231": {
+   "workload_pct": 58,
+   "median_grade": "A-",
+   "mean_gpa": 3.6,
+   "gpa_sd": 0.4,
+   "desire_pct": 70,
+   "understanding_pct": 84,
+   "expectations_pct": 80,
+   "n_responses": 360
+  },
+  "BIOMEDE 241": {
+   "workload_pct": 66,
+   "median_grade": "B+",
+   "mean_gpa": 3.3,
+   "gpa_sd": 0.5,
+   "desire_pct": 40,
+   "understanding_pct": 74,
+   "expectations_pct": 72,
+   "n_responses": 330
+  },
+  "BIOMEDE 350": {
+   "workload_pct": 70,
+   "median_grade": "A-",
+   "mean_gpa": 3.6,
+   "gpa_sd": 0.3,
+   "desire_pct": 72,
+   "understanding_pct": 82,
+   "expectations_pct": 70,
+   "n_responses": 240
+  },
+  "BIOMEDE 419": {
+   "workload_pct": 64,
+   "median_grade": "B+",
+   "mean_gpa": 3.4,
+   "gpa_sd": 0.5,
+   "desire_pct": 66,
+   "understanding_pct": 82,
+   "expectations_pct": 74,
+   "n_responses": 270
+  },
+  "BIOMEDE 450": {
+   "workload_pct": 78,
+   "median_grade": "A-",
+   "mean_gpa": 3.7,
+   "gpa_sd": 0.3,
+   "desire_pct": 75,
+   "understanding_pct": 85,
+   "expectations_pct": 70,
+   "n_responses": 210
+  },
+  "BIOMEDE 458": {
+   "workload_pct": 82,
+   "median_grade": "B+",
+   "mean_gpa": 3.4,
+   "gpa_sd": 0.5,
+   "desire_pct": 60,
+   "understanding_pct": 84,
+   "expectations_pct": 70,
+   "n_responses": 180
+  },
+  "BIOMEDE 476": {
+   "workload_pct": 70,
+   "median_grade": "A-",
+   "mean_gpa": 3.6,
+   "gpa_sd": 0.3,
+   "desire_pct": 80,
+   "understanding_pct": 86,
+   "expectations_pct": 76,
+   "n_responses": 150
+  },
+  "EECS 281": {
+   "workload_pct": 92,
+   "median_grade": "B+",
+   "mean_gpa": 3.2,
+   "gpa_sd": 0.7,
+   "desire_pct": 60,
+   "understanding_pct": 88,
+   "expectations_pct": 74,
+   "n_responses": 2100
+  },
+  "EECS 445": {
+   "workload_pct": 85,
+   "median_grade": "B+",
+   "mean_gpa": 3.4,
+   "gpa_sd": 0.6,
+   "desire_pct": 78,
+   "understanding_pct": 86,
+   "expectations_pct": 72,
+   "n_responses": 1200
+  },
+  "EECS 492": {
+   "workload_pct": 70,
+   "median_grade": "A-",
+   "mean_gpa": 3.5,
+   "gpa_sd": 0.5,
+   "desire_pct": 70,
+   "understanding_pct": 80,
+   "expectations_pct": 72,
+   "n_responses": 750
+  },
+  "ROB 311": {
+   "workload_pct": 80,
+   "median_grade": "A-",
+   "mean_gpa": 3.6,
+   "gpa_sd": 0.4,
+   "desire_pct": 85,
+   "understanding_pct": 85,
+   "expectations_pct": 70,
+   "n_responses": 180
+  },
+  "HISTART 101": {
+   "workload_pct": 25,
+   "median_grade": "A-",
+   "mean_gpa": 3.7,
+   "gpa_sd": 0.3,
+   "desire_pct": 55,
+   "understanding_pct": 70,
+   "expectations_pct": 80,
+   "n_responses": 600
+  },
+  "PHIL 160": {
+   "workload_pct": 35,
+   "median_grade": "A-",
+   "mean_gpa": 3.6,
+   "gpa_sd": 0.3,
+   "desire_pct": 60,
+   "understanding_pct": 76,
+   "expectations_pct": 78,
+   "n_responses": 450
+  },
+  "ANTHRCUL 101": {
+   "workload_pct": 25,
+   "median_grade": "A-",
+   "mean_gpa": 3.6,
+   "gpa_sd": 0.4,
+   "desire_pct": 50,
+   "understanding_pct": 70,
+   "expectations_pct": 78,
+   "n_responses": 900
+  }
+ },
+ "instructors": {
+  "Sample Instructor A": {
+   "clarity_pct": 80,
+   "n_responses": 536,
+   "mean_gpa_given": {
+    "ENGR 100": 3.57
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "ENGR 100",
+     "mean_gpa": 3.36,
+     "clarity_pct": 67
+    },
+    {
+     "term": "WN24",
+     "course": "ENGR 100",
+     "mean_gpa": 3.4,
+     "clarity_pct": 70
+    },
+    {
+     "term": "FA24",
+     "course": "ENGR 100",
+     "mean_gpa": 3.44,
+     "clarity_pct": 72
+    },
+    {
+     "term": "WN25",
+     "course": "ENGR 100",
+     "mean_gpa": 3.49,
+     "clarity_pct": 75
+    },
+    {
+     "term": "FA25",
+     "course": "ENGR 100",
+     "mean_gpa": 3.53,
+     "clarity_pct": 77
+    },
+    {
+     "term": "WN26",
+     "course": "ENGR 100",
+     "mean_gpa": 3.57,
+     "clarity_pct": 80
+    }
+   ]
+  },
+  "Sample Instructor B": {
+   "clarity_pct": 64,
+   "n_responses": 249,
+   "mean_gpa_given": {
+    "ENGR 101": 3.58
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "ENGR 101",
+     "mean_gpa": 3.6,
+     "clarity_pct": 65
+    },
+    {
+     "term": "WN24",
+     "course": "ENGR 101",
+     "mean_gpa": 3.59,
+     "clarity_pct": 65
+    },
+    {
+     "term": "FA24",
+     "course": "ENGR 101",
+     "mean_gpa": 3.59,
+     "clarity_pct": 65
+    },
+    {
+     "term": "WN25",
+     "course": "ENGR 101",
+     "mean_gpa": 3.59,
+     "clarity_pct": 64
+    },
+    {
+     "term": "FA25",
+     "course": "ENGR 101",
+     "mean_gpa": 3.59,
+     "clarity_pct": 64
+    },
+    {
+     "term": "WN26",
+     "course": "ENGR 101",
+     "mean_gpa": 3.58,
+     "clarity_pct": 64
+    }
+   ]
+  },
+  "Sample Instructor C": {
+   "clarity_pct": 91,
+   "n_responses": 250,
+   "mean_gpa_given": {
+    "ENGR 101": 3.16
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "ENGR 101",
+     "mean_gpa": 3.27,
+     "clarity_pct": 98
+    },
+    {
+     "term": "WN24",
+     "course": "ENGR 101",
+     "mean_gpa": 3.25,
+     "clarity_pct": 97
+    },
+    {
+     "term": "FA24",
+     "course": "ENGR 101",
+     "mean_gpa": 3.23,
+     "clarity_pct": 95
+    },
+    {
+     "term": "WN25",
+     "course": "ENGR 101",
+     "mean_gpa": 3.2,
+     "clarity_pct": 94
+    },
+    {
+     "term": "FA25",
+     "course": "ENGR 101",
+     "mean_gpa": 3.18,
+     "clarity_pct": 92
+    },
+    {
+     "term": "WN26",
+     "course": "ENGR 101",
+     "mean_gpa": 3.16,
+     "clarity_pct": 91
+    }
+   ]
+  },
+  "Sample Instructor D": {
+   "clarity_pct": 57,
+   "n_responses": 102,
+   "mean_gpa_given": {
+    "MATH 115": 3.26
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "MATH 115",
+     "mean_gpa": 3.32,
+     "clarity_pct": 61
+    },
+    {
+     "term": "WN24",
+     "course": "MATH 115",
+     "mean_gpa": 3.31,
+     "clarity_pct": 60
+    },
+    {
+     "term": "FA24",
+     "course": "MATH 115",
+     "mean_gpa": 3.29,
+     "clarity_pct": 59
+    },
+    {
+     "term": "WN25",
+     "course": "MATH 115",
+     "mean_gpa": 3.28,
+     "clarity_pct": 58
+    },
+    {
+     "term": "FA25",
+     "course": "MATH 115",
+     "mean_gpa": 3.27,
+     "clarity_pct": 58
+    },
+    {
+     "term": "WN26",
+     "course": "MATH 115",
+     "mean_gpa": 3.26,
+     "clarity_pct": 57
+    }
+   ]
+  },
+  "Sample Instructor E": {
+   "clarity_pct": 80,
+   "n_responses": 221,
+   "mean_gpa_given": {
+    "MATH 116": 3.07
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "MATH 116",
+     "mean_gpa": 2.87,
+     "clarity_pct": 68
+    },
+    {
+     "term": "WN24",
+     "course": "MATH 116",
+     "mean_gpa": 2.91,
+     "clarity_pct": 70
+    },
+    {
+     "term": "FA24",
+     "course": "MATH 116",
+     "mean_gpa": 2.95,
+     "clarity_pct": 73
+    },
+    {
+     "term": "WN25",
+     "course": "MATH 116",
+     "mean_gpa": 2.99,
+     "clarity_pct": 75
+    },
+    {
+     "term": "FA25",
+     "course": "MATH 116",
+     "mean_gpa": 3.03,
+     "clarity_pct": 78
+    },
+    {
+     "term": "WN26",
+     "course": "MATH 116",
+     "mean_gpa": 3.07,
+     "clarity_pct": 80
+    }
+   ]
+  },
+  "Sample Instructor F": {
+   "clarity_pct": 56,
+   "n_responses": 120,
+   "mean_gpa_given": {
+    "CHEM 130": 2.82
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "CHEM 130",
+     "mean_gpa": 2.59,
+     "clarity_pct": 42
+    },
+    {
+     "term": "WN24",
+     "course": "CHEM 130",
+     "mean_gpa": 2.64,
+     "clarity_pct": 45
+    },
+    {
+     "term": "FA24",
+     "course": "CHEM 130",
+     "mean_gpa": 2.68,
+     "clarity_pct": 48
+    },
+    {
+     "term": "WN25",
+     "course": "CHEM 130",
+     "mean_gpa": 2.73,
+     "clarity_pct": 51
+    },
+    {
+     "term": "FA25",
+     "course": "CHEM 130",
+     "mean_gpa": 2.78,
+     "clarity_pct": 53
+    },
+    {
+     "term": "WN26",
+     "course": "CHEM 130",
+     "mean_gpa": 2.82,
+     "clarity_pct": 56
+    }
+   ]
+  },
+  "Sample Instructor G": {
+   "clarity_pct": 90,
+   "n_responses": 90,
+   "mean_gpa_given": {
+    "CHEM 130": 3.27
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "CHEM 130",
+     "mean_gpa": 3.37,
+     "clarity_pct": 96
+    },
+    {
+     "term": "WN24",
+     "course": "CHEM 130",
+     "mean_gpa": 3.35,
+     "clarity_pct": 95
+    },
+    {
+     "term": "FA24",
+     "course": "CHEM 130",
+     "mean_gpa": 3.33,
+     "clarity_pct": 94
+    },
+    {
+     "term": "WN25",
+     "course": "CHEM 130",
+     "mean_gpa": 3.31,
+     "clarity_pct": 93
+    },
+    {
+     "term": "FA25",
+     "course": "CHEM 130",
+     "mean_gpa": 3.29,
+     "clarity_pct": 91
+    },
+    {
+     "term": "WN26",
+     "course": "CHEM 130",
+     "mean_gpa": 3.27,
+     "clarity_pct": 90
+    }
+   ]
+  },
+  "Sample Instructor H": {
+   "clarity_pct": 89,
+   "n_responses": 260,
+   "mean_gpa_given": {
+    "CHEM 125": 3.61
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "CHEM 125",
+     "mean_gpa": 3.53,
+     "clarity_pct": 84
+    },
+    {
+     "term": "WN24",
+     "course": "CHEM 125",
+     "mean_gpa": 3.54,
+     "clarity_pct": 85
+    },
+    {
+     "term": "FA24",
+     "course": "CHEM 125",
+     "mean_gpa": 3.56,
+     "clarity_pct": 86
+    },
+    {
+     "term": "WN25",
+     "course": "CHEM 125",
+     "mean_gpa": 3.58,
+     "clarity_pct": 87
+    },
+    {
+     "term": "FA25",
+     "course": "CHEM 125",
+     "mean_gpa": 3.59,
+     "clarity_pct": 88
+    },
+    {
+     "term": "WN26",
+     "course": "CHEM 125",
+     "mean_gpa": 3.61,
+     "clarity_pct": 89
+    }
+   ]
+  },
+  "Sample Instructor I": {
+   "clarity_pct": 83,
+   "n_responses": 64,
+   "mean_gpa_given": {
+    "CHEM 126": 3.7
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "CHEM 126",
+     "mean_gpa": 3.72,
+     "clarity_pct": 85
+    },
+    {
+     "term": "WN24",
+     "course": "CHEM 126",
+     "mean_gpa": 3.72,
+     "clarity_pct": 84
+    },
+    {
+     "term": "FA24",
+     "course": "CHEM 126",
+     "mean_gpa": 3.71,
+     "clarity_pct": 84
+    },
+    {
+     "term": "WN25",
+     "course": "CHEM 126",
+     "mean_gpa": 3.71,
+     "clarity_pct": 84
+    },
+    {
+     "term": "FA25",
+     "course": "CHEM 126",
+     "mean_gpa": 3.7,
+     "clarity_pct": 83
+    },
+    {
+     "term": "WN26",
+     "course": "CHEM 126",
+     "mean_gpa": 3.7,
+     "clarity_pct": 83
+    }
+   ]
+  },
+  "Sample Instructor J": {
+   "clarity_pct": 69,
+   "n_responses": 476,
+   "mean_gpa_given": {
+    "PHYSICS 140": 3.3
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "PHYSICS 140",
+     "mean_gpa": 3.0,
+     "clarity_pct": 51
+    },
+    {
+     "term": "WN24",
+     "course": "PHYSICS 140",
+     "mean_gpa": 3.06,
+     "clarity_pct": 55
+    },
+    {
+     "term": "FA24",
+     "course": "PHYSICS 140",
+     "mean_gpa": 3.12,
+     "clarity_pct": 58
+    },
+    {
+     "term": "WN25",
+     "course": "PHYSICS 140",
+     "mean_gpa": 3.18,
+     "clarity_pct": 62
+    },
+    {
+     "term": "FA25",
+     "course": "PHYSICS 140",
+     "mean_gpa": 3.24,
+     "clarity_pct": 65
+    },
+    {
+     "term": "WN26",
+     "course": "PHYSICS 140",
+     "mean_gpa": 3.3,
+     "clarity_pct": 69
+    }
+   ]
+  },
+  "Sample Instructor K": {
+   "clarity_pct": 57,
+   "n_responses": 320,
+   "mean_gpa_given": {
+    "PHYSICS 140": 2.89
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "PHYSICS 140",
+     "mean_gpa": 3.05,
+     "clarity_pct": 67
+    },
+    {
+     "term": "WN24",
+     "course": "PHYSICS 140",
+     "mean_gpa": 3.02,
+     "clarity_pct": 65
+    },
+    {
+     "term": "FA24",
+     "course": "PHYSICS 140",
+     "mean_gpa": 2.99,
+     "clarity_pct": 63
+    },
+    {
+     "term": "WN25",
+     "course": "PHYSICS 140",
+     "mean_gpa": 2.95,
+     "clarity_pct": 61
+    },
+    {
+     "term": "FA25",
+     "course": "PHYSICS 140",
+     "mean_gpa": 2.92,
+     "clarity_pct": 59
+    },
+    {
+     "term": "WN26",
+     "course": "PHYSICS 140",
+     "mean_gpa": 2.89,
+     "clarity_pct": 57
+    }
+   ]
+  },
+  "Sample Instructor L": {
+   "clarity_pct": 70,
+   "n_responses": 90,
+   "mean_gpa_given": {
+    "PHYSICS 141": 3.34
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "PHYSICS 141",
+     "mean_gpa": 3.18,
+     "clarity_pct": 60
+    },
+    {
+     "term": "WN24",
+     "course": "PHYSICS 141",
+     "mean_gpa": 3.21,
+     "clarity_pct": 62
+    },
+    {
+     "term": "FA24",
+     "course": "PHYSICS 141",
+     "mean_gpa": 3.25,
+     "clarity_pct": 64
+    },
+    {
+     "term": "WN25",
+     "course": "PHYSICS 141",
+     "mean_gpa": 3.28,
+     "clarity_pct": 66
+    },
+    {
+     "term": "FA25",
+     "course": "PHYSICS 141",
+     "mean_gpa": 3.31,
+     "clarity_pct": 68
+    },
+    {
+     "term": "WN26",
+     "course": "PHYSICS 141",
+     "mean_gpa": 3.34,
+     "clarity_pct": 70
+    }
+   ]
+  },
+  "Sample Instructor M": {
+   "clarity_pct": 77,
+   "n_responses": 170,
+   "mean_gpa_given": {
+    "ENGLISH 125": 3.91
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "ENGLISH 125",
+     "mean_gpa": 3.98,
+     "clarity_pct": 81
+    },
+    {
+     "term": "WN24",
+     "course": "ENGLISH 125",
+     "mean_gpa": 3.96,
+     "clarity_pct": 80
+    },
+    {
+     "term": "FA24",
+     "course": "ENGLISH 125",
+     "mean_gpa": 3.95,
+     "clarity_pct": 79
+    },
+    {
+     "term": "WN25",
+     "course": "ENGLISH 125",
+     "mean_gpa": 3.94,
+     "clarity_pct": 79
+    },
+    {
+     "term": "FA25",
+     "course": "ENGLISH 125",
+     "mean_gpa": 3.92,
+     "clarity_pct": 78
+    },
+    {
+     "term": "WN26",
+     "course": "ENGLISH 125",
+     "mean_gpa": 3.91,
+     "clarity_pct": 77
+    }
+   ]
+  },
+  "Sample Instructor N": {
+   "clarity_pct": 53,
+   "n_responses": 60,
+   "mean_gpa_given": {
+    "BIOMEDE 211": 3.23
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "BIOMEDE 211",
+     "mean_gpa": 2.97,
+     "clarity_pct": 38
+    },
+    {
+     "term": "WN24",
+     "course": "BIOMEDE 211",
+     "mean_gpa": 3.02,
+     "clarity_pct": 41
+    },
+    {
+     "term": "FA24",
+     "course": "BIOMEDE 211",
+     "mean_gpa": 3.07,
+     "clarity_pct": 44
+    },
+    {
+     "term": "WN25",
+     "course": "BIOMEDE 211",
+     "mean_gpa": 3.13,
+     "clarity_pct": 47
+    },
+    {
+     "term": "FA25",
+     "course": "BIOMEDE 211",
+     "mean_gpa": 3.18,
+     "clarity_pct": 50
+    },
+    {
+     "term": "WN26",
+     "course": "BIOMEDE 211",
+     "mean_gpa": 3.23,
+     "clarity_pct": 53
+    }
+   ]
+  },
+  "Sample Instructor O": {
+   "clarity_pct": 55,
+   "n_responses": 541,
+   "mean_gpa_given": {
+    "MATH 215": 3.13
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "MATH 215",
+     "mean_gpa": 3.0,
+     "clarity_pct": 47
+    },
+    {
+     "term": "WN24",
+     "course": "MATH 215",
+     "mean_gpa": 3.03,
+     "clarity_pct": 49
+    },
+    {
+     "term": "FA24",
+     "course": "MATH 215",
+     "mean_gpa": 3.05,
+     "clarity_pct": 50
+    },
+    {
+     "term": "WN25",
+     "course": "MATH 215",
+     "mean_gpa": 3.08,
+     "clarity_pct": 52
+    },
+    {
+     "term": "FA25",
+     "course": "MATH 215",
+     "mean_gpa": 3.1,
+     "clarity_pct": 53
+    },
+    {
+     "term": "WN26",
+     "course": "MATH 215",
+     "mean_gpa": 3.13,
+     "clarity_pct": 55
+    }
+   ]
+  },
+  "Sample Instructor P": {
+   "clarity_pct": 78,
+   "n_responses": 134,
+   "mean_gpa_given": {
+    "BIOLOGY 171": 3.34
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "BIOLOGY 171",
+     "mean_gpa": 3.52,
+     "clarity_pct": 89
+    },
+    {
+     "term": "WN24",
+     "course": "BIOLOGY 171",
+     "mean_gpa": 3.48,
+     "clarity_pct": 87
+    },
+    {
+     "term": "FA24",
+     "course": "BIOLOGY 171",
+     "mean_gpa": 3.45,
+     "clarity_pct": 85
+    },
+    {
+     "term": "WN25",
+     "course": "BIOLOGY 171",
+     "mean_gpa": 3.41,
+     "clarity_pct": 82
+    },
+    {
+     "term": "FA25",
+     "course": "BIOLOGY 171",
+     "mean_gpa": 3.38,
+     "clarity_pct": 80
+    },
+    {
+     "term": "WN26",
+     "course": "BIOLOGY 171",
+     "mean_gpa": 3.34,
+     "clarity_pct": 78
+    }
+   ]
+  },
+  "Sample Instructor Q": {
+   "clarity_pct": 69,
+   "n_responses": 404,
+   "mean_gpa_given": {
+    "BIOLOGY 171": 3.05
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "BIOLOGY 171",
+     "mean_gpa": 3.15,
+     "clarity_pct": 75
+    },
+    {
+     "term": "WN24",
+     "course": "BIOLOGY 171",
+     "mean_gpa": 3.13,
+     "clarity_pct": 74
+    },
+    {
+     "term": "FA24",
+     "course": "BIOLOGY 171",
+     "mean_gpa": 3.11,
+     "clarity_pct": 73
+    },
+    {
+     "term": "WN25",
+     "course": "BIOLOGY 171",
+     "mean_gpa": 3.09,
+     "clarity_pct": 71
+    },
+    {
+     "term": "FA25",
+     "course": "BIOLOGY 171",
+     "mean_gpa": 3.07,
+     "clarity_pct": 70
+    },
+    {
+     "term": "WN26",
+     "course": "BIOLOGY 171",
+     "mean_gpa": 3.05,
+     "clarity_pct": 69
+    }
+   ]
+  },
+  "Sample Instructor R": {
+   "clarity_pct": 78,
+   "n_responses": 180,
+   "mean_gpa_given": {
+    "EECS 280": 3.08
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "EECS 280",
+     "mean_gpa": 2.96,
+     "clarity_pct": 71
+    },
+    {
+     "term": "WN24",
+     "course": "EECS 280",
+     "mean_gpa": 2.98,
+     "clarity_pct": 72
+    },
+    {
+     "term": "FA24",
+     "course": "EECS 280",
+     "mean_gpa": 3.01,
+     "clarity_pct": 74
+    },
+    {
+     "term": "WN25",
+     "course": "EECS 280",
+     "mean_gpa": 3.03,
+     "clarity_pct": 75
+    },
+    {
+     "term": "FA25",
+     "course": "EECS 280",
+     "mean_gpa": 3.06,
+     "clarity_pct": 77
+    },
+    {
+     "term": "WN26",
+     "course": "EECS 280",
+     "mean_gpa": 3.08,
+     "clarity_pct": 78
+    }
+   ]
+  },
+  "Sample Instructor S": {
+   "clarity_pct": 52,
+   "n_responses": 121,
+   "mean_gpa_given": {
+    "EECS 280": 3.28
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "EECS 280",
+     "mean_gpa": 3.29,
+     "clarity_pct": 52
+    },
+    {
+     "term": "WN24",
+     "course": "EECS 280",
+     "mean_gpa": 3.29,
+     "clarity_pct": 52
+    },
+    {
+     "term": "FA24",
+     "course": "EECS 280",
+     "mean_gpa": 3.28,
+     "clarity_pct": 52
+    },
+    {
+     "term": "WN25",
+     "course": "EECS 280",
+     "mean_gpa": 3.28,
+     "clarity_pct": 52
+    },
+    {
+     "term": "FA25",
+     "course": "EECS 280",
+     "mean_gpa": 3.28,
+     "clarity_pct": 52
+    },
+    {
+     "term": "WN26",
+     "course": "EECS 280",
+     "mean_gpa": 3.28,
+     "clarity_pct": 52
+    }
+   ]
+  },
+  "Sample Instructor T": {
+   "clarity_pct": 87,
+   "n_responses": 252,
+   "mean_gpa_given": {
+    "BIOLOGY 172": 3.17
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "BIOLOGY 172",
+     "mean_gpa": 3.35,
+     "clarity_pct": 98
+    },
+    {
+     "term": "WN24",
+     "course": "BIOLOGY 172",
+     "mean_gpa": 3.32,
+     "clarity_pct": 96
+    },
+    {
+     "term": "FA24",
+     "course": "BIOLOGY 172",
+     "mean_gpa": 3.28,
+     "clarity_pct": 94
+    },
+    {
+     "term": "WN25",
+     "course": "BIOLOGY 172",
+     "mean_gpa": 3.24,
+     "clarity_pct": 91
+    },
+    {
+     "term": "FA25",
+     "course": "BIOLOGY 172",
+     "mean_gpa": 3.21,
+     "clarity_pct": 89
+    },
+    {
+     "term": "WN26",
+     "course": "BIOLOGY 172",
+     "mean_gpa": 3.17,
+     "clarity_pct": 87
+    }
+   ]
+  },
+  "Sample Instructor U": {
+   "clarity_pct": 60,
+   "n_responses": 489,
+   "mean_gpa_given": {
+    "BIOLOGY 172": 3.29
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "BIOLOGY 172",
+     "mean_gpa": 3.52,
+     "clarity_pct": 74
+    },
+    {
+     "term": "WN24",
+     "course": "BIOLOGY 172",
+     "mean_gpa": 3.47,
+     "clarity_pct": 71
+    },
+    {
+     "term": "FA24",
+     "course": "BIOLOGY 172",
+     "mean_gpa": 3.42,
+     "clarity_pct": 68
+    },
+    {
+     "term": "WN25",
+     "course": "BIOLOGY 172",
+     "mean_gpa": 3.38,
+     "clarity_pct": 66
+    },
+    {
+     "term": "FA25",
+     "course": "BIOLOGY 172",
+     "mean_gpa": 3.33,
+     "clarity_pct": 63
+    },
+    {
+     "term": "WN26",
+     "course": "BIOLOGY 172",
+     "mean_gpa": 3.29,
+     "clarity_pct": 60
+    }
+   ]
+  },
+  "Sample Instructor V": {
+   "clarity_pct": 78,
+   "n_responses": 277,
+   "mean_gpa_given": {
+    "BIOLOGY 173": 3.3
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "BIOLOGY 173",
+     "mean_gpa": 3.08,
+     "clarity_pct": 65
+    },
+    {
+     "term": "WN24",
+     "course": "BIOLOGY 173",
+     "mean_gpa": 3.13,
+     "clarity_pct": 68
+    },
+    {
+     "term": "FA24",
+     "course": "BIOLOGY 173",
+     "mean_gpa": 3.17,
+     "clarity_pct": 70
+    },
+    {
+     "term": "WN25",
+     "course": "BIOLOGY 173",
+     "mean_gpa": 3.21,
+     "clarity_pct": 73
+    },
+    {
+     "term": "FA25",
+     "course": "BIOLOGY 173",
+     "mean_gpa": 3.26,
+     "clarity_pct": 75
+    },
+    {
+     "term": "WN26",
+     "course": "BIOLOGY 173",
+     "mean_gpa": 3.3,
+     "clarity_pct": 78
+    }
+   ]
+  },
+  "Sample Instructor W": {
+   "clarity_pct": 89,
+   "n_responses": 371,
+   "mean_gpa_given": {
+    "CHEM 210": 3.3
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "CHEM 210",
+     "mean_gpa": 3.59,
+     "clarity_pct": 98
+    },
+    {
+     "term": "WN24",
+     "course": "CHEM 210",
+     "mean_gpa": 3.53,
+     "clarity_pct": 98
+    },
+    {
+     "term": "FA24",
+     "course": "CHEM 210",
+     "mean_gpa": 3.47,
+     "clarity_pct": 98
+    },
+    {
+     "term": "WN25",
+     "course": "CHEM 210",
+     "mean_gpa": 3.41,
+     "clarity_pct": 96
+    },
+    {
+     "term": "FA25",
+     "course": "CHEM 210",
+     "mean_gpa": 3.36,
+     "clarity_pct": 92
+    },
+    {
+     "term": "WN26",
+     "course": "CHEM 210",
+     "mean_gpa": 3.3,
+     "clarity_pct": 89
+    }
+   ]
+  },
+  "Sample Instructor X": {
+   "clarity_pct": 63,
+   "n_responses": 463,
+   "mean_gpa_given": {
+    "CHEM 210": 3.3
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "CHEM 210",
+     "mean_gpa": 3.24,
+     "clarity_pct": 59
+    },
+    {
+     "term": "WN24",
+     "course": "CHEM 210",
+     "mean_gpa": 3.25,
+     "clarity_pct": 60
+    },
+    {
+     "term": "FA24",
+     "course": "CHEM 210",
+     "mean_gpa": 3.26,
+     "clarity_pct": 61
+    },
+    {
+     "term": "WN25",
+     "course": "CHEM 210",
+     "mean_gpa": 3.27,
+     "clarity_pct": 62
+    },
+    {
+     "term": "FA25",
+     "course": "CHEM 210",
+     "mean_gpa": 3.29,
+     "clarity_pct": 62
+    },
+    {
+     "term": "WN26",
+     "course": "CHEM 210",
+     "mean_gpa": 3.3,
+     "clarity_pct": 63
+    }
+   ]
+  },
+  "Sample Instructor Y": {
+   "clarity_pct": 88,
+   "n_responses": 162,
+   "mean_gpa_given": {
+    "CHEM 211": 3.33
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "CHEM 211",
+     "mean_gpa": 3.54,
+     "clarity_pct": 98
+    },
+    {
+     "term": "WN24",
+     "course": "CHEM 211",
+     "mean_gpa": 3.5,
+     "clarity_pct": 98
+    },
+    {
+     "term": "FA24",
+     "course": "CHEM 211",
+     "mean_gpa": 3.45,
+     "clarity_pct": 96
+    },
+    {
+     "term": "WN25",
+     "course": "CHEM 211",
+     "mean_gpa": 3.41,
+     "clarity_pct": 93
+    },
+    {
+     "term": "FA25",
+     "course": "CHEM 211",
+     "mean_gpa": 3.37,
+     "clarity_pct": 91
+    },
+    {
+     "term": "WN26",
+     "course": "CHEM 211",
+     "mean_gpa": 3.33,
+     "clarity_pct": 88
+    }
+   ]
+  },
+  "Sample Instructor Z": {
+   "clarity_pct": 80,
+   "n_responses": 324,
+   "mean_gpa_given": {
+    "CHEM 215": 2.61
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "CHEM 215",
+     "mean_gpa": 2.54,
+     "clarity_pct": 76
+    },
+    {
+     "term": "WN24",
+     "course": "CHEM 215",
+     "mean_gpa": 2.55,
+     "clarity_pct": 77
+    },
+    {
+     "term": "FA24",
+     "course": "CHEM 215",
+     "mean_gpa": 2.57,
+     "clarity_pct": 78
+    },
+    {
+     "term": "WN25",
+     "course": "CHEM 215",
+     "mean_gpa": 2.58,
+     "clarity_pct": 78
+    },
+    {
+     "term": "FA25",
+     "course": "CHEM 215",
+     "mean_gpa": 2.59,
+     "clarity_pct": 79
+    },
+    {
+     "term": "WN26",
+     "course": "CHEM 215",
+     "mean_gpa": 2.61,
+     "clarity_pct": 80
+    }
+   ]
+  },
+  "Sample Instructor AA": {
+   "clarity_pct": 70,
+   "n_responses": 455,
+   "mean_gpa_given": {
+    "CHEM 215": 2.64
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "CHEM 215",
+     "mean_gpa": 2.89,
+     "clarity_pct": 85
+    },
+    {
+     "term": "WN24",
+     "course": "CHEM 215",
+     "mean_gpa": 2.84,
+     "clarity_pct": 82
+    },
+    {
+     "term": "FA24",
+     "course": "CHEM 215",
+     "mean_gpa": 2.79,
+     "clarity_pct": 79
+    },
+    {
+     "term": "WN25",
+     "course": "CHEM 215",
+     "mean_gpa": 2.74,
+     "clarity_pct": 76
+    },
+    {
+     "term": "FA25",
+     "course": "CHEM 215",
+     "mean_gpa": 2.69,
+     "clarity_pct": 73
+    },
+    {
+     "term": "WN26",
+     "course": "CHEM 215",
+     "mean_gpa": 2.64,
+     "clarity_pct": 70
+    }
+   ]
+  },
+  "Sample Instructor AB": {
+   "clarity_pct": 89,
+   "n_responses": 308,
+   "mean_gpa_given": {
+    "CHEM 216": 3.11
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "CHEM 216",
+     "mean_gpa": 3.19,
+     "clarity_pct": 94
+    },
+    {
+     "term": "WN24",
+     "course": "CHEM 216",
+     "mean_gpa": 3.17,
+     "clarity_pct": 93
+    },
+    {
+     "term": "FA24",
+     "course": "CHEM 216",
+     "mean_gpa": 3.16,
+     "clarity_pct": 92
+    },
+    {
+     "term": "WN25",
+     "course": "CHEM 216",
+     "mean_gpa": 3.14,
+     "clarity_pct": 91
+    },
+    {
+     "term": "FA25",
+     "course": "CHEM 216",
+     "mean_gpa": 3.13,
+     "clarity_pct": 90
+    },
+    {
+     "term": "WN26",
+     "course": "CHEM 216",
+     "mean_gpa": 3.11,
+     "clarity_pct": 89
+    }
+   ]
+  },
+  "Sample Instructor AC": {
+   "clarity_pct": 91,
+   "n_responses": 524,
+   "mean_gpa_given": {
+    "CHEM 351": 2.98
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "CHEM 351",
+     "mean_gpa": 2.92,
+     "clarity_pct": 88
+    },
+    {
+     "term": "WN24",
+     "course": "CHEM 351",
+     "mean_gpa": 2.93,
+     "clarity_pct": 88
+    },
+    {
+     "term": "FA24",
+     "course": "CHEM 351",
+     "mean_gpa": 2.94,
+     "clarity_pct": 89
+    },
+    {
+     "term": "WN25",
+     "course": "CHEM 351",
+     "mean_gpa": 2.96,
+     "clarity_pct": 90
+    },
+    {
+     "term": "FA25",
+     "course": "CHEM 351",
+     "mean_gpa": 2.97,
+     "clarity_pct": 90
+    },
+    {
+     "term": "WN26",
+     "course": "CHEM 351",
+     "mean_gpa": 2.98,
+     "clarity_pct": 91
+    }
+   ]
+  },
+  "Sample Instructor AD": {
+   "clarity_pct": 88,
+   "n_responses": 198,
+   "mean_gpa_given": {
+    "CHEM 351": 3.42
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "CHEM 351",
+     "mean_gpa": 3.61,
+     "clarity_pct": 98
+    },
+    {
+     "term": "WN24",
+     "course": "CHEM 351",
+     "mean_gpa": 3.57,
+     "clarity_pct": 97
+    },
+    {
+     "term": "FA24",
+     "course": "CHEM 351",
+     "mean_gpa": 3.53,
+     "clarity_pct": 95
+    },
+    {
+     "term": "WN25",
+     "course": "CHEM 351",
+     "mean_gpa": 3.5,
+     "clarity_pct": 93
+    },
+    {
+     "term": "FA25",
+     "course": "CHEM 351",
+     "mean_gpa": 3.46,
+     "clarity_pct": 90
+    },
+    {
+     "term": "WN26",
+     "course": "CHEM 351",
+     "mean_gpa": 3.42,
+     "clarity_pct": 88
+    }
+   ]
+  },
+  "Sample Instructor AE": {
+   "clarity_pct": 61,
+   "n_responses": 378,
+   "mean_gpa_given": {
+    "MCDB 310": 3.55
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "MCDB 310",
+     "mean_gpa": 3.35,
+     "clarity_pct": 50
+    },
+    {
+     "term": "WN24",
+     "course": "MCDB 310",
+     "mean_gpa": 3.39,
+     "clarity_pct": 52
+    },
+    {
+     "term": "FA24",
+     "course": "MCDB 310",
+     "mean_gpa": 3.43,
+     "clarity_pct": 54
+    },
+    {
+     "term": "WN25",
+     "course": "MCDB 310",
+     "mean_gpa": 3.47,
+     "clarity_pct": 56
+    },
+    {
+     "term": "FA25",
+     "course": "MCDB 310",
+     "mean_gpa": 3.51,
+     "clarity_pct": 59
+    },
+    {
+     "term": "WN26",
+     "course": "MCDB 310",
+     "mean_gpa": 3.55,
+     "clarity_pct": 61
+    }
+   ]
+  },
+  "Sample Instructor AF": {
+   "clarity_pct": 67,
+   "n_responses": 254,
+   "mean_gpa_given": {
+    "BIOLCHEM 415": 3.2
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "BIOLCHEM 415",
+     "mean_gpa": 3.12,
+     "clarity_pct": 62
+    },
+    {
+     "term": "WN24",
+     "course": "BIOLCHEM 415",
+     "mean_gpa": 3.13,
+     "clarity_pct": 63
+    },
+    {
+     "term": "FA24",
+     "course": "BIOLCHEM 415",
+     "mean_gpa": 3.15,
+     "clarity_pct": 64
+    },
+    {
+     "term": "WN25",
+     "course": "BIOLCHEM 415",
+     "mean_gpa": 3.16,
+     "clarity_pct": 65
+    },
+    {
+     "term": "FA25",
+     "course": "BIOLCHEM 415",
+     "mean_gpa": 3.18,
+     "clarity_pct": 66
+    },
+    {
+     "term": "WN26",
+     "course": "BIOLCHEM 415",
+     "mean_gpa": 3.2,
+     "clarity_pct": 67
+    }
+   ]
+  },
+  "Sample Instructor AG": {
+   "clarity_pct": 87,
+   "n_responses": 261,
+   "mean_gpa_given": {
+    "PHYSICS 240": 3.11
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "PHYSICS 240",
+     "mean_gpa": 3.18,
+     "clarity_pct": 91
+    },
+    {
+     "term": "WN24",
+     "course": "PHYSICS 240",
+     "mean_gpa": 3.17,
+     "clarity_pct": 90
+    },
+    {
+     "term": "FA24",
+     "course": "PHYSICS 240",
+     "mean_gpa": 3.15,
+     "clarity_pct": 89
+    },
+    {
+     "term": "WN25",
+     "course": "PHYSICS 240",
+     "mean_gpa": 3.14,
+     "clarity_pct": 89
+    },
+    {
+     "term": "FA25",
+     "course": "PHYSICS 240",
+     "mean_gpa": 3.13,
+     "clarity_pct": 88
+    },
+    {
+     "term": "WN26",
+     "course": "PHYSICS 240",
+     "mean_gpa": 3.11,
+     "clarity_pct": 87
+    }
+   ]
+  },
+  "Sample Instructor AH": {
+   "clarity_pct": 82,
+   "n_responses": 140,
+   "mean_gpa_given": {
+    "PHYSICS 240": 2.95
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "PHYSICS 240",
+     "mean_gpa": 3.19,
+     "clarity_pct": 96
+    },
+    {
+     "term": "WN24",
+     "course": "PHYSICS 240",
+     "mean_gpa": 3.14,
+     "clarity_pct": 93
+    },
+    {
+     "term": "FA24",
+     "course": "PHYSICS 240",
+     "mean_gpa": 3.1,
+     "clarity_pct": 91
+    },
+    {
+     "term": "WN25",
+     "course": "PHYSICS 240",
+     "mean_gpa": 3.05,
+     "clarity_pct": 88
+    },
+    {
+     "term": "FA25",
+     "course": "PHYSICS 240",
+     "mean_gpa": 3.0,
+     "clarity_pct": 85
+    },
+    {
+     "term": "WN26",
+     "course": "PHYSICS 240",
+     "mean_gpa": 2.95,
+     "clarity_pct": 82
+    }
+   ]
+  },
+  "Sample Instructor AI": {
+   "clarity_pct": 54,
+   "n_responses": 584,
+   "mean_gpa_given": {
+    "PHYSICS 241": 3.88
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "PHYSICS 241",
+     "mean_gpa": 4.03,
+     "clarity_pct": 63
+    },
+    {
+     "term": "WN24",
+     "course": "PHYSICS 241",
+     "mean_gpa": 4.0,
+     "clarity_pct": 62
+    },
+    {
+     "term": "FA24",
+     "course": "PHYSICS 241",
+     "mean_gpa": 3.97,
+     "clarity_pct": 60
+    },
+    {
+     "term": "WN25",
+     "course": "PHYSICS 241",
+     "mean_gpa": 3.94,
+     "clarity_pct": 58
+    },
+    {
+     "term": "FA25",
+     "course": "PHYSICS 241",
+     "mean_gpa": 3.91,
+     "clarity_pct": 56
+    },
+    {
+     "term": "WN26",
+     "course": "PHYSICS 241",
+     "mean_gpa": 3.88,
+     "clarity_pct": 54
+    }
+   ]
+  },
+  "Sample Instructor AJ": {
+   "clarity_pct": 77,
+   "n_responses": 323,
+   "mean_gpa_given": {
+    "PSYCH 111": 3.55
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "PSYCH 111",
+     "mean_gpa": 3.31,
+     "clarity_pct": 62
+    },
+    {
+     "term": "WN24",
+     "course": "PSYCH 111",
+     "mean_gpa": 3.36,
+     "clarity_pct": 65
+    },
+    {
+     "term": "FA24",
+     "course": "PSYCH 111",
+     "mean_gpa": 3.41,
+     "clarity_pct": 68
+    },
+    {
+     "term": "WN25",
+     "course": "PSYCH 111",
+     "mean_gpa": 3.46,
+     "clarity_pct": 71
+    },
+    {
+     "term": "FA25",
+     "course": "PSYCH 111",
+     "mean_gpa": 3.5,
+     "clarity_pct": 74
+    },
+    {
+     "term": "WN26",
+     "course": "PSYCH 111",
+     "mean_gpa": 3.55,
+     "clarity_pct": 77
+    }
+   ]
+  },
+  "Sample Instructor AK": {
+   "clarity_pct": 83,
+   "n_responses": 360,
+   "mean_gpa_given": {
+    "PSYCH 111": 3.61
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "PSYCH 111",
+     "mean_gpa": 3.35,
+     "clarity_pct": 68
+    },
+    {
+     "term": "WN24",
+     "course": "PSYCH 111",
+     "mean_gpa": 3.41,
+     "clarity_pct": 71
+    },
+    {
+     "term": "FA24",
+     "course": "PSYCH 111",
+     "mean_gpa": 3.46,
+     "clarity_pct": 74
+    },
+    {
+     "term": "WN25",
+     "course": "PSYCH 111",
+     "mean_gpa": 3.51,
+     "clarity_pct": 77
+    },
+    {
+     "term": "FA25",
+     "course": "PSYCH 111",
+     "mean_gpa": 3.56,
+     "clarity_pct": 80
+    },
+    {
+     "term": "WN26",
+     "course": "PSYCH 111",
+     "mean_gpa": 3.61,
+     "clarity_pct": 83
+    }
+   ]
+  },
+  "Sample Instructor AL": {
+   "clarity_pct": 56,
+   "n_responses": 189,
+   "mean_gpa_given": {
+    "SOC 100": 3.44
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "SOC 100",
+     "mean_gpa": 3.4,
+     "clarity_pct": 54
+    },
+    {
+     "term": "WN24",
+     "course": "SOC 100",
+     "mean_gpa": 3.41,
+     "clarity_pct": 54
+    },
+    {
+     "term": "FA24",
+     "course": "SOC 100",
+     "mean_gpa": 3.42,
+     "clarity_pct": 55
+    },
+    {
+     "term": "WN25",
+     "course": "SOC 100",
+     "mean_gpa": 3.42,
+     "clarity_pct": 55
+    },
+    {
+     "term": "FA25",
+     "course": "SOC 100",
+     "mean_gpa": 3.43,
+     "clarity_pct": 56
+    },
+    {
+     "term": "WN26",
+     "course": "SOC 100",
+     "mean_gpa": 3.44,
+     "clarity_pct": 56
+    }
+   ]
+  },
+  "Sample Instructor AM": {
+   "clarity_pct": 91,
+   "n_responses": 135,
+   "mean_gpa_given": {
+    "SOC 100": 3.47
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "SOC 100",
+     "mean_gpa": 3.22,
+     "clarity_pct": 76
+    },
+    {
+     "term": "WN24",
+     "course": "SOC 100",
+     "mean_gpa": 3.27,
+     "clarity_pct": 79
+    },
+    {
+     "term": "FA24",
+     "course": "SOC 100",
+     "mean_gpa": 3.32,
+     "clarity_pct": 82
+    },
+    {
+     "term": "WN25",
+     "course": "SOC 100",
+     "mean_gpa": 3.37,
+     "clarity_pct": 85
+    },
+    {
+     "term": "FA25",
+     "course": "SOC 100",
+     "mean_gpa": 3.42,
+     "clarity_pct": 88
+    },
+    {
+     "term": "WN26",
+     "course": "SOC 100",
+     "mean_gpa": 3.47,
+     "clarity_pct": 91
+    }
+   ]
+  },
+  "Sample Instructor AN": {
+   "clarity_pct": 65,
+   "n_responses": 76,
+   "mean_gpa_given": {
+    "STATS 250": 3.24
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "STATS 250",
+     "mean_gpa": 3.29,
+     "clarity_pct": 68
+    },
+    {
+     "term": "WN24",
+     "course": "STATS 250",
+     "mean_gpa": 3.28,
+     "clarity_pct": 68
+    },
+    {
+     "term": "FA24",
+     "course": "STATS 250",
+     "mean_gpa": 3.27,
+     "clarity_pct": 67
+    },
+    {
+     "term": "WN25",
+     "course": "STATS 250",
+     "mean_gpa": 3.26,
+     "clarity_pct": 66
+    },
+    {
+     "term": "FA25",
+     "course": "STATS 250",
+     "mean_gpa": 3.25,
+     "clarity_pct": 66
+    },
+    {
+     "term": "WN26",
+     "course": "STATS 250",
+     "mean_gpa": 3.24,
+     "clarity_pct": 65
+    }
+   ]
+  },
+  "Sample Instructor AO": {
+   "clarity_pct": 67,
+   "n_responses": 121,
+   "mean_gpa_given": {
+    "STATS 250": 3.23
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "STATS 250",
+     "mean_gpa": 3.36,
+     "clarity_pct": 75
+    },
+    {
+     "term": "WN24",
+     "course": "STATS 250",
+     "mean_gpa": 3.33,
+     "clarity_pct": 73
+    },
+    {
+     "term": "FA24",
+     "course": "STATS 250",
+     "mean_gpa": 3.31,
+     "clarity_pct": 72
+    },
+    {
+     "term": "WN25",
+     "course": "STATS 250",
+     "mean_gpa": 3.28,
+     "clarity_pct": 70
+    },
+    {
+     "term": "FA25",
+     "course": "STATS 250",
+     "mean_gpa": 3.25,
+     "clarity_pct": 69
+    },
+    {
+     "term": "WN26",
+     "course": "STATS 250",
+     "mean_gpa": 3.23,
+     "clarity_pct": 67
+    }
+   ]
+  },
+  "Sample Instructor AP": {
+   "clarity_pct": 85,
+   "n_responses": 194,
+   "mean_gpa_given": {
+    "ENGLISH 225": 3.46
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "ENGLISH 225",
+     "mean_gpa": 3.67,
+     "clarity_pct": 98
+    },
+    {
+     "term": "WN24",
+     "course": "ENGLISH 225",
+     "mean_gpa": 3.63,
+     "clarity_pct": 95
+    },
+    {
+     "term": "FA24",
+     "course": "ENGLISH 225",
+     "mean_gpa": 3.59,
+     "clarity_pct": 93
+    },
+    {
+     "term": "WN25",
+     "course": "ENGLISH 225",
+     "mean_gpa": 3.54,
+     "clarity_pct": 90
+    },
+    {
+     "term": "FA25",
+     "course": "ENGLISH 225",
+     "mean_gpa": 3.5,
+     "clarity_pct": 88
+    },
+    {
+     "term": "WN26",
+     "course": "ENGLISH 225",
+     "mean_gpa": 3.46,
+     "clarity_pct": 85
+    }
+   ]
+  },
+  "Sample Instructor AQ": {
+   "clarity_pct": 80,
+   "n_responses": 398,
+   "mean_gpa_given": {
+    "MATH 216": 3.19
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "MATH 216",
+     "mean_gpa": 3.08,
+     "clarity_pct": 73
+    },
+    {
+     "term": "WN24",
+     "course": "MATH 216",
+     "mean_gpa": 3.1,
+     "clarity_pct": 74
+    },
+    {
+     "term": "FA24",
+     "course": "MATH 216",
+     "mean_gpa": 3.13,
+     "clarity_pct": 76
+    },
+    {
+     "term": "WN25",
+     "course": "MATH 216",
+     "mean_gpa": 3.15,
+     "clarity_pct": 77
+    },
+    {
+     "term": "FA25",
+     "course": "MATH 216",
+     "mean_gpa": 3.17,
+     "clarity_pct": 79
+    },
+    {
+     "term": "WN26",
+     "course": "MATH 216",
+     "mean_gpa": 3.19,
+     "clarity_pct": 80
+    }
+   ]
+  },
+  "Sample Instructor AR": {
+   "clarity_pct": 89,
+   "n_responses": 203,
+   "mean_gpa_given": {
+    "BIOMEDE 221": 3.35
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "BIOMEDE 221",
+     "mean_gpa": 3.1,
+     "clarity_pct": 74
+    },
+    {
+     "term": "WN24",
+     "course": "BIOMEDE 221",
+     "mean_gpa": 3.15,
+     "clarity_pct": 77
+    },
+    {
+     "term": "FA24",
+     "course": "BIOMEDE 221",
+     "mean_gpa": 3.2,
+     "clarity_pct": 80
+    },
+    {
+     "term": "WN25",
+     "course": "BIOMEDE 221",
+     "mean_gpa": 3.25,
+     "clarity_pct": 83
+    },
+    {
+     "term": "FA25",
+     "course": "BIOMEDE 221",
+     "mean_gpa": 3.3,
+     "clarity_pct": 86
+    },
+    {
+     "term": "WN26",
+     "course": "BIOMEDE 221",
+     "mean_gpa": 3.35,
+     "clarity_pct": 89
+    }
+   ]
+  },
+  "Sample Instructor AS": {
+   "clarity_pct": 82,
+   "n_responses": 426,
+   "mean_gpa_given": {
+    "BIOMEDE 231": 3.72
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "BIOMEDE 231",
+     "mean_gpa": 3.44,
+     "clarity_pct": 65
+    },
+    {
+     "term": "WN24",
+     "course": "BIOMEDE 231",
+     "mean_gpa": 3.5,
+     "clarity_pct": 69
+    },
+    {
+     "term": "FA24",
+     "course": "BIOMEDE 231",
+     "mean_gpa": 3.55,
+     "clarity_pct": 72
+    },
+    {
+     "term": "WN25",
+     "course": "BIOMEDE 231",
+     "mean_gpa": 3.61,
+     "clarity_pct": 75
+    },
+    {
+     "term": "FA25",
+     "course": "BIOMEDE 231",
+     "mean_gpa": 3.67,
+     "clarity_pct": 79
+    },
+    {
+     "term": "WN26",
+     "course": "BIOMEDE 231",
+     "mean_gpa": 3.72,
+     "clarity_pct": 82
+    }
+   ]
+  },
+  "Sample Instructor AT": {
+   "clarity_pct": 53,
+   "n_responses": 136,
+   "mean_gpa_given": {
+    "BIOMEDE 241": 3.29
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "BIOMEDE 241",
+     "mean_gpa": 3.15,
+     "clarity_pct": 45
+    },
+    {
+     "term": "WN24",
+     "course": "BIOMEDE 241",
+     "mean_gpa": 3.18,
+     "clarity_pct": 46
+    },
+    {
+     "term": "FA24",
+     "course": "BIOMEDE 241",
+     "mean_gpa": 3.21,
+     "clarity_pct": 48
+    },
+    {
+     "term": "WN25",
+     "course": "BIOMEDE 241",
+     "mean_gpa": 3.23,
+     "clarity_pct": 50
+    },
+    {
+     "term": "FA25",
+     "course": "BIOMEDE 241",
+     "mean_gpa": 3.26,
+     "clarity_pct": 51
+    },
+    {
+     "term": "WN26",
+     "course": "BIOMEDE 241",
+     "mean_gpa": 3.29,
+     "clarity_pct": 53
+    }
+   ]
+  },
+  "Sample Instructor AU": {
+   "clarity_pct": 72,
+   "n_responses": 199,
+   "mean_gpa_given": {
+    "BIOMEDE 350": 3.9
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "BIOMEDE 350",
+     "mean_gpa": 4.15,
+     "clarity_pct": 87
+    },
+    {
+     "term": "WN24",
+     "course": "BIOMEDE 350",
+     "mean_gpa": 4.1,
+     "clarity_pct": 84
+    },
+    {
+     "term": "FA24",
+     "course": "BIOMEDE 350",
+     "mean_gpa": 4.05,
+     "clarity_pct": 81
+    },
+    {
+     "term": "WN25",
+     "course": "BIOMEDE 350",
+     "mean_gpa": 4.0,
+     "clarity_pct": 78
+    },
+    {
+     "term": "FA25",
+     "course": "BIOMEDE 350",
+     "mean_gpa": 3.95,
+     "clarity_pct": 75
+    },
+    {
+     "term": "WN26",
+     "course": "BIOMEDE 350",
+     "mean_gpa": 3.9,
+     "clarity_pct": 72
+    }
+   ]
+  },
+  "Sample Instructor AV": {
+   "clarity_pct": 86,
+   "n_responses": 436,
+   "mean_gpa_given": {
+    "BIOMEDE 419": 3.54
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "BIOMEDE 419",
+     "mean_gpa": 3.3,
+     "clarity_pct": 72
+    },
+    {
+     "term": "WN24",
+     "course": "BIOMEDE 419",
+     "mean_gpa": 3.35,
+     "clarity_pct": 74
+    },
+    {
+     "term": "FA24",
+     "course": "BIOMEDE 419",
+     "mean_gpa": 3.4,
+     "clarity_pct": 77
+    },
+    {
+     "term": "WN25",
+     "course": "BIOMEDE 419",
+     "mean_gpa": 3.45,
+     "clarity_pct": 80
+    },
+    {
+     "term": "FA25",
+     "course": "BIOMEDE 419",
+     "mean_gpa": 3.49,
+     "clarity_pct": 83
+    },
+    {
+     "term": "WN26",
+     "course": "BIOMEDE 419",
+     "mean_gpa": 3.54,
+     "clarity_pct": 86
+    }
+   ]
+  },
+  "Sample Instructor AW": {
+   "clarity_pct": 60,
+   "n_responses": 409,
+   "mean_gpa_given": {
+    "BIOMEDE 450": 3.61
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "BIOMEDE 450",
+     "mean_gpa": 3.5,
+     "clarity_pct": 53
+    },
+    {
+     "term": "WN24",
+     "course": "BIOMEDE 450",
+     "mean_gpa": 3.52,
+     "clarity_pct": 55
+    },
+    {
+     "term": "FA24",
+     "course": "BIOMEDE 450",
+     "mean_gpa": 3.54,
+     "clarity_pct": 56
+    },
+    {
+     "term": "WN25",
+     "course": "BIOMEDE 450",
+     "mean_gpa": 3.57,
+     "clarity_pct": 57
+    },
+    {
+     "term": "FA25",
+     "course": "BIOMEDE 450",
+     "mean_gpa": 3.59,
+     "clarity_pct": 59
+    },
+    {
+     "term": "WN26",
+     "course": "BIOMEDE 450",
+     "mean_gpa": 3.61,
+     "clarity_pct": 60
+    }
+   ]
+  },
+  "Sample Instructor AX": {
+   "clarity_pct": 56,
+   "n_responses": 487,
+   "mean_gpa_given": {
+    "BIOMEDE 458": 3.67
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "BIOMEDE 458",
+     "mean_gpa": 3.95,
+     "clarity_pct": 73
+    },
+    {
+     "term": "WN24",
+     "course": "BIOMEDE 458",
+     "mean_gpa": 3.89,
+     "clarity_pct": 70
+    },
+    {
+     "term": "FA24",
+     "course": "BIOMEDE 458",
+     "mean_gpa": 3.84,
+     "clarity_pct": 66
+    },
+    {
+     "term": "WN25",
+     "course": "BIOMEDE 458",
+     "mean_gpa": 3.78,
+     "clarity_pct": 63
+    },
+    {
+     "term": "FA25",
+     "course": "BIOMEDE 458",
+     "mean_gpa": 3.72,
+     "clarity_pct": 59
+    },
+    {
+     "term": "WN26",
+     "course": "BIOMEDE 458",
+     "mean_gpa": 3.67,
+     "clarity_pct": 56
+    }
+   ]
+  },
+  "Sample Instructor AY": {
+   "clarity_pct": 83,
+   "n_responses": 74,
+   "mean_gpa_given": {
+    "BIOMEDE 476": 3.67
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "BIOMEDE 476",
+     "mean_gpa": 3.75,
+     "clarity_pct": 87
+    },
+    {
+     "term": "WN24",
+     "course": "BIOMEDE 476",
+     "mean_gpa": 3.73,
+     "clarity_pct": 86
+    },
+    {
+     "term": "FA24",
+     "course": "BIOMEDE 476",
+     "mean_gpa": 3.72,
+     "clarity_pct": 86
+    },
+    {
+     "term": "WN25",
+     "course": "BIOMEDE 476",
+     "mean_gpa": 3.7,
+     "clarity_pct": 85
+    },
+    {
+     "term": "FA25",
+     "course": "BIOMEDE 476",
+     "mean_gpa": 3.69,
+     "clarity_pct": 84
+    },
+    {
+     "term": "WN26",
+     "course": "BIOMEDE 476",
+     "mean_gpa": 3.67,
+     "clarity_pct": 83
+    }
+   ]
+  },
+  "Sample Instructor AZ": {
+   "clarity_pct": 89,
+   "n_responses": 72,
+   "mean_gpa_given": {
+    "EECS 281": 3.27
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "EECS 281",
+     "mean_gpa": 3.52,
+     "clarity_pct": 98
+    },
+    {
+     "term": "WN24",
+     "course": "EECS 281",
+     "mean_gpa": 3.47,
+     "clarity_pct": 98
+    },
+    {
+     "term": "FA24",
+     "course": "EECS 281",
+     "mean_gpa": 3.42,
+     "clarity_pct": 98
+    },
+    {
+     "term": "WN25",
+     "course": "EECS 281",
+     "mean_gpa": 3.37,
+     "clarity_pct": 95
+    },
+    {
+     "term": "FA25",
+     "course": "EECS 281",
+     "mean_gpa": 3.32,
+     "clarity_pct": 92
+    },
+    {
+     "term": "WN26",
+     "course": "EECS 281",
+     "mean_gpa": 3.27,
+     "clarity_pct": 89
+    }
+   ]
+  },
+  "Sample Instructor BA": {
+   "clarity_pct": 92,
+   "n_responses": 178,
+   "mean_gpa_given": {
+    "EECS 281": 3.5
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "EECS 281",
+     "mean_gpa": 3.27,
+     "clarity_pct": 78
+    },
+    {
+     "term": "WN24",
+     "course": "EECS 281",
+     "mean_gpa": 3.31,
+     "clarity_pct": 81
+    },
+    {
+     "term": "FA24",
+     "course": "EECS 281",
+     "mean_gpa": 3.36,
+     "clarity_pct": 84
+    },
+    {
+     "term": "WN25",
+     "course": "EECS 281",
+     "mean_gpa": 3.4,
+     "clarity_pct": 87
+    },
+    {
+     "term": "FA25",
+     "course": "EECS 281",
+     "mean_gpa": 3.45,
+     "clarity_pct": 89
+    },
+    {
+     "term": "WN26",
+     "course": "EECS 281",
+     "mean_gpa": 3.5,
+     "clarity_pct": 92
+    }
+   ]
+  },
+  "Sample Instructor BB": {
+   "clarity_pct": 73,
+   "n_responses": 457,
+   "mean_gpa_given": {
+    "EECS 445": 3.66
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "EECS 445",
+     "mean_gpa": 3.54,
+     "clarity_pct": 66
+    },
+    {
+     "term": "WN24",
+     "course": "EECS 445",
+     "mean_gpa": 3.57,
+     "clarity_pct": 67
+    },
+    {
+     "term": "FA24",
+     "course": "EECS 445",
+     "mean_gpa": 3.59,
+     "clarity_pct": 69
+    },
+    {
+     "term": "WN25",
+     "course": "EECS 445",
+     "mean_gpa": 3.61,
+     "clarity_pct": 70
+    },
+    {
+     "term": "FA25",
+     "course": "EECS 445",
+     "mean_gpa": 3.64,
+     "clarity_pct": 72
+    },
+    {
+     "term": "WN26",
+     "course": "EECS 445",
+     "mean_gpa": 3.66,
+     "clarity_pct": 73
+    }
+   ]
+  },
+  "Sample Instructor BC": {
+   "clarity_pct": 81,
+   "n_responses": 511,
+   "mean_gpa_given": {
+    "EECS 445": 3.38
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "EECS 445",
+     "mean_gpa": 3.35,
+     "clarity_pct": 80
+    },
+    {
+     "term": "WN24",
+     "course": "EECS 445",
+     "mean_gpa": 3.36,
+     "clarity_pct": 80
+    },
+    {
+     "term": "FA24",
+     "course": "EECS 445",
+     "mean_gpa": 3.36,
+     "clarity_pct": 80
+    },
+    {
+     "term": "WN25",
+     "course": "EECS 445",
+     "mean_gpa": 3.37,
+     "clarity_pct": 80
+    },
+    {
+     "term": "FA25",
+     "course": "EECS 445",
+     "mean_gpa": 3.37,
+     "clarity_pct": 81
+    },
+    {
+     "term": "WN26",
+     "course": "EECS 445",
+     "mean_gpa": 3.38,
+     "clarity_pct": 81
+    }
+   ]
+  },
+  "Sample Instructor BD": {
+   "clarity_pct": 85,
+   "n_responses": 586,
+   "mean_gpa_given": {
+    "EECS 492": 3.22
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "EECS 492",
+     "mean_gpa": 3.16,
+     "clarity_pct": 81
+    },
+    {
+     "term": "WN24",
+     "course": "EECS 492",
+     "mean_gpa": 3.17,
+     "clarity_pct": 82
+    },
+    {
+     "term": "FA24",
+     "course": "EECS 492",
+     "mean_gpa": 3.18,
+     "clarity_pct": 83
+    },
+    {
+     "term": "WN25",
+     "course": "EECS 492",
+     "mean_gpa": 3.19,
+     "clarity_pct": 84
+    },
+    {
+     "term": "FA25",
+     "course": "EECS 492",
+     "mean_gpa": 3.21,
+     "clarity_pct": 84
+    },
+    {
+     "term": "WN26",
+     "course": "EECS 492",
+     "mean_gpa": 3.22,
+     "clarity_pct": 85
+    }
+   ]
+  },
+  "Sample Instructor BE": {
+   "clarity_pct": 82,
+   "n_responses": 82,
+   "mean_gpa_given": {
+    "EECS 492": 3.34
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "EECS 492",
+     "mean_gpa": 3.22,
+     "clarity_pct": 75
+    },
+    {
+     "term": "WN24",
+     "course": "EECS 492",
+     "mean_gpa": 3.24,
+     "clarity_pct": 76
+    },
+    {
+     "term": "FA24",
+     "course": "EECS 492",
+     "mean_gpa": 3.27,
+     "clarity_pct": 78
+    },
+    {
+     "term": "WN25",
+     "course": "EECS 492",
+     "mean_gpa": 3.29,
+     "clarity_pct": 79
+    },
+    {
+     "term": "FA25",
+     "course": "EECS 492",
+     "mean_gpa": 3.31,
+     "clarity_pct": 81
+    },
+    {
+     "term": "WN26",
+     "course": "EECS 492",
+     "mean_gpa": 3.34,
+     "clarity_pct": 82
+    }
+   ]
+  },
+  "Sample Instructor BF": {
+   "clarity_pct": 83,
+   "n_responses": 557,
+   "mean_gpa_given": {
+    "ROB 311": 3.45
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "ROB 311",
+     "mean_gpa": 3.75,
+     "clarity_pct": 98
+    },
+    {
+     "term": "WN24",
+     "course": "ROB 311",
+     "mean_gpa": 3.69,
+     "clarity_pct": 97
+    },
+    {
+     "term": "FA24",
+     "course": "ROB 311",
+     "mean_gpa": 3.63,
+     "clarity_pct": 94
+    },
+    {
+     "term": "WN25",
+     "course": "ROB 311",
+     "mean_gpa": 3.57,
+     "clarity_pct": 90
+    },
+    {
+     "term": "FA25",
+     "course": "ROB 311",
+     "mean_gpa": 3.51,
+     "clarity_pct": 87
+    },
+    {
+     "term": "WN26",
+     "course": "ROB 311",
+     "mean_gpa": 3.45,
+     "clarity_pct": 83
+    }
+   ]
+  },
+  "Sample Instructor BG": {
+   "clarity_pct": 71,
+   "n_responses": 206,
+   "mean_gpa_given": {
+    "HISTART 101": 3.81
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "HISTART 101",
+     "mean_gpa": 3.99,
+     "clarity_pct": 82
+    },
+    {
+     "term": "WN24",
+     "course": "HISTART 101",
+     "mean_gpa": 3.95,
+     "clarity_pct": 80
+    },
+    {
+     "term": "FA24",
+     "course": "HISTART 101",
+     "mean_gpa": 3.91,
+     "clarity_pct": 77
+    },
+    {
+     "term": "WN25",
+     "course": "HISTART 101",
+     "mean_gpa": 3.88,
+     "clarity_pct": 75
+    },
+    {
+     "term": "FA25",
+     "course": "HISTART 101",
+     "mean_gpa": 3.84,
+     "clarity_pct": 73
+    },
+    {
+     "term": "WN26",
+     "course": "HISTART 101",
+     "mean_gpa": 3.81,
+     "clarity_pct": 71
+    }
+   ]
+  },
+  "Sample Instructor BH": {
+   "clarity_pct": 62,
+   "n_responses": 410,
+   "mean_gpa_given": {
+    "HISTART 101": 3.8
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "HISTART 101",
+     "mean_gpa": 3.83,
+     "clarity_pct": 64
+    },
+    {
+     "term": "WN24",
+     "course": "HISTART 101",
+     "mean_gpa": 3.82,
+     "clarity_pct": 64
+    },
+    {
+     "term": "FA24",
+     "course": "HISTART 101",
+     "mean_gpa": 3.82,
+     "clarity_pct": 63
+    },
+    {
+     "term": "WN25",
+     "course": "HISTART 101",
+     "mean_gpa": 3.81,
+     "clarity_pct": 63
+    },
+    {
+     "term": "FA25",
+     "course": "HISTART 101",
+     "mean_gpa": 3.8,
+     "clarity_pct": 62
+    },
+    {
+     "term": "WN26",
+     "course": "HISTART 101",
+     "mean_gpa": 3.8,
+     "clarity_pct": 62
+    }
+   ]
+  },
+  "Sample Instructor BI": {
+   "clarity_pct": 67,
+   "n_responses": 394,
+   "mean_gpa_given": {
+    "PHIL 160": 3.54
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "PHIL 160",
+     "mean_gpa": 3.69,
+     "clarity_pct": 76
+    },
+    {
+     "term": "WN24",
+     "course": "PHIL 160",
+     "mean_gpa": 3.66,
+     "clarity_pct": 74
+    },
+    {
+     "term": "FA24",
+     "course": "PHIL 160",
+     "mean_gpa": 3.63,
+     "clarity_pct": 72
+    },
+    {
+     "term": "WN25",
+     "course": "PHIL 160",
+     "mean_gpa": 3.6,
+     "clarity_pct": 71
+    },
+    {
+     "term": "FA25",
+     "course": "PHIL 160",
+     "mean_gpa": 3.57,
+     "clarity_pct": 69
+    },
+    {
+     "term": "WN26",
+     "course": "PHIL 160",
+     "mean_gpa": 3.54,
+     "clarity_pct": 67
+    }
+   ]
+  },
+  "Sample Instructor BJ": {
+   "clarity_pct": 92,
+   "n_responses": 501,
+   "mean_gpa_given": {
+    "ANTHRCUL 101": 3.78
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "ANTHRCUL 101",
+     "mean_gpa": 3.63,
+     "clarity_pct": 83
+    },
+    {
+     "term": "WN24",
+     "course": "ANTHRCUL 101",
+     "mean_gpa": 3.66,
+     "clarity_pct": 85
+    },
+    {
+     "term": "FA24",
+     "course": "ANTHRCUL 101",
+     "mean_gpa": 3.69,
+     "clarity_pct": 86
+    },
+    {
+     "term": "WN25",
+     "course": "ANTHRCUL 101",
+     "mean_gpa": 3.72,
+     "clarity_pct": 88
+    },
+    {
+     "term": "FA25",
+     "course": "ANTHRCUL 101",
+     "mean_gpa": 3.75,
+     "clarity_pct": 90
+    },
+    {
+     "term": "WN26",
+     "course": "ANTHRCUL 101",
+     "mean_gpa": 3.78,
+     "clarity_pct": 92
+    }
+   ]
+  },
+  "Sample Instructor BK": {
+   "clarity_pct": 64,
+   "n_responses": 279,
+   "mean_gpa_given": {
+    "ANTHRCUL 101": 3.53
+   },
+   "history": [
+    {
+     "term": "FA23",
+     "course": "ANTHRCUL 101",
+     "mean_gpa": 3.48,
+     "clarity_pct": 61
+    },
+    {
+     "term": "WN24",
+     "course": "ANTHRCUL 101",
+     "mean_gpa": 3.49,
+     "clarity_pct": 62
+    },
+    {
+     "term": "FA24",
+     "course": "ANTHRCUL 101",
+     "mean_gpa": 3.5,
+     "clarity_pct": 62
+    },
+    {
+     "term": "WN25",
+     "course": "ANTHRCUL 101",
+     "mean_gpa": 3.51,
+     "clarity_pct": 63
+    },
+    {
+     "term": "FA25",
+     "course": "ANTHRCUL 101",
+     "mean_gpa": 3.52,
+     "clarity_pct": 63
+    },
+    {
+     "term": "WN26",
+     "course": "ANTHRCUL 101",
+     "mean_gpa": 3.53,
+     "clarity_pct": 64
+    }
+   ]
+  }
+ }
+}

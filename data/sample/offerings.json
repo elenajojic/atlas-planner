@@ -1,0 +1,3999 @@
+{
+ "label": "SAMPLE DATA (fake courses, stats and instructors)",
+ "next_term": "WN27",
+ "courses": [
+  {
+   "code": "ENGR 100",
+   "title": "Introduction to Engineering",
+   "credits": 4,
+   "prereqs": [],
+   "coreqs": [],
+   "tags": [
+    "design"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "FA22",
+    "WN23",
+    "FA23",
+    "WN24",
+    "FA24",
+    "WN25",
+    "FA25",
+    "WN26"
+   ],
+   "class_size": 120,
+   "format": "project",
+   "fill_days": 6,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor A",
+      "seats_open": 8,
+      "capacity": 120,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "10:00",
+        "end": "11:30",
+        "campus": "North",
+        "location": "EECS"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 1,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "11:00",
+        "end": "12:00",
+        "campus": "North",
+        "location": "FXB"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 5,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "M",
+        "start": "11:00",
+        "end": "12:00",
+        "campus": "North",
+        "location": "GGBL"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 8,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "12:00",
+        "end": "13:00",
+        "campus": "North",
+        "location": "EECS"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "ENGR 101",
+   "title": "Intro to Computers and Programming",
+   "credits": 4,
+   "prereqs": [],
+   "coreqs": [],
+   "tags": [
+    "computing"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "FA25",
+    "WN26",
+    "SP26"
+   ],
+   "class_size": 400,
+   "format": "large lecture",
+   "fill_days": 8,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor B",
+      "seats_open": 40,
+      "capacity": 200,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "13:00",
+        "end": "14:30",
+        "campus": "North",
+        "location": "BBB"
+       }
+      ]
+     },
+     {
+      "section_id": "200",
+      "component": "LEC",
+      "instructor": "Sample Instructor C",
+      "seats_open": 45,
+      "capacity": 200,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "11:30",
+        "end": "13:00",
+        "campus": "North",
+        "location": "CHRYS"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 10,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "12:00",
+        "end": "13:00",
+        "campus": "North",
+        "location": "GGBL"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 19,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "M",
+        "start": "11:00",
+        "end": "12:00",
+        "campus": "North",
+        "location": "GGBL"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 11,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "W",
+        "start": "15:00",
+        "end": "16:00",
+        "campus": "North",
+        "location": "DOW"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "MATH 115",
+   "title": "Calculus I",
+   "credits": 4,
+   "prereqs": [],
+   "coreqs": [],
+   "tags": [
+    "math"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "SU22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "SU23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "SU24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "SU25",
+    "FA25",
+    "WN26",
+    "SP26",
+    "SU26"
+   ],
+   "class_size": 30,
+   "format": "small section",
+   "fill_days": 10,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor D",
+      "seats_open": 1,
+      "capacity": 30,
+      "meetings": [
+       {
+        "days": "MW",
+        "start": "16:30",
+        "end": "18:00",
+        "campus": "Central",
+        "location": "MH"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "MATH 116",
+   "title": "Calculus II",
+   "credits": 4,
+   "prereqs": [
+    [
+     "MATH 115"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "math"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "SU22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "SU23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "SU24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "SU25",
+    "FA25",
+    "WN26",
+    "SP26",
+    "SU26"
+   ],
+   "class_size": 30,
+   "format": "small section",
+   "fill_days": 9,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor E",
+      "seats_open": 12,
+      "capacity": 30,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "13:00",
+        "end": "14:30",
+        "campus": "Central",
+        "location": "CHEM"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "CHEM 130",
+   "title": "General Chemistry",
+   "credits": 3,
+   "prereqs": [],
+   "coreqs": [],
+   "tags": [
+    "premed",
+    "chemistry"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "FA25",
+    "WN26",
+    "SP26"
+   ],
+   "class_size": 300,
+   "format": "large lecture",
+   "fill_days": 7,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor F",
+      "seats_open": 49,
+      "capacity": 150,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "10:00",
+        "end": "11:30",
+        "campus": "Central",
+        "location": "MH"
+       }
+      ]
+     },
+     {
+      "section_id": "200",
+      "component": "LEC",
+      "instructor": "Sample Instructor G",
+      "seats_open": 7,
+      "capacity": 150,
+      "meetings": [
+       {
+        "days": "MWF",
+        "start": "14:00",
+        "end": "15:00",
+        "campus": "Central",
+        "location": "EH"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 17,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "M",
+        "start": "16:00",
+        "end": "17:00",
+        "campus": "Central",
+        "location": "WEIS"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 6,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "M",
+        "start": "16:00",
+        "end": "17:00",
+        "campus": "Central",
+        "location": "AH"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 5,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "11:00",
+        "end": "12:00",
+        "campus": "Central",
+        "location": "CHEM"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "CHEM 125",
+   "title": "General Chemistry Lab I",
+   "credits": 1,
+   "prereqs": [],
+   "coreqs": [
+    [
+     "CHEM 130"
+    ]
+   ],
+   "tags": [
+    "premed",
+    "chemistry"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "FA25",
+    "WN26",
+    "SP26"
+   ],
+   "class_size": 24,
+   "format": "lab",
+   "fill_days": 5,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "010",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 5,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "15:00",
+        "end": "18:00",
+        "campus": "Central",
+        "location": "CHEM"
+       }
+      ]
+     },
+     {
+      "section_id": "011",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 2,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "Tu",
+        "start": "09:00",
+        "end": "12:00",
+        "campus": "Central",
+        "location": "WEIS"
+       }
+      ]
+     },
+     {
+      "section_id": "012",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 4,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "15:00",
+        "end": "18:00",
+        "campus": "Central",
+        "location": "MH"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "CHEM 126",
+   "title": "General Chemistry Lab II",
+   "credits": 1,
+   "prereqs": [
+    [
+     "CHEM 125"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "premed",
+    "chemistry"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "FA25",
+    "WN26",
+    "SP26"
+   ],
+   "class_size": 24,
+   "format": "lab",
+   "fill_days": 5,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "010",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 0,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "09:00",
+        "end": "12:00",
+        "campus": "Central",
+        "location": "WH"
+       }
+      ]
+     },
+     {
+      "section_id": "011",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 3,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "09:00",
+        "end": "12:00",
+        "campus": "Central",
+        "location": "EH"
+       }
+      ]
+     },
+     {
+      "section_id": "012",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 3,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "Tu",
+        "start": "08:00",
+        "end": "11:00",
+        "campus": "Central",
+        "location": "RAND"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "PHYSICS 140",
+   "title": "General Physics I",
+   "credits": 4,
+   "prereqs": [],
+   "coreqs": [
+    [
+     "MATH 115"
+    ]
+   ],
+   "tags": [
+    "premed",
+    "physics"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "FA25",
+    "WN26",
+    "SP26"
+   ],
+   "class_size": 250,
+   "format": "large lecture",
+   "fill_days": 6,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor J",
+      "seats_open": 50,
+      "capacity": 125,
+      "meetings": [
+       {
+        "days": "MW",
+        "start": "16:30",
+        "end": "18:00",
+        "campus": "Central",
+        "location": "WEIS"
+       }
+      ]
+     },
+     {
+      "section_id": "200",
+      "component": "LEC",
+      "instructor": "Sample Instructor K",
+      "seats_open": 41,
+      "capacity": 125,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "11:30",
+        "end": "13:00",
+        "campus": "Central",
+        "location": "AH"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 25,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "M",
+        "start": "16:00",
+        "end": "17:00",
+        "campus": "Central",
+        "location": "BSB"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 12,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Tu",
+        "start": "10:00",
+        "end": "11:00",
+        "campus": "Central",
+        "location": "BSB"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 25,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "W",
+        "start": "15:00",
+        "end": "16:00",
+        "campus": "Central",
+        "location": "WEIS"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "PHYSICS 141",
+   "title": "Elementary Laboratory I",
+   "credits": 1,
+   "prereqs": [],
+   "coreqs": [
+    [
+     "PHYSICS 140"
+    ]
+   ],
+   "tags": [
+    "premed",
+    "physics"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "FA25",
+    "WN26",
+    "SP26"
+   ],
+   "class_size": 24,
+   "format": "lab",
+   "fill_days": 4,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "010",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 2,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "W",
+        "start": "08:00",
+        "end": "11:00",
+        "campus": "Central",
+        "location": "RAND"
+       }
+      ]
+     },
+     {
+      "section_id": "011",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 3,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "M",
+        "start": "08:00",
+        "end": "11:00",
+        "campus": "Central",
+        "location": "WEIS"
+       }
+      ]
+     },
+     {
+      "section_id": "012",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 6,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "14:00",
+        "end": "17:00",
+        "campus": "Central",
+        "location": "DENN"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "ENGLISH 125",
+   "title": "Writing and Academic Inquiry",
+   "credits": 4,
+   "prereqs": [],
+   "coreqs": [],
+   "tags": [
+    "writing"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "SU22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "SU23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "SU24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "SU25",
+    "FA25",
+    "WN26",
+    "SP26",
+    "SU26"
+   ],
+   "class_size": 18,
+   "format": "seminar",
+   "fill_days": 3,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor M",
+      "seats_open": 13,
+      "capacity": 18,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "08:30",
+        "end": "10:00",
+        "campus": "Central",
+        "location": "BSB"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "BIOMEDE 211",
+   "title": "Circuits and Systems for Biomedical Engineering",
+   "credits": 4,
+   "prereqs": [
+    [
+     "MATH 116"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "bme",
+    "electronics"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "FA22",
+    "WN23",
+    "FA23",
+    "WN24",
+    "FA24",
+    "WN25",
+    "FA25",
+    "WN26"
+   ],
+   "class_size": 110,
+   "format": "lecture + lab",
+   "fill_days": 9,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor N",
+      "seats_open": 11,
+      "capacity": 110,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "08:30",
+        "end": "10:00",
+        "campus": "North",
+        "location": "BBB"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 25,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "W",
+        "start": "16:00",
+        "end": "17:00",
+        "campus": "North",
+        "location": "EECS"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 16,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "10:00",
+        "end": "11:00",
+        "campus": "North",
+        "location": "FXB"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 22,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "16:00",
+        "end": "17:00",
+        "campus": "North",
+        "location": "LBME"
+       }
+      ]
+     },
+     {
+      "section_id": "201",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 8,
+      "capacity": 20,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "13:00",
+        "end": "16:00",
+        "campus": "North",
+        "location": "BBB"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "MATH 215",
+   "title": "Multivariable Calculus",
+   "credits": 4,
+   "prereqs": [
+    [
+     "MATH 116"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "math"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "SU22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "SU23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "SU24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "SU25",
+    "FA25",
+    "WN26",
+    "SP26",
+    "SU26"
+   ],
+   "class_size": 30,
+   "format": "small section",
+   "fill_days": 9,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor O",
+      "seats_open": 48,
+      "capacity": 30,
+      "meetings": [
+       {
+        "days": "MW",
+        "start": "10:30",
+        "end": "12:00",
+        "campus": "Central",
+        "location": "AH"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "BIOLOGY 171",
+   "title": "Introductory Biology: Ecology and Evolution",
+   "credits": 4,
+   "prereqs": [],
+   "coreqs": [],
+   "tags": [
+    "premed",
+    "biology"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "FA25",
+    "WN26",
+    "SP26"
+   ],
+   "class_size": 350,
+   "format": "large lecture",
+   "fill_days": 10,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor P",
+      "seats_open": 35,
+      "capacity": 175,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "16:00",
+        "end": "17:30",
+        "campus": "Central",
+        "location": "DENN"
+       }
+      ]
+     },
+     {
+      "section_id": "200",
+      "component": "LEC",
+      "instructor": "Sample Instructor Q",
+      "seats_open": 40,
+      "capacity": 175,
+      "meetings": [
+       {
+        "days": "MW",
+        "start": "16:30",
+        "end": "18:00",
+        "campus": "Central",
+        "location": "MH"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 17,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "15:00",
+        "end": "16:00",
+        "campus": "Central",
+        "location": "DENN"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 12,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "W",
+        "start": "16:00",
+        "end": "17:00",
+        "campus": "Central",
+        "location": "AH"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 17,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "W",
+        "start": "10:00",
+        "end": "11:00",
+        "campus": "Central",
+        "location": "RAND"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "EECS 280",
+   "title": "Programming and Intro Data Structures",
+   "credits": 4,
+   "prereqs": [
+    [
+     "ENGR 101"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "ai",
+    "computing"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "FA25",
+    "WN26",
+    "SP26"
+   ],
+   "class_size": 600,
+   "format": "large lecture",
+   "fill_days": 4,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor R",
+      "seats_open": 31,
+      "capacity": 300,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "16:00",
+        "end": "17:30",
+        "campus": "North",
+        "location": "EECS"
+       }
+      ]
+     },
+     {
+      "section_id": "200",
+      "component": "LEC",
+      "instructor": "Sample Instructor S",
+      "seats_open": 7,
+      "capacity": 300,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "16:00",
+        "end": "17:30",
+        "campus": "North",
+        "location": "BBB"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 12,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "M",
+        "start": "15:00",
+        "end": "16:00",
+        "campus": "North",
+        "location": "GGBL"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 16,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "09:00",
+        "end": "10:00",
+        "campus": "North",
+        "location": "LBME"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 3,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "15:00",
+        "end": "16:00",
+        "campus": "North",
+        "location": "LBME"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "BIOLOGY 172",
+   "title": "Introductory Biology: Molecular, Cellular, and Developmental",
+   "credits": 4,
+   "prereqs": [
+    [
+     "CHEM 130"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "premed",
+    "biology"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "FA25",
+    "WN26",
+    "SP26"
+   ],
+   "class_size": 400,
+   "format": "large lecture",
+   "fill_days": 5,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor T",
+      "seats_open": 10,
+      "capacity": 200,
+      "meetings": [
+       {
+        "days": "MWF",
+        "start": "14:00",
+        "end": "15:00",
+        "campus": "Central",
+        "location": "BSB"
+       }
+      ]
+     },
+     {
+      "section_id": "200",
+      "component": "LEC",
+      "instructor": "Sample Instructor U",
+      "seats_open": 26,
+      "capacity": 200,
+      "meetings": [
+       {
+        "days": "MW",
+        "start": "15:00",
+        "end": "16:30",
+        "campus": "Central",
+        "location": "WH"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 15,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "W",
+        "start": "10:00",
+        "end": "11:00",
+        "campus": "Central",
+        "location": "EH"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 13,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Tu",
+        "start": "11:00",
+        "end": "12:00",
+        "campus": "Central",
+        "location": "EH"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 3,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "11:00",
+        "end": "12:00",
+        "campus": "Central",
+        "location": "AH"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "BIOLOGY 173",
+   "title": "Introductory Biology Laboratory",
+   "credits": 2,
+   "prereqs": [],
+   "coreqs": [
+    [
+     "BIOLOGY 171",
+     "BIOLOGY 172"
+    ]
+   ],
+   "tags": [
+    "premed",
+    "biology"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "FA22",
+    "WN23",
+    "FA23",
+    "WN24",
+    "FA24",
+    "WN25",
+    "FA25",
+    "WN26"
+   ],
+   "class_size": 24,
+   "format": "lab",
+   "fill_days": 2,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "010",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 0,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "15:00",
+        "end": "19:00",
+        "campus": "Central",
+        "location": "DENN"
+       }
+      ]
+     },
+     {
+      "section_id": "011",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 0,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "Tu",
+        "start": "08:00",
+        "end": "12:00",
+        "campus": "Central",
+        "location": "AH"
+       }
+      ]
+     },
+     {
+      "section_id": "012",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 0,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "Tu",
+        "start": "09:00",
+        "end": "13:00",
+        "campus": "Central",
+        "location": "DENN"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "CHEM 210",
+   "title": "Structure and Reactivity I",
+   "credits": 4,
+   "prereqs": [
+    [
+     "CHEM 130"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "premed",
+    "chemistry"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "FA25",
+    "WN26",
+    "SP26"
+   ],
+   "class_size": 300,
+   "format": "large lecture",
+   "fill_days": 3,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor W",
+      "seats_open": 15,
+      "capacity": 150,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "11:30",
+        "end": "13:00",
+        "campus": "Central",
+        "location": "EH"
+       }
+      ]
+     },
+     {
+      "section_id": "200",
+      "component": "LEC",
+      "instructor": "Sample Instructor X",
+      "seats_open": 46,
+      "capacity": 150,
+      "meetings": [
+       {
+        "days": "MWF",
+        "start": "12:00",
+        "end": "13:00",
+        "campus": "Central",
+        "location": "BSB"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 8,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "15:00",
+        "end": "16:00",
+        "campus": "Central",
+        "location": "AH"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 0,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "12:00",
+        "end": "13:00",
+        "campus": "Central",
+        "location": "WH"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 19,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "15:00",
+        "end": "16:00",
+        "campus": "Central",
+        "location": "MH"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "CHEM 211",
+   "title": "Investigations in Chemistry",
+   "credits": 1,
+   "prereqs": [
+    [
+     "CHEM 125"
+    ]
+   ],
+   "coreqs": [
+    [
+     "CHEM 210"
+    ]
+   ],
+   "tags": [
+    "premed",
+    "chemistry"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "FA22",
+    "WN23",
+    "FA23",
+    "WN24",
+    "FA24",
+    "WN25",
+    "FA25",
+    "WN26"
+   ],
+   "class_size": 24,
+   "format": "lab",
+   "fill_days": 3,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "010",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 6,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "09:00",
+        "end": "12:00",
+        "campus": "Central",
+        "location": "RAND"
+       }
+      ]
+     },
+     {
+      "section_id": "011",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 1,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "Tu",
+        "start": "15:00",
+        "end": "18:00",
+        "campus": "Central",
+        "location": "RAND"
+       }
+      ]
+     },
+     {
+      "section_id": "012",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 6,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "15:00",
+        "end": "18:00",
+        "campus": "Central",
+        "location": "MH"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "CHEM 215",
+   "title": "Structure and Reactivity II",
+   "credits": 3,
+   "prereqs": [
+    [
+     "CHEM 210"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "premed",
+    "chemistry"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "FA25",
+    "WN26",
+    "SP26"
+   ],
+   "class_size": 250,
+   "format": "large lecture",
+   "fill_days": 3,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor Z",
+      "seats_open": 40,
+      "capacity": 125,
+      "meetings": [
+       {
+        "days": "MWF",
+        "start": "14:00",
+        "end": "15:00",
+        "campus": "Central",
+        "location": "WEIS"
+       }
+      ]
+     },
+     {
+      "section_id": "200",
+      "component": "LEC",
+      "instructor": "Sample Instructor AA",
+      "seats_open": 38,
+      "capacity": 125,
+      "meetings": [
+       {
+        "days": "MWF",
+        "start": "11:00",
+        "end": "12:00",
+        "campus": "Central",
+        "location": "WEIS"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 24,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Tu",
+        "start": "10:00",
+        "end": "11:00",
+        "campus": "Central",
+        "location": "AH"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 7,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "M",
+        "start": "10:00",
+        "end": "11:00",
+        "campus": "Central",
+        "location": "MH"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 12,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "M",
+        "start": "11:00",
+        "end": "12:00",
+        "campus": "Central",
+        "location": "BSB"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "CHEM 216",
+   "title": "Synthesis and Characterization",
+   "credits": 2,
+   "prereqs": [
+    [
+     "CHEM 211"
+    ]
+   ],
+   "coreqs": [
+    [
+     "CHEM 215"
+    ]
+   ],
+   "tags": [
+    "premed",
+    "chemistry"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "FA22",
+    "WN23",
+    "FA23",
+    "WN24",
+    "WN25",
+    "FA25",
+    "WN26"
+   ],
+   "class_size": 24,
+   "format": "lab",
+   "fill_days": 3,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "010",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 6,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "15:00",
+        "end": "19:00",
+        "campus": "Central",
+        "location": "MH"
+       }
+      ]
+     },
+     {
+      "section_id": "011",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 5,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "Tu",
+        "start": "14:00",
+        "end": "18:00",
+        "campus": "Central",
+        "location": "CHEM"
+       }
+      ]
+     },
+     {
+      "section_id": "012",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 4,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "M",
+        "start": "09:00",
+        "end": "13:00",
+        "campus": "Central",
+        "location": "WEIS"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "CHEM 351",
+   "title": "Fundamentals of Biochemistry",
+   "credits": 4,
+   "prereqs": [
+    [
+     "CHEM 215"
+    ],
+    [
+     "BIOLOGY 172"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "premed",
+    "biochemistry"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "FA22",
+    "WN23",
+    "FA23",
+    "WN24",
+    "FA24",
+    "WN25",
+    "FA25",
+    "WN26"
+   ],
+   "class_size": 200,
+   "format": "large lecture",
+   "fill_days": 6,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor AC",
+      "seats_open": 45,
+      "capacity": 100,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "08:30",
+        "end": "10:00",
+        "campus": "Central",
+        "location": "RAND"
+       }
+      ]
+     },
+     {
+      "section_id": "200",
+      "component": "LEC",
+      "instructor": "Sample Instructor AD",
+      "seats_open": 32,
+      "capacity": 100,
+      "meetings": [
+       {
+        "days": "MW",
+        "start": "13:30",
+        "end": "15:00",
+        "campus": "Central",
+        "location": "AH"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 3,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "M",
+        "start": "12:00",
+        "end": "13:00",
+        "campus": "Central",
+        "location": "CHEM"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 19,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "M",
+        "start": "15:00",
+        "end": "16:00",
+        "campus": "Central",
+        "location": "RAND"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 4,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "12:00",
+        "end": "13:00",
+        "campus": "Central",
+        "location": "AH"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "MCDB 310",
+   "title": "Introductory Biochemistry",
+   "credits": 4,
+   "prereqs": [
+    [
+     "CHEM 210"
+    ],
+    [
+     "BIOLOGY 172"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "premed",
+    "biochemistry",
+    "biology"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "FA22",
+    "WN23",
+    "FA23",
+    "WN24",
+    "FA24",
+    "WN25",
+    "FA25",
+    "WN26"
+   ],
+   "class_size": 150,
+   "format": "lecture",
+   "fill_days": 8,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor AE",
+      "seats_open": 13,
+      "capacity": 150,
+      "meetings": [
+       {
+        "days": "MWF",
+        "start": "09:00",
+        "end": "10:00",
+        "campus": "Central",
+        "location": "MH"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 21,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Tu",
+        "start": "11:00",
+        "end": "12:00",
+        "campus": "Central",
+        "location": "BSB"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 4,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "09:00",
+        "end": "10:00",
+        "campus": "Central",
+        "location": "EH"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 10,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "M",
+        "start": "09:00",
+        "end": "10:00",
+        "campus": "Central",
+        "location": "WH"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "BIOLCHEM 415",
+   "title": "Introductory Biochemistry",
+   "credits": 3,
+   "prereqs": [
+    [
+     "CHEM 215"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "premed",
+    "biochemistry"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "FA22",
+    "FA23",
+    "FA25"
+   ],
+   "class_size": 120,
+   "format": "lecture",
+   "fill_days": 9,
+   "terms": {}
+  },
+  {
+   "code": "PHYSICS 240",
+   "title": "General Physics II",
+   "credits": 4,
+   "prereqs": [
+    [
+     "PHYSICS 140"
+    ],
+    [
+     "MATH 116"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "premed",
+    "physics"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "FA25",
+    "WN26",
+    "SP26"
+   ],
+   "class_size": 250,
+   "format": "large lecture",
+   "fill_days": 6,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor AG",
+      "seats_open": 22,
+      "capacity": 125,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "16:00",
+        "end": "17:30",
+        "campus": "North",
+        "location": "LBME"
+       }
+      ]
+     },
+     {
+      "section_id": "200",
+      "component": "LEC",
+      "instructor": "Sample Instructor AH",
+      "seats_open": 23,
+      "capacity": 125,
+      "meetings": [
+       {
+        "days": "MWF",
+        "start": "13:00",
+        "end": "14:00",
+        "campus": "North",
+        "location": "GGBL"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 5,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "M",
+        "start": "10:00",
+        "end": "11:00",
+        "campus": "North",
+        "location": "LBME"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 23,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "11:00",
+        "end": "12:00",
+        "campus": "North",
+        "location": "DOW"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 19,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "10:00",
+        "end": "11:00",
+        "campus": "North",
+        "location": "EECS"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "PHYSICS 241",
+   "title": "Elementary Laboratory II",
+   "credits": 1,
+   "prereqs": [
+    [
+     "PHYSICS 141"
+    ]
+   ],
+   "coreqs": [
+    [
+     "PHYSICS 240"
+    ]
+   ],
+   "tags": [
+    "premed",
+    "physics"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "FA25",
+    "WN26",
+    "SP26"
+   ],
+   "class_size": 24,
+   "format": "lab",
+   "fill_days": 5,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "010",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 6,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "M",
+        "start": "15:00",
+        "end": "18:00",
+        "campus": "North",
+        "location": "GGBL"
+       }
+      ]
+     },
+     {
+      "section_id": "011",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 6,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "W",
+        "start": "08:00",
+        "end": "11:00",
+        "campus": "North",
+        "location": "CHRYS"
+       }
+      ]
+     },
+     {
+      "section_id": "012",
+      "component": "LAB",
+      "instructor": null,
+      "seats_open": 4,
+      "capacity": 24,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "15:00",
+        "end": "18:00",
+        "campus": "North",
+        "location": "EECS"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "PSYCH 111",
+   "title": "Introduction to Psychology",
+   "credits": 4,
+   "prereqs": [],
+   "coreqs": [],
+   "tags": [
+    "premed",
+    "psychology",
+    "abroad_ok"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "SU22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "SU23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "SU24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "SU25",
+    "FA25",
+    "WN26",
+    "SP26",
+    "SU26"
+   ],
+   "class_size": 400,
+   "format": "large lecture",
+   "fill_days": 7,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor AJ",
+      "seats_open": 21,
+      "capacity": 200,
+      "meetings": [
+       {
+        "days": "MW",
+        "start": "16:30",
+        "end": "18:00",
+        "campus": "Central",
+        "location": "DENN"
+       }
+      ]
+     },
+     {
+      "section_id": "200",
+      "component": "LEC",
+      "instructor": "Sample Instructor AK",
+      "seats_open": 47,
+      "capacity": 200,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "08:30",
+        "end": "10:00",
+        "campus": "Central",
+        "location": "MH"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 10,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "10:00",
+        "end": "11:00",
+        "campus": "Central",
+        "location": "RAND"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 24,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "W",
+        "start": "12:00",
+        "end": "13:00",
+        "campus": "Central",
+        "location": "MH"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 23,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "10:00",
+        "end": "11:00",
+        "campus": "Central",
+        "location": "MH"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "SOC 100",
+   "title": "Principles of Sociology",
+   "credits": 4,
+   "prereqs": [],
+   "coreqs": [],
+   "tags": [
+    "premed",
+    "sociology",
+    "abroad_ok"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "FA22",
+    "WN23",
+    "FA23",
+    "WN24",
+    "FA24",
+    "WN25",
+    "FA25",
+    "WN26"
+   ],
+   "class_size": 250,
+   "format": "large lecture",
+   "fill_days": 9,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor AL",
+      "seats_open": 19,
+      "capacity": 125,
+      "meetings": [
+       {
+        "days": "MWF",
+        "start": "11:00",
+        "end": "12:00",
+        "campus": "Central",
+        "location": "EH"
+       }
+      ]
+     },
+     {
+      "section_id": "200",
+      "component": "LEC",
+      "instructor": "Sample Instructor AM",
+      "seats_open": 56,
+      "capacity": 125,
+      "meetings": [
+       {
+        "days": "MWF",
+        "start": "09:00",
+        "end": "10:00",
+        "campus": "Central",
+        "location": "WEIS"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 7,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "09:00",
+        "end": "10:00",
+        "campus": "Central",
+        "location": "DENN"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 6,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "W",
+        "start": "11:00",
+        "end": "12:00",
+        "campus": "Central",
+        "location": "WH"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 17,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "10:00",
+        "end": "11:00",
+        "campus": "Central",
+        "location": "BSB"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "STATS 250",
+   "title": "Introduction to Statistics and Data Analysis",
+   "credits": 4,
+   "prereqs": [],
+   "coreqs": [],
+   "tags": [
+    "premed",
+    "statistics",
+    "ai"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "SU22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "SU23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "SU24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "SU25",
+    "FA25",
+    "WN26",
+    "SP26",
+    "SU26"
+   ],
+   "class_size": 500,
+   "format": "large lecture",
+   "fill_days": 8,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor AN",
+      "seats_open": 31,
+      "capacity": 250,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "16:00",
+        "end": "17:30",
+        "campus": "Central",
+        "location": "AH"
+       }
+      ]
+     },
+     {
+      "section_id": "200",
+      "component": "LEC",
+      "instructor": "Sample Instructor AO",
+      "seats_open": 48,
+      "capacity": 250,
+      "meetings": [
+       {
+        "days": "MW",
+        "start": "10:30",
+        "end": "12:00",
+        "campus": "Central",
+        "location": "WH"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 3,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "09:00",
+        "end": "10:00",
+        "campus": "Central",
+        "location": "BSB"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 14,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Tu",
+        "start": "11:00",
+        "end": "12:00",
+        "campus": "Central",
+        "location": "WH"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 24,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "09:00",
+        "end": "10:00",
+        "campus": "Central",
+        "location": "AH"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "ENGLISH 225",
+   "title": "Academic Argumentation",
+   "credits": 4,
+   "prereqs": [
+    [
+     "ENGLISH 125"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "writing",
+    "abroad_ok"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "SU22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "SU23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "SU24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "SU25",
+    "FA25",
+    "WN26",
+    "SP26",
+    "SU26"
+   ],
+   "class_size": 18,
+   "format": "seminar",
+   "fill_days": 4,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor AP",
+      "seats_open": 0,
+      "capacity": 18,
+      "meetings": [
+       {
+        "days": "MW",
+        "start": "15:00",
+        "end": "16:30",
+        "campus": "Central",
+        "location": "BSB"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "MATH 216",
+   "title": "Introduction to Differential Equations",
+   "credits": 4,
+   "prereqs": [
+    [
+     "MATH 116"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "math"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "SU22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "SU23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "SU24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "SU25",
+    "FA25",
+    "WN26",
+    "SP26",
+    "SU26"
+   ],
+   "class_size": 30,
+   "format": "small section",
+   "fill_days": 8,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor AQ",
+      "seats_open": 17,
+      "capacity": 30,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "11:30",
+        "end": "13:00",
+        "campus": "Central",
+        "location": "WEIS"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "BIOMEDE 221",
+   "title": "Biophysical Chemistry and Thermodynamics",
+   "credits": 4,
+   "prereqs": [
+    [
+     "CHEM 130"
+    ],
+    [
+     "MATH 116"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "bme",
+    "chemistry"
+   ],
+   "description": "",
+   "offered_history": [
+    "WN22",
+    "WN23",
+    "WN24",
+    "WN25",
+    "WN26"
+   ],
+   "class_size": 120,
+   "format": "lecture",
+   "fill_days": 8,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor AR",
+      "seats_open": 32,
+      "capacity": 120,
+      "meetings": [
+       {
+        "days": "MW",
+        "start": "16:30",
+        "end": "18:00",
+        "campus": "North",
+        "location": "LBME"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 3,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "15:00",
+        "end": "16:00",
+        "campus": "North",
+        "location": "FXB"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 2,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "16:00",
+        "end": "17:00",
+        "campus": "North",
+        "location": "BBB"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 24,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "16:00",
+        "end": "17:00",
+        "campus": "North",
+        "location": "GGBL"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "BIOMEDE 231",
+   "title": "Introduction to Biomechanics",
+   "credits": 4,
+   "prereqs": [
+    [
+     "PHYSICS 140"
+    ],
+    [
+     "MATH 116"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "bme",
+    "biomechanics",
+    "prosthetics",
+    "design"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "FA22",
+    "FA23",
+    "FA24",
+    "FA25"
+   ],
+   "class_size": 120,
+   "format": "lecture",
+   "fill_days": 9,
+   "terms": {}
+  },
+  {
+   "code": "BIOMEDE 241",
+   "title": "Statistics and Probability in BME",
+   "credits": 4,
+   "prereqs": [
+    [
+     "MATH 216"
+    ],
+    [
+     "PHYSICS 240"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "bme",
+    "statistics",
+    "ai"
+   ],
+   "description": "",
+   "offered_history": [
+    "WN22",
+    "WN23",
+    "WN24",
+    "WN25",
+    "WN26"
+   ],
+   "class_size": 110,
+   "format": "lecture",
+   "fill_days": 9,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor AT",
+      "seats_open": 24,
+      "capacity": 110,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "10:00",
+        "end": "11:30",
+        "campus": "North",
+        "location": "LBME"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 17,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Tu",
+        "start": "12:00",
+        "end": "13:00",
+        "campus": "North",
+        "location": "BBB"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 13,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "09:00",
+        "end": "10:00",
+        "campus": "North",
+        "location": "LBME"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 16,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "11:00",
+        "end": "12:00",
+        "campus": "North",
+        "location": "LBME"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "BIOMEDE 350",
+   "title": "Biomedical Design",
+   "credits": 4,
+   "prereqs": [
+    [
+     "BIOMEDE 211"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "bme",
+    "design",
+    "prosthetics"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "FA22",
+    "FA23",
+    "FA24",
+    "FA25"
+   ],
+   "class_size": 80,
+   "format": "project",
+   "fill_days": 7,
+   "terms": {}
+  },
+  {
+   "code": "BIOMEDE 419",
+   "title": "Quantitative Physiology",
+   "credits": 3,
+   "prereqs": [
+    [
+     "BIOLOGY 172"
+    ],
+    [
+     "MATH 216"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "bme",
+    "physiology",
+    "premed",
+    "medicine"
+   ],
+   "description": "",
+   "offered_history": [
+    "WN22",
+    "WN23",
+    "WN24",
+    "WN25",
+    "WN26"
+   ],
+   "class_size": 90,
+   "format": "lecture",
+   "fill_days": 8,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor AV",
+      "seats_open": 23,
+      "capacity": 90,
+      "meetings": [
+       {
+        "days": "MW",
+        "start": "13:30",
+        "end": "15:00",
+        "campus": "North",
+        "location": "BBB"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "BIOMEDE 450",
+   "title": "Biomedical Design Capstone",
+   "credits": 4,
+   "prereqs": [
+    [
+     "BIOMEDE 350"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "bme",
+    "design",
+    "prosthetics",
+    "robotics"
+   ],
+   "description": "",
+   "offered_history": [
+    "WN22",
+    "WN23",
+    "WN24",
+    "WN25",
+    "WN26"
+   ],
+   "class_size": 70,
+   "format": "project",
+   "fill_days": 10,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor AW",
+      "seats_open": 41,
+      "capacity": 70,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "13:00",
+        "end": "14:30",
+        "campus": "North",
+        "location": "DOW"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "BIOMEDE 458",
+   "title": "Biomedical Instrumentation and Design",
+   "credits": 4,
+   "prereqs": [
+    [
+     "BIOMEDE 211"
+    ],
+    [
+     "BIOMEDE 241"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "bme",
+    "electronics",
+    "design"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "FA22",
+    "FA23",
+    "FA24",
+    "FA25"
+   ],
+   "class_size": 60,
+   "format": "lab heavy",
+   "fill_days": 6,
+   "terms": {}
+  },
+  {
+   "code": "BIOMEDE 476",
+   "title": "Biomechanics and Bioinspired Design",
+   "credits": 4,
+   "prereqs": [
+    [
+     "BIOMEDE 231"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "bme",
+    "biomechanics",
+    "robotics",
+    "soft robotics",
+    "prosthetics"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "FA22",
+    "FA23",
+    "FA24"
+   ],
+   "class_size": 50,
+   "format": "seminar",
+   "fill_days": 5,
+   "terms": {}
+  },
+  {
+   "code": "EECS 281",
+   "title": "Data Structures and Algorithms",
+   "credits": 4,
+   "prereqs": [
+    [
+     "EECS 280"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "ai",
+    "computing"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "FA25",
+    "WN26",
+    "SP26"
+   ],
+   "class_size": 700,
+   "format": "large lecture",
+   "fill_days": 2,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor AZ",
+      "seats_open": 1,
+      "capacity": 350,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "11:30",
+        "end": "13:00",
+        "campus": "North",
+        "location": "GGBL"
+       }
+      ]
+     },
+     {
+      "section_id": "200",
+      "component": "LEC",
+      "instructor": "Sample Instructor BA",
+      "seats_open": 2,
+      "capacity": 350,
+      "meetings": [
+       {
+        "days": "MWF",
+        "start": "13:00",
+        "end": "14:00",
+        "campus": "North",
+        "location": "FXB"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 24,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Tu",
+        "start": "12:00",
+        "end": "13:00",
+        "campus": "North",
+        "location": "FXB"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 10,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "09:00",
+        "end": "10:00",
+        "campus": "North",
+        "location": "FXB"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 18,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "09:00",
+        "end": "10:00",
+        "campus": "North",
+        "location": "FXB"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "EECS 445",
+   "title": "Introduction to Machine Learning",
+   "credits": 4,
+   "prereqs": [
+    [
+     "EECS 281"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "ai",
+    "computing"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "FA22",
+    "WN23",
+    "FA23",
+    "WN24",
+    "FA24",
+    "WN25",
+    "FA25",
+    "WN26"
+   ],
+   "class_size": 400,
+   "format": "large lecture",
+   "fill_days": 2,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor BB",
+      "seats_open": 51,
+      "capacity": 200,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "08:30",
+        "end": "10:00",
+        "campus": "North",
+        "location": "EECS"
+       }
+      ]
+     },
+     {
+      "section_id": "200",
+      "component": "LEC",
+      "instructor": "Sample Instructor BC",
+      "seats_open": 16,
+      "capacity": 200,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "13:00",
+        "end": "14:30",
+        "campus": "North",
+        "location": "CHRYS"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 16,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Tu",
+        "start": "09:00",
+        "end": "10:00",
+        "campus": "North",
+        "location": "GGBL"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 7,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "10:00",
+        "end": "11:00",
+        "campus": "North",
+        "location": "BBB"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 19,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "M",
+        "start": "09:00",
+        "end": "10:00",
+        "campus": "North",
+        "location": "LBME"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "EECS 492",
+   "title": "Introduction to Artificial Intelligence",
+   "credits": 4,
+   "prereqs": [
+    [
+     "EECS 281"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "ai",
+    "computing"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "FA22",
+    "WN23",
+    "FA23",
+    "WN24",
+    "FA24",
+    "FA25",
+    "WN26"
+   ],
+   "class_size": 250,
+   "format": "lecture",
+   "fill_days": 4,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor BD",
+      "seats_open": 55,
+      "capacity": 125,
+      "meetings": [
+       {
+        "days": "MWF",
+        "start": "10:00",
+        "end": "11:00",
+        "campus": "North",
+        "location": "GGBL"
+       }
+      ]
+     },
+     {
+      "section_id": "200",
+      "component": "LEC",
+      "instructor": "Sample Instructor BE",
+      "seats_open": 9,
+      "capacity": 125,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "16:00",
+        "end": "17:30",
+        "campus": "North",
+        "location": "GGBL"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 4,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "W",
+        "start": "12:00",
+        "end": "13:00",
+        "campus": "North",
+        "location": "FXB"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 19,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "12:00",
+        "end": "13:00",
+        "campus": "North",
+        "location": "DOW"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 13,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "16:00",
+        "end": "17:00",
+        "campus": "North",
+        "location": "DOW"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "ROB 311",
+   "title": "How to Build Robots and Make Them Move",
+   "credits": 4,
+   "prereqs": [
+    [
+     "ENGR 100"
+    ]
+   ],
+   "coreqs": [],
+   "tags": [
+    "robotics",
+    "design",
+    "controls",
+    "soft robotics"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "FA22",
+    "WN23",
+    "FA23",
+    "WN24",
+    "FA24",
+    "WN25",
+    "WN26"
+   ],
+   "class_size": 60,
+   "format": "project",
+   "fill_days": 3,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor BF",
+      "seats_open": 46,
+      "capacity": 60,
+      "meetings": [
+       {
+        "days": "MWF",
+        "start": "11:00",
+        "end": "12:00",
+        "campus": "North",
+        "location": "EECS"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "HISTART 101",
+   "title": "Great Monuments: Pyramids to Present",
+   "credits": 4,
+   "prereqs": [],
+   "coreqs": [],
+   "tags": [
+    "humanities",
+    "abroad_ok"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "FA22",
+    "WN23",
+    "FA23",
+    "WN24",
+    "FA24",
+    "WN25",
+    "FA25",
+    "WN26"
+   ],
+   "class_size": 200,
+   "format": "large lecture",
+   "fill_days": 12,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor BG",
+      "seats_open": 7,
+      "capacity": 100,
+      "meetings": [
+       {
+        "days": "MWF",
+        "start": "12:00",
+        "end": "13:00",
+        "campus": "Central",
+        "location": "RAND"
+       }
+      ]
+     },
+     {
+      "section_id": "200",
+      "component": "LEC",
+      "instructor": "Sample Instructor BH",
+      "seats_open": 39,
+      "capacity": 100,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "16:00",
+        "end": "17:30",
+        "campus": "Central",
+        "location": "WEIS"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 19,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "W",
+        "start": "11:00",
+        "end": "12:00",
+        "campus": "Central",
+        "location": "AH"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 6,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "W",
+        "start": "10:00",
+        "end": "11:00",
+        "campus": "Central",
+        "location": "AH"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 6,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "F",
+        "start": "16:00",
+        "end": "17:00",
+        "campus": "Central",
+        "location": "CHEM"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "PHIL 160",
+   "title": "Moral Principles and Problems",
+   "credits": 4,
+   "prereqs": [],
+   "coreqs": [],
+   "tags": [
+    "humanities",
+    "ethics",
+    "medicine",
+    "abroad_ok"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "FA22",
+    "WN23",
+    "FA23",
+    "WN24",
+    "FA24",
+    "WN25",
+    "FA25",
+    "WN26"
+   ],
+   "class_size": 150,
+   "format": "lecture",
+   "fill_days": 10,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor BI",
+      "seats_open": 0,
+      "capacity": 150,
+      "meetings": [
+       {
+        "days": "MW",
+        "start": "10:30",
+        "end": "12:00",
+        "campus": "Central",
+        "location": "DENN"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 0,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "W",
+        "start": "12:00",
+        "end": "13:00",
+        "campus": "Central",
+        "location": "CHEM"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 17,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "M",
+        "start": "10:00",
+        "end": "11:00",
+        "campus": "Central",
+        "location": "DENN"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 21,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "M",
+        "start": "09:00",
+        "end": "10:00",
+        "campus": "Central",
+        "location": "MH"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "code": "ANTHRCUL 101",
+   "title": "Introduction to Anthropology",
+   "credits": 4,
+   "prereqs": [],
+   "coreqs": [],
+   "tags": [
+    "humanities",
+    "abroad_ok",
+    "medicine"
+   ],
+   "description": "",
+   "offered_history": [
+    "FA21",
+    "WN22",
+    "SP22",
+    "SU22",
+    "FA22",
+    "WN23",
+    "SP23",
+    "SU23",
+    "FA23",
+    "WN24",
+    "SP24",
+    "SU24",
+    "FA24",
+    "WN25",
+    "SP25",
+    "SU25",
+    "FA25",
+    "WN26",
+    "SP26",
+    "SU26"
+   ],
+   "class_size": 300,
+   "format": "large lecture",
+   "fill_days": 14,
+   "terms": {
+    "WN27": [
+     {
+      "section_id": "100",
+      "component": "LEC",
+      "instructor": "Sample Instructor BJ",
+      "seats_open": 40,
+      "capacity": 150,
+      "meetings": [
+       {
+        "days": "MW",
+        "start": "12:00",
+        "end": "13:30",
+        "campus": "Central",
+        "location": "WEIS"
+       }
+      ]
+     },
+     {
+      "section_id": "200",
+      "component": "LEC",
+      "instructor": "Sample Instructor BK",
+      "seats_open": 22,
+      "capacity": 150,
+      "meetings": [
+       {
+        "days": "TuTh",
+        "start": "13:00",
+        "end": "14:30",
+        "campus": "Central",
+        "location": "AH"
+       }
+      ]
+     },
+     {
+      "section_id": "101",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 15,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "W",
+        "start": "11:00",
+        "end": "12:00",
+        "campus": "Central",
+        "location": "MH"
+       }
+      ]
+     },
+     {
+      "section_id": "102",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 14,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "M",
+        "start": "09:00",
+        "end": "10:00",
+        "campus": "Central",
+        "location": "AH"
+       }
+      ]
+     },
+     {
+      "section_id": "103",
+      "component": "DIS",
+      "instructor": null,
+      "seats_open": 23,
+      "capacity": 25,
+      "meetings": [
+       {
+        "days": "Th",
+        "start": "12:00",
+        "end": "13:00",
+        "campus": "Central",
+        "location": "DENN"
+       }
+      ]
+     }
+    ]
+   }
+  }
+ ]
+}

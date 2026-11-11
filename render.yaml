@@ -1,0 +1,12 @@
+# One click setup on Render (free plan). See HOSTING.md.
+services:
+  - type: web
+    name: atlas-planner
+    runtime: docker
+    plan: free
+    healthCheckPath: /healthz
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false        # paste your free Neon connection string when Render asks

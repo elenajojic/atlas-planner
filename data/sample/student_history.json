@@ -1,0 +1,103 @@
+{
+ "label": "SAMPLE student history (fake grades)",
+ "history": [
+  {
+   "course": "ENGR 100",
+   "term": "FA25",
+   "grade": "A-",
+   "credits": 4,
+   "instructor": "Sample Instructor A"
+  },
+  {
+   "course": "ENGR 101",
+   "term": "FA25",
+   "grade": "A",
+   "credits": 4,
+   "instructor": "Sample Instructor B"
+  },
+  {
+   "course": "MATH 115",
+   "term": "FA25",
+   "grade": "A-",
+   "credits": 4,
+   "instructor": "Sample Instructor D"
+  },
+  {
+   "course": "CHEM 130",
+   "term": "FA25",
+   "grade": "B+",
+   "credits": 3,
+   "instructor": "Sample Instructor F"
+  },
+  {
+   "course": "CHEM 125",
+   "term": "FA25",
+   "grade": "A",
+   "credits": 1,
+   "instructor": "Sample Instructor H"
+  },
+  {
+   "course": "MATH 116",
+   "term": "WN26",
+   "grade": "B+",
+   "credits": 4,
+   "instructor": "Sample Instructor E"
+  },
+  {
+   "course": "PHYSICS 140",
+   "term": "WN26",
+   "grade": "B",
+   "credits": 4,
+   "instructor": "Sample Instructor J"
+  },
+  {
+   "course": "PHYSICS 141",
+   "term": "WN26",
+   "grade": "A-",
+   "credits": 1,
+   "instructor": "Sample Instructor L"
+  },
+  {
+   "course": "ENGLISH 125",
+   "term": "WN26",
+   "grade": "A",
+   "credits": 4,
+   "instructor": "Sample Instructor M"
+  },
+  {
+   "course": "BIOMEDE 211",
+   "term": "WN26",
+   "grade": "A-",
+   "credits": 4,
+   "instructor": "Sample Instructor N"
+  },
+  {
+   "course": "CHEM 126",
+   "term": "WN26",
+   "grade": "A",
+   "credits": 1,
+   "instructor": "Sample Instructor I"
+  },
+  {
+   "course": "MATH 215",
+   "term": "FA26",
+   "grade": null,
+   "credits": 4,
+   "instructor": "Sample Instructor O"
+  },
+  {
+   "course": "BIOLOGY 171",
+   "term": "FA26",
+   "grade": null,
+   "credits": 4,
+   "instructor": "Sample Instructor P"
+  },
+  {
+   "course": "EECS 280",
+   "term": "FA26",
+   "grade": null,
+   "credits": 4,
+   "instructor": "Sample Instructor R"
+  }
+ ]
+}
