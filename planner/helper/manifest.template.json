@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Atlas Planner helper",
+  "version": "1.0",
+  "description": "Signs you into the Atlas Planner Claude connector with your own Atlas login. Only runs on the connector's connect page.",
+  "permissions": ["cookies"],
+  "host_permissions": ["https://atlas.ai.umich.edu/*"],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [{ "matches": ["__CONNECT_URL__"], "js": ["content.js"], "run_at": "document_start" }]
+}

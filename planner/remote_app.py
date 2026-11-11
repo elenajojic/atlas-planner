@@ -39,7 +39,7 @@ from mcp.server.auth.settings import AuthSettings, ClientRegistrationOptions, Re
 from mcp.server.mcpserver import MCPServer
 from mcp.shared.auth import OAuthClientInformationFull, OAuthToken
 from starlette.requests import Request
-from starlette.responses import HTMLResponse, RedirectResponse, Response
+from starlette.responses import HTMLResponse, JSONResponse, RedirectResponse, Response
 
 from . import server as planner
 from .data_source import CURRENT_COOKIES, CURRENT_USER, AtlasSource, user_home
@@ -184,27 +184,91 @@ mcp = MCPServer(
 # ====================================================================== connect page
 PAGE = """<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Connect Atlas Planner</title><style>
-body{{font:16px/1.5 -apple-system,system-ui,sans-serif;max-width:640px;margin:40px auto;padding:0 20px;color:#1d1d1f}}
-h1{{font-size:24px;margin-bottom:4px}} .sub{{color:#666;margin-top:0}} ol li{{margin:6px 0}}
-code{{background:#f2f2f4;padding:1px 5px;border-radius:4px}} textarea{{width:100%;height:80px;font:14px monospace;padding:8px;box-sizing:border-box}}
-button{{background:#00274c;color:#ffcb05;border:0;padding:10px 18px;border-radius:8px;font-size:16px;cursor:pointer}}
-.err{{background:#fdecea;color:#8a1c12;padding:10px;border-radius:8px}} .note{{color:#666;font-size:14px}}
+body{{font:16px/1.5 -apple-system,system-ui,sans-serif;max-width:600px;margin:48px auto;padding:0 20px;color:#1d1d1f}}
+h1{{font-size:26px;margin-bottom:4px}} .sub{{color:#666;margin-top:0}}
+.big{{display:inline-block;background:#00274c;color:#ffcb05;border:0;padding:14px 26px;border-radius:10px;font-size:18px;cursor:pointer;text-decoration:none}}
+.big[disabled]{{opacity:.6;cursor:default}} .status{{margin:16px 0;color:#333;min-height:24px}}
+.err{{background:#fdecea;color:#8a1c12;padding:10px;border-radius:8px}} .note{{color:#777;font-size:13px;margin-top:36px}}
+.card{{border:1px solid #ddd;border-radius:12px;padding:16px 20px;margin:20px 0}} ol li{{margin:6px 0}}
+code{{background:#f2f2f4;padding:1px 5px;border-radius:4px}} textarea{{width:100%;height:70px;font:13px monospace;padding:8px;box-sizing:border-box}}
+details{{margin-top:24px;color:#555}} .small{{font-size:14px}}
 </style></head><body>
 <h1>Connect Atlas Planner</h1><p class="sub">Plan your UMich schedule with Claude, using your own Atlas data.</p>
 {error}
-<ol>
-<li>Open <a href="https://atlas.ai.umich.edu/my-dashboard/" target="_blank">Atlas</a> in this browser and log in (uniqname + Duo).</li>
-<li>Open developer tools: <b>Cmd+Option+I</b> (Mac) or <b>F12</b> (Windows).</li>
-<li>Go to <b>Application</b> (Chrome/Edge) or <b>Storage</b> (Firefox/Safari) &gt; <b>Cookies</b> &gt; <code>https://atlas.ai.umich.edu</code>.</li>
-<li>Click the <code>sessionid</code> row and copy its <b>Value</b>. Paste it below.</li>
-</ol>
+<div id="withHelper" style="display:none">
+  <button class="big" id="go">Sign in with Atlas</button>
+  <div class="status" id="status"></div>
+</div>
+<div id="noHelper" class="card" style="display:none">
+  <b>One time setup (about 1 minute, Chrome)</b>
+  <ol class="small">
+    <li><a href="/helper.zip">Download the Atlas Planner helper</a> and double click the zip to unzip it.</li>
+    <li>Open <code>chrome://extensions</code> in a new tab and turn on <b>Developer mode</b> (top right).</li>
+    <li>Click <b>Load unpacked</b> and choose the unzipped <code>atlas-planner-helper</code> folder.</li>
+    <li>Come back here and <a href="" onclick="location.reload();return false">reload this page</a>.</li>
+  </ol>
+  <span class="small">The helper only runs on this page. It reads your Atlas login when you click Sign in, and nothing else.</span>
+</div>
+<details><summary>Other ways to connect</summary>
+<p class="small">Paste your Atlas <code>sessionid</code> cookie instead: in Atlas, open developer tools (Cmd+Option+I),
+Application &gt; Cookies &gt; atlas.ai.umich.edu, copy the <code>sessionid</code> value.</p>
 <form method="post" action="/connect"><input type="hidden" name="req" value="{req}">
-<textarea name="cookie" placeholder="sessionid value (or sessionid=...; csrftoken=...)" required></textarea>
-<p><button type="submit">Connect</button></p></form>
-<p class="note">Your cookie is only kept inside the encrypted token Claude holds for you, never stored on this server.
-Your planning profile is stored encrypted. Atlas data is for your own planning only. When Atlas logs you out,
-reconnect from Claude's Connectors settings. This is a student project, not an official University of Michigan service.</p>
+<textarea name="cookie" placeholder="sessionid value" required></textarea><p><button type="submit">Connect</button></p></form>
+</details>
+<p class="note">Your Atlas login is only kept inside the encrypted token Claude holds for you, never stored on this server.
+Your planning profile is stored encrypted. Atlas data is for your own planning only. This is a student project,
+not an official University of Michigan service.</p>
+<script>
+const REQ = {req_json};
+let n = 0;
+function ask(type) {{
+  return new Promise(res => {{
+    const id = ++n;
+    const on = ev => {{ if (ev.source === window && ev.data && ev.data.src === "atlas-planner-helper" && ev.data.id === id) {{
+      window.removeEventListener("message", on); res(ev.data.res); }} }};
+    window.addEventListener("message", on);
+    window.postMessage({{src: "atlas-planner-page", type, id}}, location.origin);
+  }});
+}}
+const say = (t) => document.getElementById("status").textContent = t;
+let lastTried = null;
+async function attempt() {{
+  const c = await ask("get");
+  if (!c.sessionid || c.sessionid === lastTried) return false;
+  lastTried = c.sessionid;
+  const r = await fetch("/connect", {{method: "POST", headers: {{"Content-Type": "application/json"}},
+    body: JSON.stringify({{req: REQ, cookie: "sessionid=" + c.sessionid + (c.csrftoken ? "; csrftoken=" + c.csrftoken : "")}})}});
+  const j = await r.json().catch(() => ({{}}));
+  if (j.ok) {{ say("Connected as " + j.uniqname + ". Taking you back to Claude..."); await ask("done"); location.href = j.redirect; return true; }}
+  if (j.expired) {{ say(j.error); return "stop"; }}
+  return false;
+}}
+async function go() {{
+  const btn = document.getElementById("go"); btn.disabled = true;
+  say("Checking your Atlas login...");
+  let r = await attempt();
+  if (r) return;
+  await ask("openLogin");
+  say("Log in to Atlas in the tab that just opened (uniqname + Duo). This page will continue by itself.");
+  for (let i = 0; i < 200; i++) {{
+    await new Promise(s => setTimeout(s, 3000));
+    r = await attempt();
+    if (r === true || r === "stop") return;
+  }}
+  say("Timed out. Click Sign in with Atlas to try again."); btn.disabled = false;
+}}
+async function init() {{
+  const found = await Promise.race([ask("ping").then(() => true), new Promise(r => setTimeout(() => r(false), 600))]);
+  if (found) {{ document.getElementById("withHelper").style.display = ""; document.getElementById("go").onclick = go; }}
+  else document.getElementById("noHelper").style.display = "";
+}}
+init();
+</script>
 </body></html>"""
+
+
+def _expired_page() -> Response:
+    return HTMLResponse("<p>This connect link expired. Start again from Claude's Connectors settings.</p>", 400)
 
 
 @mcp.custom_route("/connect", methods=["GET", "POST"])
@@ -212,13 +276,15 @@ async def connect(request: Request) -> Response:
     if request.method == "GET":
         rid = request.query_params.get("req", "")
         if not provider.db.get("oauth", "req:" + rid):
-            return HTMLResponse("<p>This connect link expired. Start again from Claude's Connectors settings.</p>", 400)
-        return HTMLResponse(PAGE.format(req=html.escape(rid), error=""))
-    form = await request.form()
+            return _expired_page()
+        return HTMLResponse(PAGE.format(req=html.escape(rid), req_json=json.dumps(rid), error=""))
+    is_json = request.headers.get("content-type", "").startswith("application/json")
+    form = await (request.json() if is_json else request.form())
     rid = str(form.get("req", ""))
     req = provider.db.get("oauth", "req:" + rid)
     if not req:
-        return HTMLResponse("<p>This connect link expired. Start again from Claude's Connectors settings.</p>", 400)
+        msg = "This connect link expired. Start again from Claude's Connectors settings."
+        return JSONResponse({"ok": False, "expired": True, "error": msg}) if is_json else _expired_page()
     cookies = _parse_cookies(str(form.get("cookie", "")))
     try:
         if "sessionid" not in cookies:
@@ -226,7 +292,10 @@ async def connect(request: Request) -> Response:
         uid = await anyio.to_thread.run_sync(_check_atlas, cookies)
     except Exception as e:
         msg = str(e) if isinstance(e, ValueError) else "Couldn't reach Atlas. Try again in a minute."
-        return HTMLResponse(PAGE.format(req=html.escape(rid), error=f'<p class="err">{html.escape(msg)}</p>'), 400)
+        if is_json:
+            return JSONResponse({"ok": False, "error": msg})
+        return HTMLResponse(PAGE.format(req=html.escape(rid), req_json=json.dumps(rid),
+                                        error=f'<p class="err">{html.escape(msg)}</p>'), 400)
     provider.db.delete("oauth", "req:" + rid)
     code = secrets.token_urlsafe(32)
     rec = {"code": code, "scopes": req.get("scopes") or [SCOPE], "expires_at": time.time() + 600,
@@ -237,7 +306,26 @@ async def connect(request: Request) -> Response:
     # fresh login: forget cached personal results so the audit is re-read
     provider.db.delete_prefix(f"user:{uid}", "cache:me_")
     provider.db.delete_prefix(f"user:{uid}", "cache:whatif_")
-    return RedirectResponse(construct_redirect_uri(req["redirect_uri"], code=code, state=req.get("state")), 302)
+    target = construct_redirect_uri(req["redirect_uri"], code=code, state=req.get("state"))
+    if is_json:
+        return JSONResponse({"ok": True, "uniqname": uid, "redirect": target})
+    return RedirectResponse(target, 302)
+
+
+@mcp.custom_route("/helper.zip", methods=["GET"])
+async def helper_zip(request: Request) -> Response:
+    """The Chrome helper, set to run only on this server's connect page."""
+    import io
+    import zipfile
+    folder = Path(__file__).parent / "helper"
+    manifest = (folder / "manifest.template.json").read_text().replace("__CONNECT_URL__", BASE_URL + "/connect*")
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
+        z.writestr("atlas-planner-helper/manifest.json", manifest)
+        for name in ("background.js", "content.js"):
+            z.write(folder / name, "atlas-planner-helper/" + name)
+    return Response(buf.getvalue(), media_type="application/zip",
+                    headers={"Content-Disposition": 'attachment; filename="atlas-planner-helper.zip"'})
 
 
 @mcp.custom_route("/", methods=["GET"])

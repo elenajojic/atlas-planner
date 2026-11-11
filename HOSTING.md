@@ -12,10 +12,11 @@ Total setup time is about 15 minutes.
 
 ## How login works
 
-Atlas uses UMich login with Duo, which a server can't do for you. So when you connect, the connector shows
-a page asking you to paste your Atlas `sessionid` cookie (instructions are on the page). The cookie is only
-kept inside the encrypted token Claude holds for you, never saved on the server. When Atlas eventually logs
-you out, you reconnect and paste a fresh one.
+Atlas uses UMich login with Duo, and UMich only hands logins to sites it has registered. So connecting uses a
+tiny Chrome helper (installed once, about a minute): click **Sign in with Atlas** on the connect page, log in
+in the tab that opens, and you're sent back to Claude. The helper only runs on your connector's connect page.
+Your Atlas login is kept only inside the encrypted token Claude holds for you, never saved on the server.
+(No helper? The connect page also lets you paste your `sessionid` cookie by hand.)
 
 ## 1. Put the code on GitHub
 
@@ -53,7 +54,8 @@ git push -u origin main
    `https://atlas-planner-xxxx.onrender.com/mcp`.
 3. Leave authentication as detected (OAuth). If it asks about the OAuth client, pick
    **Register automatically**.
-4. Click **Add**, then **Connect**. The connect page opens: follow it to paste your Atlas `sessionid`.
+4. Click **Add**, then **Connect**. On the connect page, do the one time helper setup it shows, then click
+   **Sign in with Atlas**.
 
 Done. In any chat, turn on Atlas Planner from the **+** menu > **Connectors** and say
 "set up my Atlas planner".

@@ -45,8 +45,21 @@ def decrypt(token: str, max_age: Optional[int] = None) -> Any:
 
 
 class Store:
+    @staticmethod
+    def _clean_url(url: str) -> str:
+        """Tolerate pasted connection strings: 'DATABASE_URL=...', quotes, extra lines, channel_binding."""
+        import re
+        m = re.search(r"postgres(?:ql)?://[^\s'\"]+", url or "")
+        if not m:
+            return (url or "").strip()
+        u = m.group(0)
+        u = re.sub(r"[&?]channel_binding=[^&]*", "", u)
+        if "?" not in u and "&" in u:
+            u = u.replace("&", "?", 1)
+        return u
+
     def __init__(self, url: Optional[str] = None):
-        self.url = url or os.environ.get("DATABASE_URL") or ""
+        self.url = self._clean_url(url or os.environ.get("DATABASE_URL") or "")
         self.pg = self.url.startswith(("postgres://", "postgresql://"))
         self._local = threading.local()
         self._init()

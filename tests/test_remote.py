@@ -46,8 +46,14 @@ loc = r.headers["location"]; print("authorize ->", loc[:60]); assert "/connect?r
 page = h.get(loc.replace(B, "")); assert page.status_code == 200 and "sessionid" in page.text
 req = urllib.parse.parse_qs(urllib.parse.urlparse(loc).query)["req"][0]
 bad = h.post("/connect", data={"req": req, "cookie": "sessionid=WRONGWRONGWRONGWRONG"}); assert bad.status_code == 400 and "bad cookie" in bad.text
-ok = h.post("/connect", data={"req": req, "cookie": "csrftoken=CSRF123; sessionid=GOODSESSION"}); assert ok.status_code == 302, ok.text
-cb = urllib.parse.urlparse(ok.headers["location"]); q = urllib.parse.parse_qs(cb.query); assert q["state"] == ["xyz"]
+assert "Sign in with Atlas" in page.text and "helper.zip" in page.text
+z = h.get("/helper.zip"); import zipfile, io; zf = zipfile.ZipFile(io.BytesIO(z.content))
+man = json.loads(zf.read("atlas-planner-helper/manifest.json")); assert man["content_scripts"][0]["matches"] == [B + "/connect*"], man
+assert sorted(zf.namelist()) == ["atlas-planner-helper/background.js", "atlas-planner-helper/content.js", "atlas-planner-helper/manifest.json"]
+badj = h.post("/connect", json={"req": req, "cookie": "sessionid=NOTLOGGEDINYETXXXXXXX"}).json(); assert badj["ok"] is False, badj
+ok = h.post("/connect", json={"req": req, "cookie": "sessionid=GOODSESSION; csrftoken=CSRF123"}).json(); assert ok["ok"] and ok["uniqname"] == "ejojic", ok
+cb = urllib.parse.urlparse(ok["redirect"]); q = urllib.parse.parse_qs(cb.query); assert q["state"] == ["xyz"]
+assert h.post("/connect", json={"req": req, "cookie": "sessionid=GOODSESSION"}).json().get("expired")
 tok = h.post("/token", data={"grant_type": "authorization_code", "code": q["code"][0], "redirect_uri": "https://claude.ai/api/mcp/auth_callback",
                              "client_id": cid, "code_verifier": ver, "resource": B + "/mcp"}).json()
 assert "access_token" in tok, tok; print("token ok, expires_in", tok["expires_in"])
