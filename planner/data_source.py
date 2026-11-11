@@ -12,7 +12,9 @@ import csv
 import json
 import os
 import re
+import threading
 import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Optional
 
@@ -139,6 +141,19 @@ class SampleSource(DataSource):
         return self._cohort
 
 
+# How long each kind of Atlas data stays fresh. Course info barely changes within a term; seats do.
+_DAY = 24 * 3600
+TTL_BY_PREFIX = [("me_", 1 * _DAY), ("whatif_", 1 * _DAY), ("sections_", 2 * _DAY),
+                 ("browse_", 45 * _DAY), ("course_", 45 * _DAY), ("instr_", 45 * _DAY), ("plan_", 120 * _DAY)]
+
+
+def ttl_for(key: str, default: float) -> float:
+    for prefix, ttl in TTL_BY_PREFIX:
+        if key.startswith(prefix):
+            return ttl
+    return default
+
+
 class _Cache:
     """Files on your computer (local), or the shared/encrypted store (hosted)."""
 
@@ -163,14 +178,14 @@ class _Cache:
             from .store import get_store
             return get_store().get(self._ns(key), "cache:" + self._safe(key))
         p = self._path(key)
-        if p.exists() and time.time() - p.stat().st_mtime < self.ttl:
+        if p.exists() and time.time() - p.stat().st_mtime < ttl_for(key, self.ttl):
             return json.loads(p.read_text())
         return None
 
     def put(self, key: str, value) -> None:
         if is_hosted():
             from .store import get_store
-            get_store().put(self._ns(key), "cache:" + self._safe(key), value, ttl=self.ttl)
+            get_store().put(self._ns(key), "cache:" + self._safe(key), value, ttl=ttl_for(key, self.ttl))
             return
         self._path(key).write_text(json.dumps(value))
 
@@ -292,10 +307,9 @@ class AtlasSource(DataSource):
     name = "atlas"
     label = "Atlas (live)"
     BASE = "https://atlas.ai.umich.edu"
-    MIN_SECONDS_BETWEEN_REQUESTS = 1.5
-    DEFAULT_SUBJECTS = ["BIOMEDE", "MATH", "CHEM", "PHYSICS", "BIOLOGY", "MCDB", "EECS", "STATS", "ENGR",
-                        "BIOLCHEM", "PSYCH", "SOC", "ECON", "TO", "ACC", "FIN", "MKT", "STRATEGY", "MO",
-                        "MATSCIE", "ROB", "ME", "TCHNCLCM", "ENGLISH", "PHIL"]
+    MIN_SECONDS_BETWEEN_REQUESTS = 0.4   # at most ~2.5 requests a second to Atlas, even with workers
+    WORKERS = 4
+    DEFAULT_SUBJECTS: list[str] = []   # subjects come from your audit + premed template + must/watch lists
     PREMED_TEMPLATE = "Premed (template)"
 
     def __init__(self):
@@ -305,6 +319,7 @@ class AtlasSource(DataSource):
         self.cache = _Cache(home / "cache", ttl_hours=24 * 7)
         self.ext = load_external_ratings(home / "external_ratings.csv")
         self._last = 0.0
+        self._throttle = threading.Lock()
         self._session = None
         self._instr: dict[str, dict] = {}   # name key -> {"clarity": [(course, pct)], "full_name": str}
 
@@ -384,20 +399,23 @@ class AtlasSource(DataSource):
 
     def _fetch(self, path: str, *, kind: str = "json", method: str = "GET", body: Optional[dict] = None):
         s = self._http()
-        wait = self.MIN_SECONDS_BETWEEN_REQUESTS - (time.time() - self._last)
-        if wait > 0:
-            time.sleep(wait)
+        with self._throttle:
+            wait = self.MIN_SECONDS_BETWEEN_REQUESTS - (time.time() - self._last)
+            if wait > 0:
+                time.sleep(wait)
+            self._last = time.time()
         url = path if path.startswith("http") else self.BASE + path
         if method == "POST":
             r = s.post(url, json=body, timeout=60,
                        headers={"X-CSRFTOKEN": s.cookies.get("csrftoken", ""), "Accept": "application/json"})
         else:
             r = s.get(url, timeout=30, headers={"Accept": "application/json" if kind == "json" else "text/html"})
-        self._last = time.time()
-        self.n_requests = getattr(self, "n_requests", 0) + 1
+        with self._throttle:
+            self.n_requests = getattr(self, "n_requests", 0) + 1
+            n = self.n_requests
         hook = getattr(self, "on_request", None)
         if hook:
-            hook(self.n_requests)
+            hook(n)
         if r.status_code in (401, 403) or "weblogin" in r.url or "/accounts/login" in r.url:
             raise RuntimeError("Atlas session expired. " + (
                 "Reconnect: Claude Settings > Connectors > Atlas Planner > Disconnect, then Connect."
@@ -584,6 +602,9 @@ class AtlasSource(DataSource):
         subs = list(self.DEFAULT_SUBJECTS) + list(prof.get("extra_subjects", []))
         for code in prof.get("must_take", []) + prof.get("watch_courses", []):
             subs.append(code.split()[0])
+        if self.PREMED_TEMPLATE in prof.get("programs", []):
+            for g in self.requirements(self.PREMED_TEMPLATE)["groups"]:
+                subs += [o.split()[0] for o in g["options"]]
         rep = self._whatif(prof) if prof.get("atlas_plans") else None
         if rep:
             for b in rep["requirement_bundles"]:
@@ -611,13 +632,19 @@ class AtlasSource(DataSource):
             return list(self._cat.values())
         out = {}
         self.skipped_subjects = []
-        for sub in self._subjects():
+
+        def one(sub):
             try:
-                data = self._cached(f"browse_{sub}", lambda s=sub: self._browse_subject(s)) or {}
+                return sub, self._cached(f"browse_{sub}", lambda: self._browse_subject(sub)) or {}, None
             except RuntimeError:
                 raise                      # login problems should surface
             except Exception as e:         # one bad subject (Atlas 500 etc.) shouldn't break planning
-                self.skipped_subjects.append(f"{sub}: {e.__class__.__name__}")
+                return sub, {}, e
+
+        results = self._pmap(one, self._subjects())
+        for sub, data, err in results:
+            if err is not None:
+                self.skipped_subjects.append(f"{sub}: {err.__class__.__name__}")
                 continue
             for c in data.get("results", []):
                 if c.get("end_term_code"):
@@ -821,17 +848,46 @@ class AtlasSource(DataSource):
                     typical[code] = {"typical_term_index": order[best.lower()] * 2 + 1, "share_of_similar_students": share}
         return {"combos": [], "typical_paths": {"cohort": "all Atlas students who took each course", "courses": typical}}
 
+    def _pmap(self, fn, items) -> list:
+        """Run fn over items with a few worker threads, keeping this request's user and login."""
+        items = list(items)
+        ctxs = [contextvars.copy_context() for _ in items]     # one copy each: a context can't be shared by threads
+        with ThreadPoolExecutor(self.WORKERS) as pool:
+            return list(pool.map(lambda pair: pair[0].run(fn, pair[1]), zip(ctxs, items)))
+
+    def _prefetch_course(self, code: str, term: str, tcode: str) -> None:
+        """Download (into the cache) everything planning needs for one course. Safe to run in parallel."""
+        c = self._catalog_index().get(code)
+        try:
+            self._course_page(code)
+            if c and term in c.offered_history:
+                data = self._sections(code)
+                if data and tcode in data.get("terms", []):
+                    if data.get("selected_term") != tcode:
+                        self._cached(f"sections_{code}_{tcode}", lambda: self._fetch(
+                            f"/api/section-table-data/{code.replace(' ', '%20')}/?term={tcode}"))
+                    self._cached(f"instr_{code}", lambda: self._fetch(
+                        f"/courses/{self._compact(code)}/{tcode}/course-instructors.json"))
+        except RuntimeError:
+            raise
+        except Exception:
+            pass
+
     def warm(self, term: str = "") -> dict:
-        """Prefetch everything planning needs. Slow the first time (polite request spacing); cached a week."""
+        """Prefetch everything planning needs, a few requests at a time. Course data then lasts the term."""
         t0 = time.time()
+        self.progress_total = 10
         self.student_history()
         cat = self.catalog()
-        offs = self.offerings(term)
-        for c in self.candidate_codes():
-            self.course_stats(c)
+        term = term or self.next_term()
+        tcode = term_to_atlas(term)
+        cands = self.candidate_codes()
+        self.progress_total = getattr(self, "n_requests", 0) + 3 * len(cands)
+        self._pmap(lambda code: self._prefetch_course(code, term, tcode), cands)
+        offs = self.offerings(term)          # all cache hits now
         return {"catalog_courses": len(cat), "skipped_subjects": getattr(self, "skipped_subjects", []),
-                "candidates": len(self.candidate_codes()),
-                "offered_next_term": len(offs), "seconds": round(time.time() - t0)}
+                "candidates": len(cands), "offered_next_term": len(offs),
+                "requests": getattr(self, "n_requests", 0), "seconds": round(time.time() - t0)}
 
 
 def get_source() -> DataSource:

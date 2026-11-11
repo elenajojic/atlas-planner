@@ -62,8 +62,8 @@ INSTRUCTIONS = planner.INSTRUCTIONS.replace(
     "  1. (Login already happened when the user connected this connector.)\n") + """
 
 HOSTED CONNECTOR NOTES: If a tool returns {"status": "loading"}, tell the user their Atlas data is still
-downloading in the background (first time only, a few minutes), say roughly how far along it is, and offer to
-continue with setup questions meanwhile. Try the tool again when they reply. If a tool says the Atlas session
+downloading (first time only, usually 1 to 3 minutes) with the percent done, and continue with setup questions
+meanwhile. Do NOT call the tool again in the same reply; only retry after the user's next message. If a tool says the Atlas session
 expired, tell them to reconnect: Settings > Connectors > Atlas Planner > Disconnect, then Connect.
 The HTML view_file paths are on the server and not viewable: draw the week grid yourself from `grid`."""
 
@@ -306,6 +306,7 @@ async def connect(request: Request) -> Response:
     # fresh login: forget cached personal results so the audit is re-read
     provider.db.delete_prefix(f"user:{uid}", "cache:me_")
     provider.db.delete_prefix(f"user:{uid}", "cache:whatif_")
+    _start_warm(uid, cookies, force=True)     # by the time you type your first message, it's downloading
     target = construct_redirect_uri(req["redirect_uri"], code=code, state=req.get("state"))
     if is_json:
         return JSONResponse({"ok": True, "uniqname": uid, "redirect": target})
@@ -375,52 +376,92 @@ def _warm_status(uid: str) -> dict:
     return provider.db.get(f"user:{uid}", "warm") or {}
 
 
-def _start_warm(uid: str, cookies: dict) -> dict:
+def _put_status(uid: str, d: dict) -> None:
+    old = _warm_status(uid)
+    provider.db.put(f"user:{uid}", "warm", {"ever_done": old.get("ever_done", False), **d, "updated": time.time()})
+
+
+_running: set[str] = set()       # downloads running in this server process
+_gen: dict[str, int] = {}        # bumps when majors change, so an older download can't mark the new one done
+
+
+def _start_warm(uid: str, cookies: dict, force: bool = False) -> dict:
+    """Start the background download if it isn't already running here. Never blocks."""
     st = _warm_status(uid)
-    if st.get("state") == "running" and time.time() - st.get("updated", 0) < 300:
+    if uid in _running:
         return st
+    if not force and st.get("state") == "done" and time.time() - st.get("updated", 0) < 20 * 3600:
+        return st   # fresh enough
+    _running.add(uid)
+    gen = _gen[uid] = _gen.get(uid, 0) + 1
 
     def job():
+        def put(d):
+            if _gen.get(uid) == gen:
+                _put_status(uid, d)
+
         CURRENT_USER.set(uid)
         CURRENT_COOKIES.set(cookies)
         started = time.time()
-        put = lambda d: provider.db.put(f"user:{uid}", "warm", {**d, "started": started, "updated": time.time()})  # noqa: E731
-        put({"state": "running", "requests": 0})
+        put({"state": "running", "requests": 0, "total": 0, "started": started})
         try:
             with _lock(uid):
-                before = _sync_down(uid)
-                src = AtlasSource()
-                src.on_request = lambda n: put({"state": "running", "requests": n}) if n % 10 == 0 else None
-                summary = src.warm()
-                _sync_up(uid, before)
-            put({"state": "done", "summary": summary})
+                _sync_down(uid)            # just to read the current profile; a download never edits files
+            src = AtlasSource()
+            src.on_request = lambda n: (put({"state": "running", "requests": n, "started": started,
+                                                           "total": getattr(src, "progress_total", 0)})
+                                        if n % 8 == 0 else None)
+            summary = src.warm()
+            put({"state": "done", "ever_done": True, "summary": summary, "started": started})
         except Exception as e:
-            put({"state": "error", "error": f"{e.__class__.__name__}: {e}"})
+            import traceback; traceback.print_exc()
+            put({"state": "error", "error": f"{e.__class__.__name__}: {e}", "started": started})
+        finally:
+            if _gen.get(uid) == gen:
+                _running.discard(uid)
 
     threading.Thread(target=contextvars.Context().run, args=(job,), daemon=True).start()
-    return {"state": "running", "requests": 0}
+    return _warm_status(uid)
 
 
 def _ready(uid: str) -> bool:
+    """Ready once a download has ever finished for the current majors; refreshes happen in the background."""
     st = _warm_status(uid)
-    return st.get("state") == "done" and time.time() - st.get("updated", 0) < 6 * 24 * 3600
+    return bool(st.get("ever_done")) or st.get("state") == "done"
 
 
-def _loading_reply(uid: str, cookies: dict) -> str:
+def _progress(st: dict) -> dict:
+    n, total = st.get("requests", 0), st.get("total", 0)
+    pct = min(95, round(100 * n / total)) if total else None
+    return {"percent_done": pct, "requests_done": n,
+            "elapsed_seconds": round(time.time() - st["started"]) if st.get("started") else 0}
+
+
+async def _wait_ready(uid: str, cookies: dict, seconds: float = 25) -> bool:
+    """Wait a bit for the download instead of making Claude retry over and over (that caused rate limits)."""
+    _start_warm(uid, cookies)
+    deadline = time.time() + seconds
+    while time.time() < deadline:
+        if _ready(uid):
+            return True
+        st = _warm_status(uid)
+        if st.get("state") == "error":
+            return False
+        await anyio.sleep(1)
+    return _ready(uid)
+
+
+def _loading_reply(uid: str) -> str:
     st = _warm_status(uid)
     if st.get("state") == "error":
-        err = st["error"]
-        _start_warm(uid, cookies)
-        return json.dumps({"status": "loading", "note": f"Last download hit an error ({err}); retrying now."})
-    st = _start_warm(uid, cookies)
-    n = st.get("requests", 0)
-    shared = provider.db.count("shared", "cache:")
+        return json.dumps({"status": "error", "error": st["error"],
+                           "next": "Tell the user. If it says the session expired, they should reconnect. Otherwise "
+                                   "call refresh_atlas_data once to try again."}, indent=1)
     return json.dumps({
-        "status": "loading",
-        "message": "Downloading your Atlas data in the background (first time only). Course data other students "
-                   "already loaded is reused, so it's usually a few minutes. Ask again shortly.",
-        "requests_done": n, "courses_cached_on_server": shared,
-        "elapsed_seconds": round(time.time() - st.get("started", time.time())) if st.get("started") else 0,
+        "status": "loading", **_progress(st),
+        "message": "Your Atlas data is still downloading in the background (first time only, usually 1 to 3 minutes).",
+        "next": "Do NOT call this tool again right away. Tell the user the progress, keep going with setup "
+                "questions, and try again only after the user's next message.",
     }, indent=1)
 
 
@@ -437,11 +478,13 @@ def _hosted(fn):
         if name in LOCAL_ONLY:
             return ("You're already logged in through the connector. If Atlas logged you out, reconnect: "
                     "Settings > Connectors > Atlas Planner > Disconnect, then Connect.")
-        if name in HEAVY and not _ready(uid):
-            return _loading_reply(uid, cookies)
         if name == "refresh_atlas_data":
-            provider.db.put(f"user:{uid}", "warm", {"state": "stale", "updated": 0})
-            return _loading_reply(uid, cookies)
+            st = _start_warm(uid, cookies, force=True)
+            return json.dumps({"status": "refreshing in the background", **_progress(st),
+                               "note": "You can keep planning with the data already downloaded."}, indent=1)
+        _start_warm(uid, cookies)          # start or refresh in the background; never blocks
+        if name in HEAVY and not _ready(uid) and not await _wait_ready(uid, cookies):
+            return _loading_reply(uid)
 
         def run():
             CURRENT_USER.set(uid)
@@ -454,8 +497,10 @@ def _hosted(fn):
                     _sync_up(uid, before)
 
         out = await anyio.to_thread.run_sync(lambda: contextvars.Context().run(run))
-        if name in ("update_profile", "save_profile") and isinstance(out, str) and "atlas_plans" in json.dumps(kwargs):
-            provider.db.put(f"user:{uid}", "warm", {"state": "stale", "updated": 0})   # new majors: re-download
+        if name in ("update_profile", "save_profile") and "atlas_plans" in json.dumps(kwargs):
+            _put_status(uid, {"state": "stale", "ever_done": False})     # new majors: download what they need
+            _running.discard(uid)
+            _start_warm(uid, cookies, force=True)
         return out
     return tool
 

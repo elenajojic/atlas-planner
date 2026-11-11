@@ -62,9 +62,9 @@ Done. In any chat, turn on Atlas Planner from the **+** menu > **Connectors** an
 
 ## Good to know
 
-- **First time is slow.** The first big request downloads your audit and course data in the background
-  (a few minutes). Claude will say it's loading; just ask again. After that it's cached for a week, and
-  course data is shared, so friends who connect later get it instantly.
+- **Speed.** The download starts the moment you connect (usually 1 to 3 minutes the first time, a few requests
+  at a time). Course data is then kept for the whole term and your audit for a day, and refreshes happen in the
+  background, so later chats answer right away. Course data is shared, so friends who connect later get it instantly.
 - **Free Render sleeps** after 15 minutes without use and takes about a minute to wake. If the first message
   of the day errors or times out, send it again. To keep it awake, add a free check at **cron-job.org**
   that opens `https://YOUR-URL/healthz` every 10 minutes (one always-on service fits in Render's 750 free

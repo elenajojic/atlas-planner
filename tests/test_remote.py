@@ -10,9 +10,10 @@ sys.path.insert(0, os.path.join(ROOT, "tests"))
 from planner import data_source as ds
 import fake_atlas
 seen_cookies = []
+DELAY = [0.01]
 def fake(self, path, kind="json", method="GET", body=None):
     seen_cookies.append(dict(self._http().cookies))
-    time.sleep(0.01)
+    time.sleep(DELAY[0])
     return fake_atlas.fake(self, path, kind, method, body)
 ds.AtlasSource._fetch = fake
 ds.AtlasSource.MIN_SECONDS_BETWEEN_REQUESTS = 0
@@ -54,6 +55,8 @@ badj = h.post("/connect", json={"req": req, "cookie": "sessionid=NOTLOGGEDINYETX
 ok = h.post("/connect", json={"req": req, "cookie": "sessionid=GOODSESSION; csrftoken=CSRF123"}).json(); assert ok["ok"] and ok["uniqname"] == "ejojic", ok
 cb = urllib.parse.urlparse(ok["redirect"]); q = urllib.parse.parse_qs(cb.query); assert q["state"] == ["xyz"]
 assert h.post("/connect", json={"req": req, "cookie": "sessionid=GOODSESSION"}).json().get("expired")
+time.sleep(1); print("after connect:", ra._warm_status("ejojic"))
+assert ra._warm_status("ejojic").get("state") in ("running", "done"), "download should start at connect"
 tok = h.post("/token", data={"grant_type": "authorization_code", "code": q["code"][0], "redirect_uri": "https://claude.ai/api/mcp/auth_callback",
                              "client_id": cid, "code_verifier": ver, "resource": B + "/mcp"}).json()
 assert "access_token" in tok, tok; print("token ok, expires_in", tok["expires_in"])
@@ -76,13 +79,10 @@ print("update_profile:", call("update_profile", {"changes": {"name": "Elena", "a
     {"plan": "Biomedical Engineering BSE", "type": "MAJ"}, {"plan": "AI BSE BioE", "type": "MIN"}, {"plan": "Business Admin BSE BioE", "type": "MIN"}],
     "programs": ["Biomedical Engineering BSE", "AI BSE BioE", "Business Admin BSE BioE", "Premed (template)"]}}))
 prog = json.loads(call("get_progress")); print("progress gpa:", prog.get("gpa_now"), "history", len(prog["history"]))
-first = json.loads(call("plan_all_semesters")); print("first plan call:", first.get("status"), first.get("message", "")[:50]); assert first["status"] == "loading"
-for _ in range(100):
-    st = ra._warm_status("ejojic")
-    if st.get("state") in ("done", "error"): break
-    time.sleep(0.2)
-print("warm:", st.get("state"), st.get("summary") or st.get("error"))
-assert st["state"] == "done"
+t0 = time.time(); first = call("plan_all_semesters"); waited = time.time() - t0
+print(f"first plan call waited {waited:.1f}s ->", first[:60].replace("\n", " "))
+assert '"loading"' not in first, first
+st = ra._warm_status("ejojic"); print("warm:", st.get("state"), st.get("summary") or st.get("error")); assert st.get("ever_done")
 plan = json.loads(call("plan_all_semesters")); print("plan:", "ok" if plan.get("ok") else plan)
 assert all(c.get("sessionid") == "GOODSESSION" for c in seen_cookies)
 print("search:", call("search_offerings", {"query": "BIOMEDE"})[:120].replace("\n", " "))
@@ -91,4 +91,14 @@ print("atlas_login:", call("atlas_login")[:60])
 raw = dbtext(); assert "Elena" not in raw and "ejojic\"" not in raw.replace("user:ejojic", "")
 print("profile persisted:", "Elena" in call("get_profile"))
 # second user can't see first user's data
+# slow Atlas: the tool waits a bit, then says loading (with percent) instead of making Claude retry
+DELAY[0] = 0.5
+ra.provider.db.delete_prefix("shared", "cache:"); ra.provider.db.delete_prefix("user:ejojic", "cache:")
+orig_wait = ra._wait_ready
+async def short_wait(uid, cookies, seconds=25): return await orig_wait(uid, cookies, 2)
+ra._wait_ready = short_wait
+call("update_profile", {"changes": {"atlas_plans": [{"plan": "Biomedical Engineering BSE", "type": "MAJ"}]}})
+t0 = time.time(); r = json.loads(call("optimize_schedule")); print(f"slow: waited {time.time()-t0:.1f}s ->", r.get("status"), r.get("percent_done"), r.get("next", "")[:40])
+assert r["status"] == "loading" and "Do NOT call" in r["next"]
+print("refresh:", json.loads(call("refresh_atlas_data"))["status"])
 print("ALL REMOTE OK")
