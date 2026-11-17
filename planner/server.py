@@ -347,11 +347,54 @@ def _write_week(src, r, open_view):
         r["view_file"] = render.write_view(f"week_{r['term']}", render.week_html(r, "Atlas Planner: week options"), open_view)
 
 
+def _brief_plan(r: dict) -> dict:
+    if not r.get("ok"):
+        return r
+    out = {k: r.get(k) for k in ("ok", "plan_quality", "does_it_all_fit", "unmet_requirements", "program_priority",
+                                 "mcat", "gpa_projection", "heaviest_term", "next_term_note",
+                                 "next_term_no_section_fits", "not_offered_often_enough")}
+    out["terms"] = [{"term": t["term"], "name": t["name"], "credits": t["credits"],
+                     "workload_index": t["workload_index"], "predicted_term_gpa": t["predicted_term_gpa"],
+                     "courses": [{"course": c["course"], "title": c["title"], "credits": c["credits"],
+                                  "predicted_grade": c["predicted_grade"], "difficulty_0_100": c["difficulty_0_100"],
+                                  "counts_toward": [x[:60] for x in c["counts_toward"]] or "prerequisite only",
+                                  **({"mcat_course": True} if c["mcat_course"] else {})} for c in t["courses"]]}
+                    for t in r["terms"]]
+    out["application_story"] = r.get("application_story")
+    out["more"] = 'Call again with detail="full" for offering history, typical timing, critical path and double counting.'
+    return out
+
+
+def _brief_week(r: dict) -> dict:
+    out = {k: r.get(k) for k in ("term", "semester_plan_note", "warnings", "source_label") if r.get(k)}
+    out["plans"] = []
+    for p in r.get("plans", []):
+        out["plans"].append({
+            "rank": p["rank"], "score": p["score"], "credits": p["credits"], "workload_index": p["workload_index"],
+            "predicted_term_gpa": p["gpa"]["term_gpa"], "bcpm_after": p["gpa"].get("bcpm_after"),
+            "heaviest_day": p["heaviest_day"], "gap_hours_between_classes": p["dead_time_h"],
+            "days_without_lunch": p["lunch_missing_days"], "free_weekdays": p["free_weekdays"],
+            "protected_time": [f"{x['name']}: {'fits' if x['fits'] else 'does NOT fit'}" for x in p["protected"]],
+            "warnings": p["warnings"],
+            "courses": [{"course": c["course"], "title": c["title"], "credits": c["credits"], "sections": c["sections"],
+                         "times": c["times"], "instructor": c["instructor"],
+                         "predicted_grade": (f"{c['predicted_grade']['range']} ({c['predicted_grade']['confidence']} confidence)"
+                                             if c["predicted_grade"] else None),
+                         "backup_sections": c["backup_sections"], "counts_toward": [x[:60] for x in c["counts_toward"]]}
+                        for c in p["courses"]],
+            "grid": [[g["day"], g["start_min"], g["end_min"], g["label"], g["kind"], g["where"]] for g in p["grid"]]})
+    out["grid_columns"] = ["day", "start_min", "end_min", "label", "kind", "where"]
+    out["more"] = 'Call again with detail="full" for Atlas stats, seat risk, requirement progress and goal fit.'
+    return out
+
+
 @_tool
-def optimize_schedule(term: str = "", n_plans: int = 4, extra_busy: Optional[list[dict]] = None,
+def optimize_schedule(term: str = "", n_plans: int = 3, extra_busy: Optional[list[dict]] = None,
                       overrides: Optional[dict] = None, open_view: bool = False,
-                      follow_semester_plan: bool = True) -> str:
+                      follow_semester_plan: bool = True, detail: str = "brief") -> str:
     """Build and rank full weekly schedules for one term (default: next term).
+
+    detail: "brief" (default, fast to read) or "full" (every stat).
 
     follow_semester_plan: keep this term consistent with the multi semester plan (default). Set False
       to let the week optimizer choose freely.
@@ -368,22 +411,24 @@ def optimize_schedule(term: str = "", n_plans: int = 4, extra_busy: Optional[lis
     else:
         r = optimize_week(src, prof, term, n_plans, extra_busy, overrides)
     _write_week(src, r, open_view)
-    return _j(r)
+    return _j(r if detail == "full" else _brief_week(r))
 
 
 @_tool
 def plan_all_semesters(overrides: Optional[dict] = None, study_abroad_term: str = "",
-                       extra_busy: Optional[list[dict]] = None, open_view: bool = False) -> str:
+                       extra_busy: Optional[list[dict]] = None, open_view: bool = False,
+                       detail: str = "brief") -> str:
     """Plan every remaining semester: offering history, prereq order, double counting, critical path, MCAT
     timing, students like you, balanced workload, optional spring/summer. Next term is checked against real
     section times so it matches optimize_schedule. Includes GPA/BCPM projection, application story score
-    and heatmap. overrides may include {"plan":{...}, "must_take":[], "avoid":[]}."""
+    and heatmap. overrides may include {"plan":{...}, "must_take":[], "avoid":[]}.
+    detail: "brief" (default) or "full". Always tell the user what `does_it_all_fit` says."""
     src, prof = get_source(), _profile()
     r, wk = _aligned(src, prof, "", 3, extra_busy, overrides, abroad_term=study_abroad_term or None)
     _write_week(src, wk, False)
     if r.get("ok"):
         r["view_file"] = render.write_view("four_year_plan", render.heatmap_html(r, "Atlas Planner: semester plan"), open_view)
-    return _j(r)
+    return _j(r if detail == "full" else _brief_plan(r))
 
 
 @_tool
@@ -398,7 +443,9 @@ def what_if_scenario(changes: dict) -> str:
     add_program [names], remove_program [names], must_take [courses], mcat_term "SP28",
     use_spring_summer true/false, graduation_term "WN29", study_abroad_term "FA27"."""
     r = what_if(get_source(), _profile(), changes)
-    r.pop("new_plan", None)
+    new = r.pop("new_plan", None) or {}
+    r["new_plan_by_term"] = {t["term"]: [c["course"] for c in t["courses"]] for t in new.get("terms", [])}
+    r["does_it_all_fit_after"] = new.get("does_it_all_fit")
     return _j(r)
 
 

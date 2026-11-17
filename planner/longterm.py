@@ -154,7 +154,20 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
     mcat_term = P.get("mcat_term")
     mcat_courses = {o for g in groups if g.get("mcat") for o in g["options"]}
 
-    cand = sorted({o for g in groups if g["remaining"] > 0 for o in g["options"]} | must)
+    open_groups = [g for g in groups if g["remaining"] > 0]
+    seen_in: dict = {}
+    for g in open_groups:
+        for o in g["options"]:
+            seen_in[o] = seen_in.get(o, 0) + 1
+    cand_set = set(must)
+    max_opts = int(os.environ.get("PLAN_MAX_OPTIONS", "8"))
+    for g in open_groups:
+        opts = [o for o in g["options"] if o in catalog and o not in done and o not in avoid]
+        if len(opts) > max_opts:     # e.g. "any BIOMEDE 300+": keep double counters, then the lowest level ones
+            opts.sort(key=lambda o: (-seen_in[o], max(conf[o].values() or [0]) < min_conf, catalog[o].level, o))
+            opts = opts[:max(max_opts, g["remaining"] + 2)]
+        cand_set |= set(opts)
+    cand = sorted(cand_set)
     enrich = getattr(source, "enrich", None)
     if enrich:          # live Atlas: prereqs come from each course page (already downloaded)
         for code in cand:
@@ -302,14 +315,15 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
         elif not is_main_term(t):
             m.Add(peak >= 2 * wl_t[t])   # half length term: same work in half the weeks
 
-    pen = [slack_w[k] * s_ for k, s_ in slack.items()]
+    pen = []
+    must_have = [slack_w[k] * s_ for k, s_ in slack.items()]     # phase 1: requirements, by program priority
     pen.append(int(W.get("workload_balance", 4) * 6) * peak)
     pen += [int(5 * S / 100) * sh for sh in short]   # gentle push toward full time terms
     pen += [3 * S * taken[c] for c in cand]            # fewer total courses => double counting wins
     if mcat_term:
         for (code, t), var in y.items():
             if code in mcat_courses and term_key(t) >= term_key(mcat_term):
-                pen.append(int(W.get("mcat", 5) * 20 * S) * var)
+                must_have.append(int(W.get("mcat", 5) * 20 * S) * var)
     for (code, t), var in y.items():
         late = tidx[t]
         pen.append(int(W.get("critical_path", 3) * unlock[code] * late * S / 4) * var)
@@ -327,23 +341,48 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
                 pen.append(int(W.get("combos", 3) * cb["penalty"] * S) * z)
     reward = [int(W.get("goal_fit", 3) * gfit[c] * S / 2) * taken[c] for c in cand]
     reward += [int(W.get("double_counting", 3) * max(0, len(dc.get(c, [])) - 1) * 3 * S) * taken[c] for c in cand]
-    m.Maximize(sum(reward) - sum(pen))
-
     solver = cp_model.CpSolver()
-    solver.parameters.max_time_in_seconds = time_limit * float(os.environ.get("PLAN_TIME_FACTOR", "1"))
+    budget = time_limit * float(os.environ.get("PLAN_TIME_FACTOR", "1"))
     solver.parameters.num_workers = int(os.environ.get("SOLVER_WORKERS", "8"))
     if os.environ.get("SOLVER_MAX_MB"):
         solver.parameters.max_memory_in_mb = int(os.environ["SOLVER_MAX_MB"])
+    all_vars = list(y.values()) + list(slack.values())
+
+    # Phase 1: fit as many requirements as possible (highest priority program first).
+    m.Minimize(sum(must_have))
+    solver.parameters.max_time_in_seconds = budget * 0.6
     st = solver.Solve(m)
     if st not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
         return {"ok": False, "error": "No multi term plan found. Try enabling spring/summer or lowering minimum credits."}
+    quality = "best possible" if st == cp_model.OPTIMAL else "good, not proven best (ran out of time)"
+    sol = {v.Index(): solver.Value(v) for v in all_vars}
+    best1 = int(round(solver.ObjectiveValue()))
+
+    # Phase 2: among plans that fit just as much, balance workload, order gateways early, etc.
+    m.Add(sum(must_have) <= best1)
+    for v in all_vars:
+        m.AddHint(v, sol[v.Index()])
+    m.Maximize(sum(reward) - sum(pen))
+    solver.parameters.max_time_in_seconds = max(1.0, budget * 0.4)
+    st2 = solver.Solve(m)
+    if st2 in (cp_model.OPTIMAL, cp_model.FEASIBLE):
+        sol = {v.Index(): solver.Value(v) for v in all_vars}
+        objective = solver.ObjectiveValue() / S
+    else:
+        objective = -best1 / S
+
+    class _Sol:
+        @staticmethod
+        def Value(v):
+            return sol[v.Index()]
+    solver_ = _Sol
 
     gm = GradeModel(source, history)
     plan_terms, all_planned = [], []
     for t in terms:
         rows, planned = [], []
         for code in cand:
-            if (code, t) in y and solver.Value(y[code, t]):
+            if (code, t) in y and solver_.Value(y[code, t]):
                 c = catalog[code]
                 p = gm.predict(code)
                 if p:
@@ -368,15 +407,15 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
                            "combos": [f"{' + '.join(cb['courses'])}: {cb['note']}" for cb in combos
                                       if all(any(r["course"] == x for r in rows) for x in cb["courses"])]})
 
-    unmet = [f"{g}: short {solver.Value(s_)}" for g, s_ in slack.items() if solver.Value(s_) > 0]
+    unmet = [f"{g}: short {solver_.Value(s_)}" for g, s_ in slack.items() if solver_.Value(s_) > 0]
     capacity = capacity_report(groups, catalog, terms, P, abroad_term,
-                               {k: solver.Value(s_) for k, s_ in slack.items()}, slack_g, prio)
+                               {k: solver_.Value(s_) for k, s_ in slack.items()}, slack_g, prio)
     late_mcat = [r["course"] for pt in plan_terms for r in pt["courses"]
                  if mcat_term and r["mcat_course"] and term_key(pt["term"]) >= term_key(mcat_term)]
     gpa = gpa_projection(history, all_planned, prof.get("bcpm_subjects"))
     main = [pt for pt in plan_terms if is_main_term(pt["term"]) and not pt["abroad"]]
     result = {
-        "ok": True, "objective": solver.ObjectiveValue() / S,
+        "ok": True, "objective": objective, "plan_quality": quality,
         "terms": plan_terms,
         "unmet_requirements": unmet,
         "does_it_all_fit": capacity,
@@ -435,7 +474,7 @@ def what_if(source, profile: dict, changes: dict) -> dict:
             progs.append(p)
     progs = [p for p in progs if p not in changes.get("remove_program", [])]
     ov["programs"] = progs
-    for k in ("mcat_term", "use_spring_summer", "graduation_term"):
+    for k in ("mcat_term", "use_spring_summer", "graduation_term", "max_credits_main", "spring_summer_max_credits"):
         if k in changes:
             ov["plan"][k] = changes[k]
     new = plan_semesters(source, profile, ov, abroad_term=changes.get("study_abroad_term"), time_limit=6)
