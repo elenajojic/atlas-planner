@@ -606,6 +606,12 @@ class AtlasSource(DataSource):
     def _line_to_group(self, line: dict, group_name: str, req_name: str) -> Optional[dict]:
         name = line["name"]
         opts = [] if re.search(r"\d00-Level", name, re.I) else extract_codes(name)
+        # "BIOMEDE 450 or (BIOMEDE 451 and 452)": the pair only counts together, so plan the single course.
+        for inner in re.findall(r"\(([^()]*\band\b[^()]*)\)", name, flags=re.I):
+            pair = extract_codes(inner.upper())
+            rest = [o for o in opts if o not in pair]
+            if rest and re.search(r"\bor\b", name, re.I):
+                opts = rest
         status = line.get("status")
         if line.get("type") == "GPA":
             return None
