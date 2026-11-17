@@ -266,22 +266,47 @@ def parse_prereqs(text: str) -> list[list[str]]:
     for p in parts:
         g = extract_codes(p.upper(), subject)     # "MATH 215 and 216": 216 keeps the MATH subject
         if g:
-            groups.append(g)
+            if len(g) > 1 and not re.search(r"\bOR\b|/", p.upper()):
+                groups += [[x] for x in g]        # "BIOMEDE 221, 231" with no "or": all of them
+            else:
+                groups.append(g)
             subject = g[-1].rsplit(" ", 1)[0]
     return groups
 
 
-def parse_advisory(text: str) -> list[list[str]]:
-    """Advisory prereqs (used when Atlas lists no enforced ones). Skips 'no credit if you took X' style clauses,
-    recommendations, and anything about concurrent enrollment or permission."""
+_EXCLUSION_WORDS = ("no credit", "not open", "credit is granted", "may not", "cannot", "can not", "not available",
+                    "credit not", "not for credit", "restricted", "except", "other than", "exclud", "prior credit",
+                    "have completed", "who have taken", "already")
+_SOFT_WORDS = ("recommend", "concurrent", "permission", "preferred", "helpful", "exposure")
+
+
+def _clauses(text: str, drop: tuple) -> str:
     keep = []
-    for clause in re.split(r"[.;]", text or ""):
-        low = clause.lower()
-        if any(w in low for w in ("no credit", "not open", "credit is granted", "recommend", "concurrent", "permission",
-                                  "preferred", "helpful", "exposure")):
-            continue
-        keep.append(clause)
-    return parse_prereqs(". ".join(keep).replace(".", ";"))
+    for clause in re.split(r"[.;]|\bNo credit\b|\bNot open\b", text or ""):
+        if clause.strip() and not any(w in clause.lower() for w in drop):
+            keep.append(clause)
+    return "; ".join(keep)
+
+
+def parse_enforced(text: str, code: str = "") -> list[list[str]]:
+    """Enforced prereqs, minus exclusion clauses ("No credit for those who completed MATH 216, 286 or 316").
+    A group that names the course itself can only be an exclusion, so it is dropped."""
+    text = text or ""
+    low = text.lower()
+    for marker in ("no credit", "not open"):          # everything after an exclusion marker in the same sentence
+        i = low.find(marker)
+        if i >= 0:
+            j = min([k for k in (text.find(".", i), text.find(";", i)) if k >= 0] or [len(text)])
+            text, low = text[:i] + text[j:], low[:i] + low[j:]
+    groups = parse_prereqs(_clauses(text, _EXCLUSION_WORDS))
+    return [g for g in groups if code not in g]
+
+
+def parse_advisory(text: str, code: str = "") -> list[list[str]]:
+    """Advisory prereqs (used when Atlas lists no enforced ones). Skips exclusions, recommendations, and
+    anything about concurrent enrollment or permission."""
+    groups = parse_prereqs(_clauses(text, _EXCLUSION_WORDS + _SOFT_WORDS))
+    return [g for g in groups if code not in g]
 
 
 def _name_key(name: str) -> str:
@@ -735,10 +760,12 @@ class AtlasSource(DataSource):
         page = self._course_page(code)
         if page and page["props"]:
             pr = page["props"][0]
-            c.prereqs = parse_prereqs(pr.get("enforced_prereqs") or "")
+            c.prereq_text = {"enforced": (pr.get("enforced_prereqs") or "").strip(),
+                             "advisory": (pr.get("advisory_prereqs") or "").strip()}
+            c.prereqs = parse_enforced(pr.get("enforced_prereqs") or "", code)
             c.prereqs_soft = False
             if not c.prereqs:       # advisory only: used for ordering, never to add courses or block one
-                c.prereqs = parse_advisory(pr.get("advisory_prereqs") or "")
+                c.prereqs = parse_advisory(pr.get("advisory_prereqs") or "", code)
                 c.prereqs_soft = True
             c.description = pr.get("description") or ""
             c.tags = [c.description.lower()[:600]]

@@ -258,6 +258,8 @@ def course_report(course: str) -> str:
     c = cat.get(course.lower())
     if not c:
         return f"{course} not found."
+    if hasattr(src, "enrich"):
+        src.enrich(c.code)
     st = src.course_stats(c.code)
     gm = GradeModel(src, src.student_history())
     nxt = {x.code: x for x in src.offerings("")}
@@ -274,6 +276,7 @@ def course_report(course: str) -> str:
     typ = src.cohort().get("typical_paths", {}).get("courses", {}).get(c.code)
     p = gm.predict(c.code)
     return _j({"course": c.code, "title": c.title, "credits": c.credits, "prereqs": c.prereqs, "coreqs": c.coreqs,
+               "prereq_text_from_atlas": getattr(c, "prereq_text", None),
                "atlas": st.__dict__, "difficulty_0_100": difficulty_score(st),
                "course_quality_0_100": round(course_quality(st)), "workload_index": round(workload_index(c.credits, st), 2),
                "class_size": c.class_size, "format": c.format, "fills_in_days": c.fill_days,
