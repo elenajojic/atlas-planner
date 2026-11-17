@@ -735,7 +735,11 @@ class AtlasSource(DataSource):
         page = self._course_page(code)
         if page and page["props"]:
             pr = page["props"][0]
-            c.prereqs = parse_prereqs(pr.get("enforced_prereqs") or "") or parse_advisory(pr.get("advisory_prereqs") or "")
+            c.prereqs = parse_prereqs(pr.get("enforced_prereqs") or "")
+            c.prereqs_soft = False
+            if not c.prereqs:       # advisory only: used for ordering, never to add courses or block one
+                c.prereqs = parse_advisory(pr.get("advisory_prereqs") or "")
+                c.prereqs_soft = True
             c.description = pr.get("description") or ""
             c.tags = [c.description.lower()[:600]]
         return c

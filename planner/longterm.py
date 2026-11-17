@@ -177,17 +177,17 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
                 raise
             except Exception:
                 pass
-    # pull in prereqs/coreqs needed by candidates (transitively)
+    # pull in enforced prereqs/coreqs needed by candidates (transitively). Advisory ones only set the order.
     changed = True
     while changed:
         changed = False
         for code in list(cand):
             c = catalog.get(code)
-            if not c:
+            if not c or getattr(c, "prereqs_soft", False):
                 continue
             for ors in c.prereqs + c.coreqs:
                 if not any(o in done for o in ors) and not any(o in cand for o in ors):
-                    first = next((o for o in ors if o in catalog), None)
+                    first = next((o for o in ors if o in catalog and o not in avoid), None)
                     if first:
                         cand.append(first)
                         changed = True
@@ -269,12 +269,18 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
 
     for (code, t), var in list(y.items()):
         c = catalog[code]
+        soft = getattr(c, "prereqs_soft", False)
         for ors in c.prereqs:
             if any(o in done for o in ors):
                 continue
+            known = [o for o in ors if o in taken]
+            if not known and (soft or not any(o in catalog for o in ors)):
+                continue      # nothing we can plan stands for this prereq (placement, equivalent, old course)
             m.Add(sum(before(ors, t, False)) >= var)
         for ors in c.coreqs:
             if any(o in done for o in ors):
+                continue
+            if not any(o in taken for o in ors) and not any(o in catalog for o in ors):
                 continue
             m.Add(sum(before(ors, t, True)) >= var)
 
