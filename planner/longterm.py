@@ -139,6 +139,8 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
         prof["programs"] = ov["programs"]
     groups = resolve(prof, source, done)
     dc = double_counts(groups)
+    from .requirements import equivalents
+    done_pr = done | equivalents(groups)      # for prerequisites, equivalents the audit accepted count too
 
     terms = terms_between(P.get("start_term", source.next_term()), P.get("graduation_term", "WN29"),
                           P.get("use_spring_summer", False))
@@ -186,7 +188,7 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
             if not c or getattr(c, "prereqs_soft", False):
                 continue
             for ors in c.prereqs + c.coreqs:
-                if not any(o in done for o in ors) and not any(o in cand for o in ors):
+                if not any(o in done_pr for o in ors) and not any(o in cand for o in ors):
                     first = next((o for o in ors if o in catalog and o not in avoid), None)
                     if first:
                         cand.append(first)
@@ -271,14 +273,14 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
         c = catalog[code]
         soft = getattr(c, "prereqs_soft", False)
         for ors in c.prereqs:
-            if any(o in done for o in ors):
+            if any(o in done_pr for o in ors):
                 continue
             known = [o for o in ors if o in taken]
             if not known and (soft or not any(o in catalog for o in ors)):
                 continue      # nothing we can plan stands for this prereq (placement, equivalent, old course)
             m.Add(sum(before(ors, t, False)) >= var)
         for ors in c.coreqs:
-            if any(o in done for o in ors):
+            if any(o in done_pr for o in ors):
                 continue
             if not any(o in taken for o in ors) and not any(o in catalog for o in ors):
                 continue
@@ -424,7 +426,7 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
                     continue
                 det[o] = ({"terms_it_could_go": [t for t in terms if (o, t) in y],
                            "prereqs": c.prereqs, "prereqs_are_advisory": getattr(c, "prereqs_soft", None),
-                           "prereqs_not_plannable": [ors for ors in c.prereqs if not any(x in done for x in ors)
+                           "prereqs_not_plannable": [ors for ors in c.prereqs if not any(x in done_pr for x in ors)
                                                      and not any(x in taken for x in ors)]}
                           if c and o in taken else "not in catalog or not a candidate")
             unmet_details[key[:70]] = det

@@ -349,6 +349,8 @@ def optimize_week(source, profile: dict, term: str = "", n_plans: int = 4,
     offered = [c for c in source.offerings(term) if c.code not in done and c.code not in avoid]
     groups = resolve(profile, source, done)
     dc = double_counts(groups)
+    from .requirements import equivalents
+    done_pr = done | equivalents(groups)
     # Keep the solver small: the semester plan's courses, must takes, and the courses that count toward the
     # most open requirements. (Considering every eligible course made the free server run out of memory.)
     max_courses = int(os.environ.get("WEEK_MAX_COURSES", "22"))
@@ -430,9 +432,13 @@ def optimize_week(source, profile: dict, term: str = "", n_plans: int = 4,
 
     for code in take:
         c = cinfo[code]["course"]
+        soft = getattr(c, "prereqs_soft", False)
         for ors in c.prereqs:
-            if not any(o in done for o in ors):
-                m.Add(take[code] == 0)
+            if any(o in done_pr for o in ors):
+                continue
+            if soft and not any(o in take for o in ors):
+                continue          # advisory, and nothing you still need stands for it
+            m.Add(take[code] == 0)
         for ors in c.coreqs:
             if any(o in done for o in ors):
                 continue
