@@ -63,6 +63,68 @@ def _descendants(code: str, children: dict[str, set], seen=None) -> set:
     return seen
 
 
+def _recent_count(history: list, season: str) -> int:
+    years = sorted({int(h[2:]) for h in history if h[2:].isdigit()})
+    if not years:
+        return 0
+    newest = years[-1]
+    return len({int(h[2:]) for h in history if h[:2] == season and h[2:].isdigit() and newest - 5 < int(h[2:]) <= newest})
+
+
+def program_priority(prof: dict) -> list:
+    """Highest priority first. Default: your major, then premed, then minors (set `program_priority` to change)."""
+    progs = list(prof.get("programs", []))
+    if prof.get("program_priority"):
+        first = [p for p in prof["program_priority"] if p in progs]
+        return first + [p for p in progs if p not in first]
+    kind = {p["plan"]: p.get("type", "MAJ") for p in prof.get("atlas_plans", [])}
+
+    def rank(p):
+        if kind.get(p) == "MAJ":
+            return 0
+        if "premed" in p.lower():
+            return 1
+        return 2 if kind.get(p) == "MIN" else 1
+    return sorted(progs, key=lambda p: (rank(p), progs.index(p)))
+
+
+def capacity_report(groups, catalog, terms, P, abroad_term, short: dict, slack_g: dict, prio: list) -> dict:
+    """Plain numbers on whether everything fits before graduation, and what got left out if not."""
+    room = 0.0
+    for t in terms:
+        room += (P.get("abroad_max_credits", 16) if t == abroad_term else
+                 P.get("max_credits_main", 17) if is_main_term(t) else P.get("spring_summer_max_credits", 8))
+    left_out: dict = {}
+    for key, n in short.items():
+        if n > 0:
+            g = slack_g[key]
+            cr = [catalog[o].credits for o in g["options"] if o in catalog] or [3.0]
+            d = left_out.setdefault(g["program"], {"requirements": [], "credits_about": 0.0})
+            d["requirements"].append(g["group"][:90])
+            d["credits_about"] += n * min(cr)
+    rules = []
+    for g in groups:
+        c = g.get("credits") or {}
+        if g.get("untracked") and g.get("atlas_status") != "C" and c.get("kind") == "CREDIT":
+            still = (c.get("need") or 0) - (c.get("have") or 0) - (c.get("in_progress") or 0)
+            if still > 0 and not any(w in g["group"].lower() for w in ("128", "residency", "total credits", "credits in the minor", "ann arbor")):
+                rules.append({"program": g["program"], "rule": g["group"][:90], "credits_still_needed": still})
+    out = {"fits": not left_out, "terms_left": len(terms), "credit_room_before_graduation": room,
+           "left_out_by_program": left_out,
+           "credit_rules_not_auto_planned": rules,
+           "credit_rules_total": sum(r["credits_still_needed"] for r in rules)}
+    if left_out:
+        missing = sum(d["credits_about"] for d in left_out.values())
+        out["explanation"] = (f"Not everything fits in {len(terms)} terms at the credit cap: about {missing:g} credits of "
+                              f"requirements were left out, lowest priority program first ({' > '.join(prio)}). "
+                              "Ways to fix it: use spring/summer terms, add a term, raise the credit cap, or drop a program. "
+                              "Try each with what_if_scenario.")
+    if rules:
+        out["note"] = ("Credit rules (like Intellectual Breadth) aren't placed automatically; some planned courses may "
+                       "already count toward them. Leave room for the rest.")
+    return out
+
+
 def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abroad_term: Optional[str] = None,
                    time_limit: float = 8.0) -> dict:
     ov = overrides or {}
@@ -93,6 +155,15 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
     mcat_courses = {o for g in groups if g.get("mcat") for o in g["options"]}
 
     cand = sorted({o for g in groups if g["remaining"] > 0 for o in g["options"]} | must)
+    enrich = getattr(source, "enrich", None)
+    if enrich:          # live Atlas: prereqs come from each course page (already downloaded)
+        for code in cand:
+            try:
+                enrich(code)
+            except RuntimeError:
+                raise
+            except Exception:
+                pass
     # pull in prereqs/coreqs needed by candidates (transitively)
     changed = True
     while changed:
@@ -107,6 +178,11 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
                     if first:
                         cand.append(first)
                         changed = True
+                        if enrich:
+                            try:
+                                enrich(first)
+                            except Exception:
+                                pass
     cand = [c for c in cand if c in catalog and c not in done and c not in avoid]
 
     children: dict[str, set] = {}
@@ -189,13 +265,19 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
                 continue
             m.Add(sum(before(ors, t, True)) >= var)
 
-    slack = {}
+    # When everything can't fit, drop from the lowest priority program first.
+    prio = program_priority(prof)
+    slack, slack_w, slack_g = {}, {}, {}
     for gi, g in enumerate(groups):
         if g["remaining"] <= 0:
             continue
         s_ = m.NewIntVar(0, g["remaining"], f"slack_{gi}")
         m.Add(sum(taken[o] for o in g["options"] if o in taken) + s_ >= g["remaining"])
-        slack[g["group"]] = s_
+        key = f"[{g['program']}] {g['group']}"
+        slack[key] = s_
+        rank = prio.index(g["program"]) if g["program"] in prio else len(prio)
+        slack_w[key] = 10000 * 4 ** max(0, len(prio) - rank)
+        slack_g[key] = g
 
     cred = {code: int(round(catalog[code].credits * 2)) for code in cand}
     wl_t, short = {}, []
@@ -220,7 +302,7 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
         elif not is_main_term(t):
             m.Add(peak >= 2 * wl_t[t])   # half length term: same work in half the weeks
 
-    pen = [10000 * s_ for s_ in slack.values()]
+    pen = [slack_w[k] * s_ for k, s_ in slack.items()]
     pen.append(int(W.get("workload_balance", 4) * 6) * peak)
     pen += [int(5 * S / 100) * sh for sh in short]   # gentle push toward full time terms
     pen += [3 * S * taken[c] for c in cand]            # fewer total courses => double counting wins
@@ -248,7 +330,7 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
     m.Maximize(sum(reward) - sum(pen))
 
     solver = cp_model.CpSolver()
-    solver.parameters.max_time_in_seconds = time_limit
+    solver.parameters.max_time_in_seconds = time_limit * float(os.environ.get("PLAN_TIME_FACTOR", "1"))
     solver.parameters.num_workers = int(os.environ.get("SOLVER_WORKERS", "8"))
     if os.environ.get("SOLVER_MAX_MB"):
         solver.parameters.max_memory_in_mb = int(os.environ["SOLVER_MAX_MB"])
@@ -269,7 +351,7 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
                 typ = typical.get(code, {})
                 rows.append({"course": code, "title": c.title, "credits": c.credits,
                              "offering_confidence": conf[code].get(t[:2], 0),
-                             "offered_last_5_years": f"{sum(1 for h in c.offered_history if h[:2] == t[:2])} of 5 {term_name(t).split()[0]} terms",
+                             "offered_last_5_years": f"{_recent_count(c.offered_history, t[:2])} of 5 {term_name(t).split()[0]} terms",
                              "predicted_grade": p.range if p else None, "difficulty_0_100": diff[code],
                              "workload_index": round(wl[code], 2), "unlocks": unlock[code],
                              "counts_toward": dc.get(code, []),
@@ -287,6 +369,8 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
                                       if all(any(r["course"] == x for r in rows) for x in cb["courses"])]})
 
     unmet = [f"{g}: short {solver.Value(s_)}" for g, s_ in slack.items() if solver.Value(s_) > 0]
+    capacity = capacity_report(groups, catalog, terms, P, abroad_term,
+                               {k: solver.Value(s_) for k, s_ in slack.items()}, slack_g, prio)
     late_mcat = [r["course"] for pt in plan_terms for r in pt["courses"]
                  if mcat_term and r["mcat_course"] and term_key(pt["term"]) >= term_key(mcat_term)]
     gpa = gpa_projection(history, all_planned, prof.get("bcpm_subjects"))
@@ -295,6 +379,8 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
         "ok": True, "objective": solver.ObjectiveValue() / S,
         "terms": plan_terms,
         "unmet_requirements": unmet,
+        "does_it_all_fit": capacity,
+        "program_priority": prio,
         "not_offered_often_enough": unavailable,
         "next_term_no_section_fits": sorted(set(blocked_next) & set(cand)),
         "next_term_no_fit_reasons": {k: v for k, v in why_next.items() if k in set(cand)},

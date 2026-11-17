@@ -232,10 +232,10 @@ _NOT_SUBJECTS = {"OR", "AND", "AT", "OF", "IN", "TO", "THE", "RQ", "FROM", "LEVE
 _CODE = re.compile(r"\b([A-Z][A-Z&]{1,9})\s?(\d{3}[A-Z]?)\b")
 
 
-def extract_codes(text: str) -> list[str]:
+def extract_codes(text: str, subject0: Optional[str] = None) -> list[str]:
     """'MATH 116, 215, 216 or EECS 203' -> [MATH 116, MATH 215, MATH 216, EECS 203].
     A bare number takes the subject of the code before it."""
-    out, subject = [], None
+    out, subject = [], subject0
     toks = re.finditer(r"([A-Z][A-Z&]{1,9})\s?(\d{3}[A-Z]?)|(?<![\w.])(\d{3}[A-Z]?)\b", text or "")
     for m in toks:
         if m.group(1) and m.group(1) in _NOT_SUBJECTS:
@@ -262,8 +262,26 @@ def parse_prereqs(text: str) -> list[list[str]]:
     if not text:
         return []
     parts = re.split(r"\band\b|;", text, flags=re.I)
-    groups = [extract_codes(p.upper()) for p in parts]
-    return [g for g in groups if g]
+    groups, subject = [], None
+    for p in parts:
+        g = extract_codes(p.upper(), subject)     # "MATH 215 and 216": 216 keeps the MATH subject
+        if g:
+            groups.append(g)
+            subject = g[-1].rsplit(" ", 1)[0]
+    return groups
+
+
+def parse_advisory(text: str) -> list[list[str]]:
+    """Advisory prereqs (used when Atlas lists no enforced ones). Skips 'no credit if you took X' style clauses,
+    recommendations, and anything about concurrent enrollment or permission."""
+    keep = []
+    for clause in re.split(r"[.;]", text or ""):
+        low = clause.lower()
+        if any(w in low for w in ("no credit", "not open", "credit is granted", "recommend", "concurrent", "permission",
+                                  "preferred", "helpful", "exposure")):
+            continue
+        keep.append(clause)
+    return parse_prereqs(". ".join(keep).replace(".", ";"))
 
 
 def _name_key(name: str) -> str:
@@ -575,7 +593,8 @@ class AtlasSource(DataSource):
             cat_idx = self._catalog_if_ready()
             if m and cat_idx is not None:
                 lvl = int(m.group(2)) * 100
-                opts = [c.code for c in cat_idx.values() if c.subject == m.group(1) and c.level >= lvl]
+                top = 1000 if self._profile().get("allow_grad_courses") else 500   # no grad courses unless asked
+                opts = [c.code for c in cat_idx.values() if c.subject == m.group(1) and lvl <= c.level < top]
         return {"group": f"{req_name}: {name[:90]}", "need": need, "options": opts,
                 "atlas_status": status, "atlas_satisfied": status == "C",
                 "credits": {"have": line.get("numerator"), "in_progress": line.get("numerator_in_progress"),
@@ -716,7 +735,7 @@ class AtlasSource(DataSource):
         page = self._course_page(code)
         if page and page["props"]:
             pr = page["props"][0]
-            c.prereqs = parse_prereqs(pr.get("enforced_prereqs") or "")
+            c.prereqs = parse_prereqs(pr.get("enforced_prereqs") or "") or parse_advisory(pr.get("advisory_prereqs") or "")
             c.description = pr.get("description") or ""
             c.tags = [c.description.lower()[:600]]
         return c
