@@ -414,6 +414,20 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
                                       if all(any(r["course"] == x for r in rows) for x in cb["courses"])]})
 
     unmet = [f"{g}: short {solver_.Value(s_)}" for g, s_ in slack.items() if solver_.Value(s_) > 0]
+    unmet_details = {}
+    for key, s_ in slack.items():
+        if solver_.Value(s_) > 0:
+            det = {}
+            for o in slack_g[key]["options"][:6]:
+                c = catalog.get(o)
+                if o in done:
+                    continue
+                det[o] = ({"terms_it_could_go": [t for t in terms if (o, t) in y],
+                           "prereqs": c.prereqs, "prereqs_are_advisory": getattr(c, "prereqs_soft", None),
+                           "prereqs_not_plannable": [ors for ors in c.prereqs if not any(x in done for x in ors)
+                                                     and not any(x in taken for x in ors)]}
+                          if c and o in taken else "not in catalog or not a candidate")
+            unmet_details[key[:70]] = det
     capacity = capacity_report(groups, catalog, terms, P, abroad_term,
                                {k: solver_.Value(s_) for k, s_ in slack.items()}, slack_g, prio)
     late_mcat = [r["course"] for pt in plan_terms for r in pt["courses"]
@@ -425,6 +439,7 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
         "terms": plan_terms,
         "unmet_requirements": unmet,
         "does_it_all_fit": capacity,
+        "unmet_details": unmet_details,
         "program_priority": prio,
         "not_offered_often_enough": unavailable,
         "next_term_no_section_fits": sorted(set(blocked_next) & set(cand)),

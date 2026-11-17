@@ -350,7 +350,7 @@ def _write_week(src, r, open_view):
 def _brief_plan(r: dict) -> dict:
     if not r.get("ok"):
         return r
-    out = {k: r.get(k) for k in ("ok", "plan_quality", "does_it_all_fit", "unmet_requirements", "program_priority",
+    out = {k: r.get(k) for k in ("ok", "plan_quality", "does_it_all_fit", "unmet_requirements", "unmet_details", "program_priority",
                                  "mcat", "gpa_projection", "heaviest_term", "next_term_note",
                                  "next_term_no_section_fits", "not_offered_often_enough")}
     out["terms"] = [{"term": t["term"], "name": t["name"], "credits": t["credits"],
