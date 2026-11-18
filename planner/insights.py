@@ -133,16 +133,15 @@ def alerts(plan: dict, facts: dict, conf: dict, min_conf: float, terms: list[str
         nxt = next((t for t in _calendar_after(f["term"], include_ss, 6)
                     if conf.get(code, {}).get(t[:2], 0) >= min_conf), None)
         slip = None
-        if nxt:
-            steps = len([t for t in _calendar_after(f["term"], include_ss, 12) if term_key(t) <= term_key(nxt)])
-            later = _calendar_after(grad, include_ss, steps)
-            slip = later[-1] if later else None
+        if nxt:   # fall/winter terms lost, so summers don't inflate the estimate
+            lost = max(1, len([t for t in _calendar_after(f["term"], False, 8) if term_key(t) <= term_key(nxt)]))
+            slip = _calendar_after(grad, False, lost)[-1]
         out.append({"level": "heads_up", "course": code,
                     "title": f"{code} in {f['term_name']} has no room to move",
                     "detail": (f"It leads to {f['unlocks_total']} later course(s) in your plan"
                                + (f" ({', '.join(f['directly_unlocks'][:3])})" if f["directly_unlocks"] else "")
                                + (f". Next time it runs is {term_name(nxt)}" if nxt else "")
-                               + (f", which would push graduation to about {term_name(slip)}." if slip else ".")),
+                               + (f", which could push graduation to about {term_name(slip)}." if slip else ".")),
                     "options": ["Register for it first", "Keep a backup section ready"]})
 
     # heads up: heavy terms
