@@ -45,7 +45,13 @@ AFTER optimize_schedule: show the user a visual week grid for the top option usi
 predicted term GPA, BCPM, heaviest day, lunch, protected time). The tool also writes an HTML view
 (view_file) the user can open. Present options with trade offs. Predicted grades are ranges with a
 confidence level: always say so. Never register for classes. If data_status says 'sample', tell the
-user the results use fake data. Atlas data is for the user's personal planning only."""
+user the results use fake data. Atlas data is for the user's personal planning only.
+
+DECISION LAYER: after plan_all_semesters, lead with its `alerts` (critical first, then heads_up, then
+opportunity), each with its options, before listing courses. For any "why is X in Y" / "what if I drop X" /
+"why is this term heavy" question, call explain_plan (fast) instead of re-planning. When the user is
+weighing graduation dates, workload or summers, offer compare_paths and give its recommendation and
+tradeoffs. Before registration, offer registration_strategy (order to register, backups, fallbacks)."""
 
 mcp = FastMCP("atlas-planner", instructions=INSTRUCTIONS)
 
@@ -363,8 +369,11 @@ def _brief_plan(r: dict) -> dict:
                                   "counts_toward": [x[:60] for x in c["counts_toward"]] or "prerequisite only",
                                   **({"mcat_course": True} if c["mcat_course"] else {})} for c in t["courses"]]}
                     for t in r["terms"]]
+    ins = r.get("insights") or {}
+    out["alerts"] = [{k: a[k] for k in ("level", "title", "detail", "options") if k in a} for a in ins.get("alerts", [])]
+    out["assumptions"] = ins.get("assumptions", [])
     out["application_story"] = r.get("application_story")
-    out["more"] = 'Call again with detail="full" for offering history, typical timing, critical path and double counting.'
+    out["more"] = 'For "why" questions call explain_plan. Call again with detail="full" for offering history, typical timing, critical path and double counting.'
     return out
 
 
@@ -429,6 +438,7 @@ def plan_all_semesters(overrides: Optional[dict] = None, study_abroad_term: str 
     src, prof = get_source(), _profile()
     r, wk = _aligned(src, prof, "", 3, extra_busy, overrides, abroad_term=study_abroad_term or None)
     _write_week(src, wk, False)
+    _save_plan(r)
     if r.get("ok"):
         r["view_file"] = render.write_view("four_year_plan", render.heatmap_html(r, "Atlas Planner: semester plan"), open_view)
     return _j(r if detail == "full" else _brief_plan(r))
@@ -449,6 +459,150 @@ def what_if_scenario(changes: dict) -> str:
     new = r.pop("new_plan", None) or {}
     r["new_plan_by_term"] = {t["term"]: [c["course"] for c in t["courses"]] for t in new.get("terms", [])}
     r["does_it_all_fit_after"] = new.get("does_it_all_fit")
+    return _j(r)
+
+
+# ------------------------------------------------------------------ decision layer
+def _last_plan():
+    return user_home() / "last_plan.json"
+
+
+def _save_plan(r: dict) -> None:
+    if not r.get("ok"):
+        return
+    keep = {"saved_from": "plan_all_semesters",
+            "terms": [{"term": t["term"], "name": t["name"], "credits": t["credits"],
+                       "workload_index": t["workload_index"], "predicted_term_gpa": t["predicted_term_gpa"],
+                       "courses": [{k: c.get(k) for k in ("course", "title", "credits", "predicted_grade",
+                                                          "difficulty_0_100", "workload_index", "counts_toward",
+                                                          "offered_last_5_years", "mcat_course")}
+                                   for c in t["courses"]]} for t in r["terms"]],
+            "insights": r.get("insights", {}), "does_it_all_fit": r.get("does_it_all_fit"),
+            "gpa_projection": r.get("gpa_projection"), "mcat": r.get("mcat")}
+    _last_plan().write_text(json.dumps(keep, default=str))
+
+
+@_tool
+def explain_plan(item: str = "") -> str:
+    """Explain the last semester plan. item = a course code ("CHEM 215") for why it's in that term,
+    what it needs, what it unlocks, how much room it has to move, what replaces it if dropped;
+    a term ("WN27") for why that term looks the way it does; or empty for the alerts and assumptions.
+    Fast: reads the saved plan, no re-solving. Use this for every "why" question about the plan."""
+    if not _last_plan().exists():
+        return "No saved plan yet. Run plan_all_semesters first."
+    r = json.loads(_last_plan().read_text())
+    ins = r.get("insights", {})
+    facts = ins.get("course_facts", {})
+    q = item.strip().upper().replace("-", " ")
+    if not q:
+        return _j({"alerts": ins.get("alerts", []), "assumptions": ins.get("assumptions", []),
+                   "terms": {t["term"]: [c["course"] for c in t["courses"]] for t in r["terms"]}})
+    for t in r["terms"]:
+        if q in (t["term"], t["name"].upper()):
+            rows = sorted(t["courses"], key=lambda c: -(c["difficulty_0_100"] or 0))
+            all_wl = sorted((x["workload_index"] for x in r["terms"] if x["courses"]), reverse=True)
+            return _j({"term": t["name"], "credits": t["credits"], "workload_index": t["workload_index"],
+                       "workload_rank": f"{all_wl.index(t['workload_index']) + 1} heaviest of {len(all_wl)}",
+                       "predicted_term_gpa": t["predicted_term_gpa"],
+                       "courses": [{"course": c["course"], "why_here": _why(facts.get(c["course"], {}), c),
+                                    "difficulty_0_100": c["difficulty_0_100"]} for c in rows],
+                       "alerts": [a for a in ins.get("alerts", []) if t["name"] in a.get("title", "")]})
+    code = q if q in facts else next((c for c in facts if c.replace(" ", "") == q.replace(" ", "")), None)
+    if not code:
+        return f"{item} isn't in the saved plan. Planned courses: {', '.join(sorted(facts))}"
+    f = facts[code]
+    row = next(c for t in r["terms"] for c in t["courses"] if c["course"] == code)
+    return _j({"course": code, "title": row.get("title"), "why_here": _why(f, row), **f,
+               "predicted_grade": row.get("predicted_grade"), "difficulty_0_100": row.get("difficulty_0_100"),
+               "offered_last_5_years": row.get("offered_last_5_years"),
+               "alerts": [a for a in ins.get("alerts", []) if a.get("course") == code]})
+
+
+def _why(f: dict, row: dict) -> str:
+    parts = []
+    if row.get("counts_toward"):
+        parts.append("counts toward " + "; ".join(x[:70] for x in row["counts_toward"][:3]))
+    else:
+        parts.append("a prerequisite for later courses")
+    if f.get("needs_first_in_plan"):
+        parts.append("comes after " + ", ".join(f["needs_first_in_plan"]))
+    if f.get("directly_unlocks"):
+        parts.append("needed before " + ", ".join(f["directly_unlocks"][:4]))
+    if f.get("slack_terms") == 0:
+        parts.append("no later term works without delaying something")
+    elif f.get("can_move_to"):
+        parts.append("could move to " + ", ".join(f["can_move_to"][:2]))
+    if row.get("mcat_course"):
+        parts.append("on the MCAT, so placed before your test")
+    return "; ".join(parts) + "."
+
+
+@_tool
+def compare_paths(paths: str = "fastest,balanced,gpa_first", earliest_graduation: str = "",
+                  latest_graduation: str = "") -> str:
+    """Build up to three alternative full plans side by side, with tradeoffs and a recommendation:
+    fastest (earliest graduation, summers, high credit cap), balanced (the user's own settings),
+    gpa_first (latest acceptable graduation, lighter terms, grades weighted highest).
+    earliest_graduation / latest_graduation like "FA28" / "WN29" (else profile plan keys, else graduation_term).
+    The user's completed_extra credits are respected in every path.
+    Slow (about a minute); say so before calling."""
+    from . import insights
+    src, prof = get_source(), _profile()
+    P = prof.get("plan", {})
+    grad = P.get("graduation_term", "WN29")
+    early = earliest_graduation or P.get("earliest_graduation_term", grad)
+    late = latest_graduation or P.get("latest_graduation_term", grad)
+    cap_pref = float(prof.get("preferences", {}).get("max_workload_index", 4.5))
+    defs = {
+        "fastest": {"plan": {"graduation_term": early, "use_spring_summer": True,
+                             "max_credits_main": max(18, P.get("max_credits_main", 17)),
+                             "spring_summer_max_credits": 8}},
+        "balanced": {},
+        "gpa_first": {"plan": {"graduation_term": late, "use_spring_summer": True,
+                               "max_credits_main": min(16, P.get("max_credits_main", 17)),
+                               "spring_summer_max_credits": 4},
+                      "weights": {"grades": 5, "workload": 4}},
+    }
+    out = []
+    for name in [x.strip() for x in paths.split(",") if x.strip() in defs]:
+        r = plan_semesters(src, prof, defs[name], time_limit=float(os.environ.get("PATH_TIME_LIMIT", "1.5")))
+        thr = (r.get("insights") or {}).get("heavy_term_threshold", cap_pref)
+        summ = insights.path_summary(name, r, thr)
+        summ["settings"] = defs[name].get("plan") or "your saved settings"
+        summ["top_alerts"] = [a["title"] for a in (r.get("insights") or {}).get("alerts", [])
+                              if a["level"] != "opportunity"][:3]
+        out.append(summ)
+    ok = [p for p in out if p.get("ok") and p["fits_everything"]]
+    rec = None
+    if ok:
+        best = max(ok, key=lambda p: ((p["predicted_gpa"] or 0) - 0.05 * p["heavy_terms"]
+                                      - 0.02 * p["summer_terms_used"], p["path"] == "balanced"))
+        rec = (f"{best['path']}: fits everything by {best['graduation']} with "
+               f"{best['heavy_terms']} heavy term(s), predicted GPA about {best['predicted_gpa']}.")
+    tradeoffs = []
+    by = {p["path"]: p for p in out if p.get("ok")}
+    if "fastest" in by and "gpa_first" in by:
+        f, g = by["fastest"], by["gpa_first"]
+        tradeoffs.append(f"Fastest finishes {f['graduation']} vs {g['graduation']}, costs "
+                         f"{f['heavy_terms'] - g['heavy_terms']} more heavy term(s) and "
+                         f"{f['summer_terms_used'] - g['summer_terms_used']} more summer term(s).")
+    return _j({"paths": out, "tradeoffs": tradeoffs, "recommendation": rec or "No path fits everything; see left_out.",
+               "note": "Predicted GPAs are course averages, not your own grades. Nothing is saved; say which path "
+                       "to keep and I'll save its settings."})
+
+
+@_tool
+def registration_strategy(term: str = "") -> str:
+    """Registration game plan for next term (or `term`): the order to register in (Critical, Priority,
+    Flexible), why, backup sections, and what to do if a class is full (move it and what that does to
+    graduation, or swap it for an alternative that counts the same). Never registers for anything."""
+    from . import insights
+    src, prof = get_source(), _profile()
+    lt, wk = _aligned(src, prof, term, 1, None, None)
+    _write_week(src, wk, False)
+    _save_plan(lt)
+    r = insights.registration_plan(wk, (lt.get("insights") or {}).get("course_facts", {}), lt)
+    r["semester_plan_note"] = wk.get("semester_plan_note")
     return _j(r)
 
 

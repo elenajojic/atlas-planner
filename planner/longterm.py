@@ -458,6 +458,21 @@ def plan_semesters(source, profile: dict, overrides: Optional[dict] = None, abro
     }
     from .story import application_story
     result["application_story"] = application_story(result, prof, catalog)
+    try:
+        from . import insights
+        cap_pref = float({**prof.get("preferences", {}), **ov.get("preferences", {})}.get("max_workload_index", 4.5))
+        avg = (sum(p["workload_index"] for p in main) / len(main)) if main else cap_pref
+        wl_cap = round(max(cap_pref, avg * 1.2), 2)
+        atlas_courses = {h.course for h in history if h.grade not in ("E", "W")}
+        facts = insights.course_facts(result, catalog, conf, min_conf, terms, done_pr, groups, dc)
+        result["insights"] = {
+            "alerts": insights.alerts(result, facts, conf, min_conf, terms, P, prof, atlas_courses, wl_cap),
+            "course_facts": facts,
+            "assumptions": insights.assumptions(prof, P, atlas_courses),
+            "heavy_term_threshold": wl_cap,
+        }
+    except Exception as e:  # insights must never break a plan
+        result["insights"] = {"alerts": [], "course_facts": {}, "assumptions": [], "error": repr(e)}
     return result
 
 

@@ -54,7 +54,8 @@ SCOPE = "atlas"
 # Tools that need the full course download. Until it's done they start it in the background
 # and answer right away, so a chat never sits waiting on a timeout.
 HEAVY = {"refresh_atlas_data", "plan_all_semesters", "optimize_schedule", "search_offerings", "course_report",
-         "compare_courses", "what_if_scenario", "find_study_abroad_term"}
+         "compare_courses", "what_if_scenario", "find_study_abroad_term", "compare_paths",
+         "registration_strategy"}
 LOCAL_ONLY = {"atlas_login"}
 
 INSTRUCTIONS = planner.INSTRUCTIONS.replace(
@@ -366,7 +367,7 @@ def _trim_memory() -> None:
 
 _heavy_lock = threading.Lock()     # one big computation at a time on the tiny free server
 _user_locks: dict[str, threading.Lock] = {}
-FILES = ("profile.yaml", "last_week.json", "external_ratings.csv")
+FILES = ("profile.yaml", "last_week.json", "external_ratings.csv", "last_plan.json")
 
 
 def _lock(uid: str) -> threading.Lock:
