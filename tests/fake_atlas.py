@@ -23,7 +23,7 @@ def page(code):
 
 def sections(code):
     return {"selected_term": "2620", "terms": ["2610", "2620"], "offered_classes": [
-        {"term": "2620", "section": "001", "section_type": "LEC", "open_seat_count": 10, "enrollment_capacity": 200,
+        {"term": "2620", "section": "001", "class_number": 11012, "section_type": "LEC", "open_seat_count": 10, "enrollment_capacity": 200,
          "instructors": [{"name": "Clark,Steven E"}],
          "meetings": [{"days": [1, 3, 5], "time": {"start": "10:30:00", "end": "11:30:00", "is_tba": False}, "facility_description": "1500 EECS"}]},
         {"term": "2620", "section": "011", "section_type": "DIS", "open_seat_count": 0, "enrollment_capacity": 25, "instructors": [],

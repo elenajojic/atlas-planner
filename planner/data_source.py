@@ -848,8 +848,11 @@ class AtlasSource(DataSource):
                         meetings.append(Meeting((int(d) - 1) % 7, parse_time(t["start"][:5]), parse_time(t["end"][:5]),
                                                 campus, bldg))
                 inst = (s.get("instructors") or [{}])[0].get("name")
+                cn = next((s[k] for k in s if k.lower().replace("_", "") in
+                           ("classnumber", "classnbr", "classnum", "classno", "classid")), None)
                 secs.append(Section(s["section"], s.get("section_type", "LEC"), meetings, inst,
-                                    s.get("open_seat_count"), s.get("enrollment_capacity")))
+                                    s.get("open_seat_count"), s.get("enrollment_capacity"),
+                                    str(cn) if cn is not None else None))
             if not secs:
                 continue
             try:

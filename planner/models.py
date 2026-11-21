@@ -94,6 +94,7 @@ class Section:
     instructor: Optional[str] = None
     seats_open: Optional[int] = None
     capacity: Optional[int] = None
+    class_number: Optional[str] = None      # the 5 digit number you register with
 
 
 @dataclass

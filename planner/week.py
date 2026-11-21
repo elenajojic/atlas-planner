@@ -105,6 +105,11 @@ def _weekly(course) -> list:
     return [s for s in course.sections if s.component.upper() not in EXAM_COMPONENTS]
 
 
+def _reg_label(b) -> str:
+    return " + ".join(f"{x.component} {x.section_id}" + (f" (#{x.class_number})" if x.class_number else "")
+                      + (f" {x.instructor}" if x.instructor else "") for x in b.sections)
+
+
 def _section_combos(course, blocked=(), hard_start=0, allow_full=True, first_only=False):
     """Valid section combinations, kept small: ignore exam slots, drop sections that can't work on their own,
     merge sections meeting at identical times, keep the best few per component, and use Atlas's own valid
@@ -549,12 +554,15 @@ def optimize_week(source, profile: dict, term: str = "", n_plans: int = 4,
                 rest = other_ms(c.code) + [bm for _, bm in blocked]
                 for alt in bundles[c.code]:
                     if alt.sections != b.sections and not any(clash(a, o, cross_gap, mich) for a in alt.meetings for o in rest):
-                        backups.append(alt.label)
+                        backups.append(_reg_label(alt))
                     if len(backups) == 2:
                         break
             st = ci["stats"]
             rows.append({
                 "course": c.code, "title": c.title, "credits": c.credits, "sections": b.label,
+                "register_with": [{"component": x.component, "section": x.section_id,
+                                   "class_number": x.class_number, "instructor": x.instructor,
+                                   "open_seats": x.seats_open} for x in b.sections],
                 "times": "; ".join(f"{s.component} " + ", ".join(
                     f"{DAY_NAMES[mm.day]} {fmt_time(mm.start)} to {fmt_time(mm.end)} @ {mm.location or mm.campus}"
                     for mm in s.meetings) for s in b.sections),
